@@ -3,5 +3,5 @@ rvm:
   - 2.1.0
   
 before_script:
-  - cp config/database.sample.yml config/database.yml
-  - cp config/config.sample.yml config/config.yml
+  - cp config/database.yml.sample config/database.yml
+  - cp config/config.yml.sample config/config.yml
