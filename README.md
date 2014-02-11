@@ -1,28 +1,73 @@
-== README
+#RailsCommerce
+**RailsCommerce** is a ruby app for e-commerce
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[Screenshots](https://github.com/pavel-d/RailsCommerce/wiki/Screenshots)
 
-Things you may want to cover:
+#Description
 
-* Ruby version
+RailsCommerce has following features:
+
+- **Admin panel**
+  - **Dashboard**. Shows recent orders, unfulfilled orders count and order updates
+  - **Orders tool**. Review order info, manage order's shipment and invoice status, post comments, notify customers about order
+  - **Products management tool**. 
+  - **Categories management tool**.
+  - **Brands management tool**.
+- **Store**
+  - **Browse** products
+  - **Search** products by keywords
+  - **Filter** products by attributes
+- **Checkout**
+  - **Add to cart** button with ajax cart
+  - **Simple** checkout for signed in/ not signed in
+  - **Account creation** for new customers during checkout
+  - **Email notifications**
+- **Static pages**
+
+Comes with clean `Bootstrap` based design
+
+RailsCommerce uses `Devise` for authentication, `paperclip` for images upload, `puma` as a http server.
+
+#Setup
 
 * System dependencies
 
+ImageMagic needed for images converting
+```
+sudo apt-get update
+sudo apt-get install imagemagick
+```
+
 * Configuration
+```
+clone git@github.com:pavel-d/RailsCommerce.git
+bundle install
+rails s
+```
 
 * Database creation
 
+```
+rake db:setup
+```
+
 * Database initialization
+
+You may wan to create a DB with fake products
+```
+rake db:demo
+```
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+rspec
+```
 
 * Deployment instructions
 
-* ...
+There is a built in [capistrano](https://github.com/pavel-d/RailsCommerce/blob/master/config/deploy.rb) script for deployment to production
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+
+
