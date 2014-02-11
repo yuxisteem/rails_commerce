@@ -41,7 +41,7 @@ sudo apt-get install imagemagick
 
 * Configuration
 ```
-clone git@github.com:pavel-d/RailsCommerce.git
+git clone git@github.com:pavel-d/RailsCommerce.git
 bundle install
 rails s
 ```
