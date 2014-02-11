@@ -1,0 +1,42 @@
+
+<h1>Dashboard </h1>
+<div class="row">
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h3 class="panel-title">Recent updates</h3></div>
+			<div class="panel-body">
+				<% @updates.each do |update| %>
+				<li>
+					<span class="text-muted"><%= time_tag update.created_at %></span>		              
+					<p>
+						<%= link_to "Order ##{update.order_id}", admin_order_path(id: update.order_id) %>
+						<% unless update.attribute_name.blank? %>		              
+							<strong><%= update.attribute_name %></strong>
+							<%= label_span update.to_name %>
+						<% end %>
+						<%= update.note unless update.note.blank? %>
+					</p>
+				</li>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="panel panel-default">
+		<div class="panel-heading"><h3 class="panel-title">Recent orders</h3></div>
+			<div class="panel-body">
+				<% @orders.each do |order| %>
+				<li>
+					<span class="text-muted"><%= time_tag order.created_at %></span>		              
+					<p>
+						<%= link_to "Order ##{order.id}", admin_order_path(order) %>
+						<%= number_to_currency order.total_price %>			
+						<%= label_span order.shipment.human_state_name if order.shipment %>					
+						<%= label_span order.invoice.human_state_name if order.shipment %>	
+					</p>
+				</li>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

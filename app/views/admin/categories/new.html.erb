@@ -1,0 +1,10 @@
+<% provide(:title, t('admin.create_category')) %>
+<h2>Create category</h2>
+<%= form_for @category, url: admin_categories_path do |f| %>
+    <%= render 'layouts/validation_errors', model: @category %>
+    <%= render 'admin/categories/category_fields', f: f %>
+    <div class="form-group">
+      <%= f.submit t('admin.save'), class: 'btn btn-primary' %>
+      <%= link_to t('admin.cancel'), admin_categories_path, class: 'btn btn-default' %>
+    </div>
+<% end %>

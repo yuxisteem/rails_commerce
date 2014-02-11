@@ -1,0 +1,41 @@
+<%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
+
+<h1><%= @presenter.category.name %></h1>
+<div class="row">
+	<% if @presenter.product_attributes.any? %>
+		<div class="col-md-2">
+			<% @presenter.product_attributes.each do |product_attribute| %>
+				<ul class="nav nav-pills nav-stacked">		  
+					<%= product_attribute.name %>
+					<% product_attribute.product_attribute_values.group_by(&:value).each do |attribute_value_group| %>
+						<% unless attribute_value_group[0].blank? %>						
+							<% if filter_active? @presenter.q, id: product_attribute.id, value: attribute_value_group[0] %>
+								<li class="active">
+									<%= filter_link_for @presenter.q, 
+														id: product_attribute.id,
+														value: attribute_value_group[0], 
+														count: attribute_value_group[1].count, 
+														category_id: @presenter.category.id %>
+								</li>					
+							<% else %>
+								<li>
+									<%= filter_link_for @presenter.q, 
+														id: product_attribute.id,
+														value: attribute_value_group[0], 
+														count: attribute_value_group[1].count, 
+														category_id: @presenter.category.id %>
+								</li>					
+							<% end %>
+						<% end %>					
+					<% end %>
+				</ul>
+			<% end %>
+		</div>	
+		<div class="col-md-9">
+			<%= render 'products_grid', products: @presenter.products %>
+		</div>
+	<% else %>
+		<%= render 'products_grid', products: @presenter.products %>
+	<% end %>
+</div>
+

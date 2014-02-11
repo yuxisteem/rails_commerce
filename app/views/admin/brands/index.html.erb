@@ -1,0 +1,30 @@
+<% provide(:title, t('admin.brands_list')) %>
+<h2><%= t('admin.brands_list')%> (<%= @brands.count %>)  <%= link_to t('admin.create_new'), new_admin_brand_path, class: 'btn btn-primary' %></h2>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Products count</th>
+    <th>Created</th>
+    <th>Updated</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @brands.each do |c| %>
+      <tr>
+        <td><%= c.id %></td>
+        <td><%= link_to truncate(c.name), admin_brand_path(c) %></td>
+        <td><%= truncate c.description %></td>
+        <td><%= c.products.count %></td>
+        <td><%= c.created_at.to_formatted_s(:short)  %></td>
+        <td><%= c.updated_at.to_formatted_s(:short)  %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+<%= will_paginate @brands, renderer: BootstrapPagination::Rails %>

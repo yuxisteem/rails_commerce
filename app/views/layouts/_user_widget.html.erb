@@ -1,0 +1,25 @@
+<li>
+<% if cart_widget_visible? %>
+<%= link_to "<i class=\"glyphicon glyphicon-shopping-cart\"></i> #{t('store.my_cart_link_text')} <span id=\"cart-items-count\" class=\"badge\">#{current_cart.cart_items.count}</span>".html_safe,
+                cart_items_path,
+                remote: true
+                %>
+<% end %>                
+</li>
+<% if user_signed_in? %>
+    <% if current_user.try(:admin) %>
+        <li>
+          <%= link_to t('admin.admin_panel'), admin_path %>
+        </li>
+    <% end %>
+    <li>
+      <%= link_to t('common.profile'), edit_user_registration_path %>
+    </li>
+    <li>
+      <%= link_to t('common.sign_out'), destroy_user_session_path %>
+    </li>
+<% else %>
+    <li>
+      <%= link_to t('common.sign_in'), new_user_session_path %>
+    </li>
+<% end %>

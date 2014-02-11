@@ -1,0 +1,53 @@
+<%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
+
+<div class="row">
+	<div class="col-md-8">
+		<h2><%= @product.name %></h2>
+		<p class="text-muted"><%= "#{t('store.product_code')}: #{@product.id}" %></p>
+	</div>
+	<div class="col-md-4">
+		<div class="pull-right">
+			<h3>
+				<%= number_to_currency @product.price %>
+				<%= link_to t('store.add_to_cart_button_text'), cart_items_path(product_id: @product.id), class: 'btn btn-success', remote: true, method: :post %>
+			</h3>
+		</div>
+	</div>
+</div>
+
+<div id="product-mainpart" class="row">
+	<div class="col-md-4">
+	<div id="product-images-list">
+		<% if @product.images.any? %>
+			<% @product.images.each do |image| %>
+				<%= link_to image_tag(image.image.url(:medium)), 
+										image.image.url, 
+										class: 'thumbnail',
+										data: { lightbox: 'product-image'}%>  
+			<% end %>		
+		<% end %>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div>
+			<h3><%= t('store.description') %></h3>
+			<p><%= @product.description %></p>
+		</div>
+		<div>
+			<h3><%= t('store.specifications') %></h3>
+			<p>
+				<% if @product.product_attribute_values.any? %>
+					<dl class="dl-horizontal">
+						<% @product.product_attribute_values.each do |attrib| %>
+							<% unless attrib.value.blank? %>
+								<dt><%= attrib.name %></dt>
+								<dd><%= attrib.value %></dd>
+							<% end %>
+
+					  	<% end %>
+					</dl>			
+				<% end %>
+			</p>
+		</div>
+	</div>
+</div>

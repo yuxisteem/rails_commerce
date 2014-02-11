@@ -1,0 +1,29 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Order</th>
+      <th>Placed at</th>
+      <th>Placed by</th>
+      <th>Payment status</th>
+      <th>Fulfillment status</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr class="order-<%= order.state_name %>" >
+        <td><%= link_to "##{order.id}", admin_order_path(order) %></td>
+        <td><%= time_tag order.created_at %></td>
+        <td><%= link_to order.user.full_name, admin_user_path(order.user) %></td>
+        <td>
+          <%= label_span order.invoice.human_state_name, type: order.invoice.paid? ? 'default' : 'warning' %>
+        </td>
+        <td>
+          <%= label_span order.shipment.human_state_name, type: order.shipment.shipped? ? 'default' : 'warning' %>
+        </td>
+        <td><%= number_to_currency order.total_price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @orders, renderer: BootstrapPagination::Rails %>

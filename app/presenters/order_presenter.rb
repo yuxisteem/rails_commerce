@@ -1,0 +1,35 @@
+class OrderPresenter
+  include ActiveModel::Model
+  attr_accessor :first_name, :last_name, :email, :note, :phone, :street, :city
+
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+  validates :first_name, presence: true, length: {maximum: 255}
+  validates :last_name, presence: true, length: {maximum: 255}
+  validates :email, presence: true, length: {maximum: 50}, format: {with: VALID_EMAIL_REGEX}
+  validates :phone, presence: true, length: {maximum: 20}
+  validates :street, presence: true, length: {maximum: 255}
+  validates :city, presence: true, length: {maximum: 255}
+  validates :note, length: {maximum: 1024}
+
+  def address
+    Address.new(phone: self.phone,
+                street: self.street,
+                city: self.city)
+  end
+
+  def address=(address)
+    self.city = address.city
+    self.street = address.street
+    self.phone = address.phone
+  end
+
+  def update(attributes_hash = {})
+    attributes_hash ||= {}
+    attributes_hash.each do |name, value|
+      name = name.to_s
+      send("#{name}=", value)
+    end
+  end
+
+end

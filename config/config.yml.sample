@@ -1,0 +1,20 @@
+secret_key_base: 'YOUR KEY'
+devise_secret_key: 'YOUR DEVISE KEY'
+
+host: "http://host.example.com"
+
+mailer:
+	from_address: 'info@example.com'
+
+smtp:
+	address: 'example@example.com'
+	user: 'user'
+	port: '587'
+	password: '12345'
+
+
+#production:
+
+#development:
+
+#staging:

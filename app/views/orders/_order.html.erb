@@ -1,0 +1,43 @@
+<div class="order-items">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th><%= t('common.name') %></th>
+      <th><%= t('common.price') %></th>
+      <th><%= t('common.quantity') %></th>
+      <th><%= t('common.total') %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% order.order_items.each do |item| %>
+        <tr>
+          <td><%= item.product.name %></td>
+          <td><%= number_to_currency item.price %></td>
+          <td><%= item.quantity %></td>
+          <td><%= number_to_currency(item.price * item.quantity) %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><%= number_to_currency order.total_price %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="order-details">
+  <dl class="dl-horizontal">
+    <dt><%= t('common.name') %></dt>
+    <dd><%= order.user.first_name %> <%= order.user.last_name %></dd>
+    <dt><%= t('common.phone') %></dt>
+    <dd><%= order.address.phone %></dd>
+    <dt><%= t('common.email') %></dt>
+    <dd><%= order.user.email %></dd>
+    <dt><%= t('common.address') %></dt>
+    <dd>
+      <%= order.address.city %> <br />
+      <%= order.address.street %>
+    </dd>
+  </dl>
+</div>

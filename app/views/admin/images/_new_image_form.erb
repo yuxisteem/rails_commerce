@@ -1,0 +1,28 @@
+<%- session_key_name = Rails.application.config.session_options[:key] -%>
+
+<script>
+    $(function () {
+        $("#file-upload").uploadify({
+            "uploader": "/admin/images",
+            "buttonText": "Select images",
+            "queueID": "file_upload_queue",
+            "onUploadSuccess": function (file, data, response) {
+                window.UploadifyRails.onUploadSuccess(file, data, response);
+                return true;
+            },
+            "formData": {
+                "_http_accept": "application/javascript",
+                "_method": "post",
+                "<%= session_key_name %>": "<%= u cookies[session_key_name] %>",
+                "authenticity_token": "<%= form_authenticity_token if protect_against_forgery? %>",
+                "imageable_id": "<%= imageable_id unless imageable_id.blank? %>",
+                "imageable_type": "<%= imageable_type unless imageable_type.blank? %>"
+            }
+        });
+    });
+</script>
+
+<div id="file_upload_queue"></div>
+<p>
+  <%= f.file_field :photo, id: 'file-upload' %>
+</p>

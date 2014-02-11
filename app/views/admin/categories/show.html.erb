@@ -1,0 +1,46 @@
+<% provide(:title, "#{t('admin.edit_category').capitalize} #{@category.name}") %>
+<h2><%= t('admin.edit_category') %> <%= @category.name  %></h2>
+<%= form_for @category, url: admin_category_path(@category) do |f| %>
+	<%= render 'layouts/validation_errors', model: @category %>
+	<%= render 'admin/categories/category_fields', f: f %>
+	<div class="form-group">
+		<%= f.submit t('admin.save'), class: 'btn btn-primary' %>
+		<%= link_to t('admin.cancel'), admin_category_path(@category), class: 'btn btn-default' %>
+	</div>
+<% end %>
+
+<%= form_for ProductAttribute.new, url: admin_category_product_attributes_path(category_id: @category.id), html: {class: 'form-inline'} do |f| %>
+	<%= f.label :attributes %>
+	<ul>
+	<% @category.product_attributes.each do |attribute| %>
+		<li>
+			<%= attribute.name %>
+			<% if attribute.filterable? %> 
+				<em>(filterable)</em>
+			<% end %>
+
+			<%= link_to t('admin.delete'),
+			admin_category_product_attribute_path(id: attribute.id, category_id: @category.id),
+			method: :delete,
+			data: {confirm: t('admin.confirm')} %>
+
+		</li>
+	<% end %>
+	</ul>
+	<div class="row">
+		<div class="col-md-6">
+
+			<div class="form-group">
+				<%= f.text_field :name, class: 'form-control' %>
+			</div>  
+			<div class="form-group">
+				<%= f.label :filterable %>
+				<%= f.check_box :filterable %>
+			</div>  
+			<div class="form-group">
+				<%= f.submit t('admin.add_product_attribute'), class: 'btn btn-default' %>
+			</div>      
+			
+		</div>
+	</div>
+<% end %>

@@ -1,0 +1,12 @@
+// Place all the styles related to the Admin::Orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+tr.order-completed, tr.order-complete a, tr.order-complete a:hover {
+  color: #9c9c9c;
+}
+
+tr.order-canceled, tr.order-canceled a, tr.order-canceled a:hover {
+  color: #9c9c9c;
+  text-decoration: line-through
+}

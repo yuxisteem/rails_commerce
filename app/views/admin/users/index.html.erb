@@ -1,0 +1,23 @@
+<table class="table hover">
+	<thead>
+		<tr>
+			<th><%= t('admin.id') %></th>
+			<th><%= t('admin.email') %></th>
+			<th><%= t('admin.full_name') %></th>			
+			<th><%= t('admin.register_date') %></th>
+			<th><%= t('admin.orders_total') %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @users.each do |user| %>
+			<tr>
+				<td><%= link_to "##{user.id}", admin_user_path(user) %></td>
+				<td><%= mail_to user.email %> <%= label_span "Admin", type: 'success' if user.admin? %></td>
+				<td><%= user.full_name %></td>
+				<td><%= time_tag user.created_at %></td>
+				<td><%= user.orders.map {|x| x.total_price}.inject(:+) || '—' %></td>
+			</tr>
+		<% end %>		
+	</tbody>
+</table>
+<%= will_paginate @isers, renderer: BootstrapPagination::Rails %>
