@@ -43,6 +43,11 @@ sudo apt-get install imagemagick
 ```
 git clone git@github.com:pavel-d/RailsCommerce.git
 bundle install
+
+# Don't forget to edit configs
+cp config/database.yml.sample config/database.yml
+cp config/config.yml.sample config/config.yml
+
 rails s
 ```
 
