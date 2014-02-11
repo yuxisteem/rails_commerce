@@ -44,7 +44,7 @@ sudo apt-get install imagemagick
 git clone git@github.com:pavel-d/RailsCommerce.git
 bundle install
 
-# Don't forget to edit configs
+# Don't forget to edit sample configs
 cp config/database.yml.sample config/database.yml
 cp config/config.yml.sample config/config.yml
 
@@ -59,7 +59,7 @@ rake db:setup
 
 * Database initialization
 
-You may wan to create a DB with fake products
+You may want to create a DB with fake products
 ```
 rake db:demo
 ```
@@ -72,7 +72,11 @@ rspec
 
 * Deployment instructions
 
-There is a built in [capistrano](https://github.com/pavel-d/RailsCommerce/blob/master/config/deploy.rb) script for deployment to production
+There is a built in [capistrano](https://github.com/pavel-d/RailsCommerce/blob/master/config/deploy.rb) script for deployment, so deploying to production is simple:
+
+```
+cap production deploy
+```
 
 
 
