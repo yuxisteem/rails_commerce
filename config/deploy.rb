@@ -44,7 +44,15 @@ end
 namespace :deploy do
 
 
+  after :updating, 'deploy:update_configs' do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "rm -f ~/current/config/config.yml && ln -s ~/shared/config/config.yml ~/current/config/config.yml"
+      execute "rm -f ~/current/config/database.yml && ln -s ~/shared/config/database.yml ~/current/config/database.yml"
+      execute "rm -f ~/current/config/newrelic.yml && ln -s ~/shared/config/newrelic.yml ~/current/config/newrelic.yml"
+    end
+  end
   after :publishing, :restart
+
 
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
@@ -52,11 +60,11 @@ namespace :deploy do
     end
   end
 
-  task :prepare_configs do
+  task :update_configs do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "ln -s ~/shared/config/config.yml ~/current/config/config.yml"
-      execute "ln -s ~/shared/config/database.yml ~/current/config/database.yml"
-      execute "ln -s ~/shared/config/newrelic.yml ~/current/config/newrelic.yml"
+      execute "rm -f ~/current/config/config.yml && ln -s ~/shared/config/config.yml ~/current/config/config.yml"
+      execute "rm -f ~/current/config/database.yml && ln -s ~/shared/config/database.yml ~/current/config/database.yml"
+      execute "rm -f ~/current/config/newrelic.yml && ln -s ~/shared/config/newrelic.yml ~/current/config/newrelic.yml"
     end
   end
 
