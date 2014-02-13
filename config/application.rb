@@ -5,6 +5,11 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
+# Load configs from config.yaml
+AppConfig = YAML.load_file("#{Rails.root}config/config.yml")
+# Override config options by correct environment
+env_options = AppConfig.delete(Rails.env)
+AppConfig.merge!(env_options) unless env_options.nil?
 
 module Ecomm
   class Application < Rails::Application
@@ -14,11 +19,7 @@ module Ecomm
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :en
 
-    # load config
-    AppConfig = YAML.load_file("#{config.root}/config/config.yml")
-    # Override config options by correct environment
-    env_options = AppConfig.delete(Rails.env)
-    AppConfig.merge!(env_options) unless env_options.nil?
+
     
     config.i18n.locale = :en
     config.i18n.enforce_available_locales = true
