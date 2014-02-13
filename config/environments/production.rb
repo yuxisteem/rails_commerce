@@ -72,7 +72,7 @@ Ecomm::Application.configure do
     :address   => AppConfig['smtp']['address'],
     :port      => AppConfig['smtp']['port'],
     :user_name => AppConfig['smtp']['user'],
-    :password  => AppConfig['smtp']['password']
+    :password  => AppConfig['smtp']['password'],
     :enable_starttls_auto => true  
     }
 

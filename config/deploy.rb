@@ -46,9 +46,9 @@ namespace :deploy do
 
   after :updating, 'deploy:update_configs' do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "rm -f ~/current/config/config.yml && ln -s ~/shared/config/config.yml ~/current/config/config.yml"
-      execute "rm -f ~/current/config/database.yml && ln -s ~/shared/config/database.yml ~/current/config/database.yml"
-      execute "rm -f ~/current/config/newrelic.yml && ln -s ~/shared/config/newrelic.yml ~/current/config/newrelic.yml"
+      execute "rm -f #{fetch(:release_path)}/config/config.yml && ln -s ~/shared/config/config.yml #{fetch(:release_path)}/config/config.yml"
+      execute "rm -f #{fetch(:release_path)}/config/database.yml && ln -s ~/shared/config/database.yml #{fetch(:release_path)}/config/database.yml"
+      execute "rm -f #{fetch(:release_path)}/config/newrelic.yml && ln -s ~/shared/config/newrelic.yml #{fetch(:release_path)}/config/newrelic.yml"
     end
   end
   after :publishing, :restart
