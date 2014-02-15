@@ -48,6 +48,7 @@ bundle install
 cp config/database.yml.sample config/database.yml
 cp config/config.yml.sample config/config.yml
 
+rake db:migrate
 rails s
 ```
 
