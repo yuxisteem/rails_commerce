@@ -3,7 +3,7 @@ class StoreController < ApplicationController
   before_action :set_breadcrumb
 
   def index
-    @products = Product.where(active: true).paginate(page: params[:page])
+    @products = Product.where(active: true).includes(:images).paginate(page: params[:page])
   end
 
   def browse
