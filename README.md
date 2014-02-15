@@ -33,10 +33,10 @@ RailsCommerce uses `Devise` for authentication, `paperclip` for images upload, `
 
 * System dependencies
 
-ImageMagic needed for images converting
+ImageMagic needed for images converting and Redis for resque
 ```
 sudo apt-get update
-sudo apt-get install imagemagick
+sudo apt-get install imagemagick redis-server
 ```
 
 * Configuration
