@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20140123204816) do
     t.datetime "updated_at"
   end
 
+  add_index "invoices", ["order_id"], name: "index_invoices_on_order_id"
   add_index "invoices", ["state"], name: "index_invoices_on_state"
 
   create_table "order_histories", force: true do |t|
@@ -89,6 +90,8 @@ ActiveRecord::Schema.define(version: 20140123204816) do
     t.datetime "updated_at"
   end
 
+  add_index "order_histories", ["order_id"], name: "index_order_histories_on_order_id"
+
   create_table "order_items", force: true do |t|
     t.integer  "product_id"
     t.integer  "order_id"
@@ -99,13 +102,13 @@ ActiveRecord::Schema.define(version: 20140123204816) do
   end
 
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
+  add_index "order_items", ["product_id"], name: "index_order_items_on_product_id"
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"
     t.string   "code"
     t.integer  "state"
     t.text     "note"
-    t.integer  "address_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -130,7 +133,8 @@ ActiveRecord::Schema.define(version: 20140123204816) do
   end
 
   add_index "product_attribute_values", ["product_attribute_id"], name: "index_product_attribute_values_on_product_attribute_id"
-  add_index "product_attribute_values", ["value", "product_id"], name: "index_product_attribute_values_on_value_and_product_id"
+  add_index "product_attribute_values", ["product_id"], name: "index_product_attribute_values_on_product_id"
+  add_index "product_attribute_values", ["value"], name: "index_product_attribute_values_on_value"
 
   create_table "product_attributes", force: true do |t|
     t.string   "name"
@@ -140,7 +144,8 @@ ActiveRecord::Schema.define(version: 20140123204816) do
     t.datetime "updated_at"
   end
 
-  add_index "product_attributes", ["name", "category_id"], name: "index_product_attributes_on_name_and_category_id"
+  add_index "product_attributes", ["category_id"], name: "index_product_attributes_on_category_id"
+  add_index "product_attributes", ["name"], name: "index_product_attributes_on_name"
 
   create_table "products", force: true do |t|
     t.string   "name"
@@ -154,7 +159,8 @@ ActiveRecord::Schema.define(version: 20140123204816) do
   end
 
   add_index "products", ["active"], name: "index_products_on_active"
-  add_index "products", ["category_id", "brand_id"], name: "index_products_on_category_id_and_brand_id"
+  add_index "products", ["brand_id"], name: "index_products_on_brand_id"
+  add_index "products", ["category_id"], name: "index_products_on_category_id"
 
   create_table "shipments", force: true do |t|
     t.integer  "order_id"
@@ -166,6 +172,9 @@ ActiveRecord::Schema.define(version: 20140123204816) do
     t.datetime "updated_at"
   end
 
+  add_index "shipments", ["address_id"], name: "index_shipments_on_address_id"
+  add_index "shipments", ["order_id"], name: "index_shipments_on_order_id"
+  add_index "shipments", ["shipping_method_id"], name: "index_shipments_on_shipping_method_id"
   add_index "shipments", ["state"], name: "index_shipments_on_state"
 
   create_table "taggings", force: true do |t|

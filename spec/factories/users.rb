@@ -24,12 +24,9 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  sequence :email do |n|
-    "test#{n}@example.com"
-  end
 
   factory :user do
-    email
+    email Faker::Internet::email
     password "12345"
     password_confirmation "12345"
     first_name "John"

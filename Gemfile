@@ -54,6 +54,9 @@ gem 'state_machine', '~> 1.2.0'
 
 gem 'puma', '~> 2.7.1'
 
+gem 'resque', '~> 1.25.1'
+gem 'resque_mailer', '~> 2.2.6'
+
 group :development, :test do
 	gem 'capybara', '~> 2.2.1'
 	gem 'factory_girl_rails', '~> 4.3.0'
