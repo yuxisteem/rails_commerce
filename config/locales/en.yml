@@ -39,6 +39,8 @@ en:
     profile: "Profile"
     form_validation_error_message: "There was an error with your submission:"
     submit: "Submit"
+    not_found_message: 'Sorry, but you are looking for something that isn`t here'
+    internal_server_error_message: 'Ooops... something went wrong'
   admin:
     id: Id
     email: Email 
