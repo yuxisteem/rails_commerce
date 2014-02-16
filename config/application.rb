@@ -5,6 +5,7 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
+
 # Load configs from config.yaml
 AppConfig = YAML.load_file("#{Rails.root}config/config.yml")
 # Override config options by correct environment
