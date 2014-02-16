@@ -18,4 +18,10 @@ on_worker_boot do
 	ActiveSupport.on_load(:active_record) do
 	ActiveRecord::Base.establish_connection
 	end
+
+on_restart do
+	puts 'On restart...'
+	ENV["BUNDLE_GEMFILE"] = "#{deploy_to}/current/Gemfile"
+end
+
 end
