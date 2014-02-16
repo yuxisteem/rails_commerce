@@ -43,6 +43,7 @@ end
 
 namespace :deploy do
 
+  after :publishing, :restart
 
   after :updating, 'deploy:update_configs' do
     on roles(:app), in: :sequence, wait: 5 do
@@ -51,20 +52,13 @@ namespace :deploy do
       execute "rm -f #{fetch(:release_path)}/config/newrelic.yml && ln -s ~/shared/config/newrelic.yml #{fetch(:release_path)}/config/newrelic.yml"
     end
   end
-  after :publishing, :restart
+
+
 
 
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
       execute "#{puma_start_cmd}", :pty => false
-    end
-  end
-
-  task :update_configs do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute "rm -f ~/current/config/config.yml && ln -s ~/shared/config/config.yml ~/current/config/config.yml"
-      execute "rm -f ~/current/config/database.yml && ln -s ~/shared/config/database.yml ~/current/config/database.yml"
-      execute "rm -f ~/current/config/newrelic.yml && ln -s ~/shared/config/newrelic.yml ~/current/config/newrelic.yml"
     end
   end
 
@@ -91,4 +85,27 @@ namespace :deploy do
     end
   end
 
+end
+
+
+namespace :foreman do
+  desc "Export the Procfile to Ubuntu's upstart scripts"
+  task :export, :roles => :app do
+    run "cd #{fetch(:current_release)} && #{sudo} foreman export upstart /etc/init -a #{fetch(:app_name)} -u rails"
+  end
+
+  desc "Start the application services"
+  task :start, :roles => :app do
+    run "service #{fetch(:app_name)} start"
+  end
+
+  desc "Stop the application services"
+  task :stop, :roles => :app do
+    run "service #{fetch(:app_name)} stop"
+  end
+
+  desc "Restart the application services"
+  task :restart, :roles => :app do
+    run "service #{fetch(:app_name)} start || service #{app_name} restart"
+  end
 end
