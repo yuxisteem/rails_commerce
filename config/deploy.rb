@@ -25,11 +25,11 @@ set :config_file, "#{fetch(:current_release)}/config/puma.rb"
 set :puma_cmd, "puma -C #{fetch(:config_file)}"
 
 def bundler
-  "cd #{fetch(:current_release)} && #{fetch(:rvm_bin_path)} #{fetch(:rvm_ruby_string)} do bundle exec"
+  "#{fetch(:rvm_bin_path)} #{fetch(:rvm_ruby_string)} do bundle exec"
 end
 
 def puma_start_cmd
-  "#{bundler} #{fetch(:puma_cmd)}"
+  "cd #{fetch(:current_release)} && #{bundler} #{fetch(:puma_cmd)}"
 end
 
 def puma_stop_cmd
@@ -37,7 +37,7 @@ def puma_stop_cmd
 end
 
 def puma_restart_cmd
-  "#{bundler} pumactl -F #{fetch(:config_file)} -S #{fetch(:puma_state_file)} restart"
+  "cd #{fetch(:current_release)} && #{bundler} pumactl -F #{fetch(:config_file)} -S #{fetch(:puma_state_file)} restart"
 end
 
 
@@ -47,14 +47,14 @@ namespace :deploy do
 
   after :updating, 'deploy:update_configs' do
     on roles(:app), in: :sequence, wait: 5 do
+      foreman.export  # Reapply new Procfile
+      foreman.restart
+      
       execute "rm -f #{fetch(:release_path)}/config/config.yml && ln -s ~/shared/config/config.yml #{fetch(:release_path)}/config/config.yml"
       execute "rm -f #{fetch(:release_path)}/config/database.yml && ln -s ~/shared/config/database.yml #{fetch(:release_path)}/config/database.yml"
       execute "rm -f #{fetch(:release_path)}/config/newrelic.yml && ln -s ~/shared/config/newrelic.yml #{fetch(:release_path)}/config/newrelic.yml"
     end
   end
-
-
-
 
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
@@ -65,12 +65,6 @@ namespace :deploy do
   task :stop do
     on roles(:app), in: :sequence, wait: 5 do
       execute "#{puma_stop_cmd}"
-    end
-  end
-
-  task :test do
-    on roles(:app), in: :sequence, wait: 5 do
-      puts "#{fetch(:branch)}"
     end
   end
 
@@ -90,22 +84,30 @@ end
 
 namespace :foreman do
   desc "Export the Procfile to Ubuntu's upstart scripts"
-  task :export, :roles => :app do
-    run "cd #{fetch(:current_release)} && #{sudo} foreman export upstart /etc/init -a #{fetch(:app_name)} -u rails"
+  task :export do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "cd #{fetch(:current_release)} && sudo #{bundler} foreman export upstart /etc/init -a #{fetch(:application)} -u rails"
+    end
   end
 
   desc "Start the application services"
-  task :start, :roles => :app do
-    run "service #{fetch(:app_name)} start"
+  task :start do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo service #{fetch(:application)} start"
+    end
   end
 
   desc "Stop the application services"
-  task :stop, :roles => :app do
-    run "service #{fetch(:app_name)} stop"
+  task :stop do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo service #{fetch(:application)} stop"
+    end
   end
 
   desc "Restart the application services"
-  task :restart, :roles => :app do
-    run "service #{fetch(:app_name)} start || service #{app_name} restart"
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "sudo service #{fetch(:application)} start || sudo service #{fetch(:application)} restart"
+    end
   end
 end
