@@ -49,6 +49,8 @@ namespace :deploy do
 
   after :updating, 'deploy:update_configs' do
     on roles(:app), in: :sequence, wait: 5 do
+      #run_locally("rake assets:clean && rake assets:precompile")
+      #upload("public/assets", "#{release_path}/public/assets", :via => :scp, :recursive => true)
       execute "rm -f #{fetch(:release_path)}/config/config.yml && ln -s ~/shared/config/config.yml #{fetch(:release_path)}/config/config.yml"
       execute "rm -f #{fetch(:release_path)}/config/database.yml && ln -s ~/shared/config/database.yml #{fetch(:release_path)}/config/database.yml"
       execute "rm -f #{fetch(:release_path)}/config/newrelic.yml && ln -s ~/shared/config/newrelic.yml #{fetch(:release_path)}/config/newrelic.yml"
