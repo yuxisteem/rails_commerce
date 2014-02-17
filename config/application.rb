@@ -25,6 +25,7 @@ module Ecomm
     config.i18n.locale = :en
     config.i18n.enforce_available_locales = true
     config.autoload_paths += Dir["#{config.root}/lib/"]
+    config.assets.initialize_on_precompile = false
 
     config.generators do |g|
       g.test_framework :rspec

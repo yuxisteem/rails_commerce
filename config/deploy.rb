@@ -5,8 +5,11 @@ set :application, 'ecomm'
 
 set :repo_url, 'git@github.com:pavel-d/RailsCommerce.git'
 set :branch, ENV['BRANCH'] || 'master'
+set :rails_env, ENV['RAILS_ENV'] || 'production'
 set :deploy_to, '/home/rails'
 set :deploy_via, :remote_cache
+
+set :keep_releases, 2
 
 set :current_release, "#{fetch(:deploy_to)}/current"
 
@@ -14,7 +17,7 @@ set :rvm_ruby_string, 'ruby-2.1.0'
 
 set :rvm_bin_path, '/home/rails/.rvm/bin/rvm'
 
-set :rails_env, "production"
+
 
 set :linked_dirs, %w{bin log vendor/bundle public/system}
 
@@ -47,15 +50,9 @@ namespace :deploy do
 
   after :publishing, :restart
 
-  after :updating, 'deploy:update_configs' do
-    on roles(:app), in: :sequence, wait: 5 do
-      #run_locally("rake assets:clean && rake assets:precompile")
-      #upload("public/assets", "#{release_path}/public/assets", :via => :scp, :recursive => true)
-      execute "rm -f #{fetch(:release_path)}/config/config.yml && ln -s ~/shared/config/config.yml #{fetch(:release_path)}/config/config.yml"
-      execute "rm -f #{fetch(:release_path)}/config/database.yml && ln -s ~/shared/config/database.yml #{fetch(:release_path)}/config/database.yml"
-      execute "rm -f #{fetch(:release_path)}/config/newrelic.yml && ln -s ~/shared/config/newrelic.yml #{fetch(:release_path)}/config/newrelic.yml"
-    end
-  end
+  #before "deploy:assets:precompile", "deploy:symlink_configs"
+
+  
 
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
@@ -80,35 +77,72 @@ namespace :deploy do
     end
   end
 
-end
-
-
-namespace :foreman do
-  desc "Export the Procfile to Ubuntu's upstart scripts"
-  task :export do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute "cd #{fetch(:current_release)} && sudo #{bundler} foreman export upstart /etc/init -a #{fetch(:application)} -u rails -f #{fetch(:current_release)}/Procfile"
+  task :symlink_configs do
+    on roles(:app), in: :sequence, wait: 5 do      
+      execute "rm -f #{fetch(:release_path)}/config/config.yml && ln -s ~/shared/config/config.yml #{fetch(:release_path)}/config/config.yml"
+      execute "rm -f #{fetch(:release_path)}/config/database.yml && ln -s ~/shared/config/database.yml #{fetch(:release_path)}/config/database.yml"
+      execute "rm -f #{fetch(:release_path)}/config/newrelic.yml && ln -s ~/shared/config/newrelic.yml #{fetch(:release_path)}/config/newrelic.yml"
     end
   end
 
-  desc "Start the application services"
-  task :start do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo service #{fetch(:application)} start"
+
+  # Foreman
+  namespace :foreman do
+    desc "Export the Procfile to Ubuntu's upstart scripts"
+    task :export do
+      on roles(:app), in: :sequence, wait: 5 do
+        execute "cd #{fetch(:current_release)} && sudo #{bundler} foreman export upstart /etc/init -a #{fetch(:application)} -u rails -f #{fetch(:current_release)}/Procfile"
+      end
+    end
+
+    desc "Start the application services"
+    task :start do
+      on roles(:app), in: :sequence, wait: 5 do
+        execute "sudo service #{fetch(:application)} start"
+      end
+    end
+
+    desc "Stop the application services"
+    task :stop do
+      on roles(:app), in: :sequence, wait: 5 do
+        execute "sudo service #{fetch(:application)} stop"
+      end
+    end
+
+    desc "Restart the application services"
+    task :restart do
+      on roles(:app), in: :sequence, wait: 5 do
+        execute "sudo service #{fetch(:application)} start || sudo service #{fetch(:application)} restart"
+      end
     end
   end
 
-  desc "Stop the application services"
-  task :stop do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo service #{fetch(:application)} stop"
+  # Tasks for local assets precompilation and upload via rsync for faster deployments
+  namespace :assets do 
+
+    task :precompile do
+      run_locally do
+        execute "rake assets:clean && rake assets:precompile"
+      end
+    end
+
+    task :upload do
+      on roles(:web), in: :sequence, wait: 5 do |host|
+        run_locally do
+          execute "rsync -av ./public/assets/ #{host.ssh_options[:user]}@#{host}:#{fetch(:current_release)}/public/assets/"
+        end
+      end
+    end
+
+    task :remove do
+      run_locally do
+        execute "rm -rf public/assets"
+      end
     end
   end
 
-  desc "Restart the application services"
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo service #{fetch(:application)} start || sudo service #{fetch(:application)} restart"
-    end
-  end
+  after 'deploy:updated', 'deploy:symlink_configs'
+  after 'deploy:updated', "deploy:assets:precompile"
+  after 'deploy:assets:precompile', 'deploy:assets:upload'
+  
 end

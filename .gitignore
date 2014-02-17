@@ -18,6 +18,8 @@
 # Ignore Paperclip stored images
 /public/system/images
 
+/public/assets
+
 # Ignore config
 config/database.yml
 config/config.yml
