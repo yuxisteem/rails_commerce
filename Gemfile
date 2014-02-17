@@ -52,7 +52,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'state_machine', '~> 1.2.0'
 
-gem 'foreman'
+gem 'foreman', require: false
 gem 'puma', '~> 2.7.1'
 
 gem 'resque', '~> 1.25.1'
