@@ -45,13 +45,13 @@ def puma_restart_cmd
   "cd #{release_path} && #{bundler} pumactl -F #{fetch(:config_file)} -S #{fetch(:puma_state_file)} restart"
 end
 
-def linked_dirs
-  %w(bin log vendor/bundle public/system)
-end
+# def linked_dirs
+#   %w(bin log vendor/bundle public/system)
+# end
 
-def linked_files
-  %w(config/config.yml config/database.yml config/newrelic.yml)
-end
+# def linked_files
+#   %w(config/config.yml config/database.yml config/newrelic.yml)
+# end
 
 namespace :deploy do
 
@@ -77,21 +77,21 @@ namespace :deploy do
     end
   end
 
-  task :link_files do
-    on roles(:all), in: :sequence, wait: 5 do
-      execute linked_files.map {|file| "rm -f #{release_path}/#{file} && ln -s ~/shared/#{file} #{release_path}/#{file}"}.join(';')
-    end
-  end
+  # task :link_files do
+  #   on roles(:all), in: :sequence, wait: 5 do
+  #     execute linked_files.map {|file| "rm -f #{release_path}/#{file} && ln -s ~/shared/#{file} #{release_path}/#{file}"}.join(';')
+  #   end
+  # end
 
-  task :link_dirs do
-    on roles(:all), in: :sequence, wait: 5 do  
-      execute linked_files.map {|dir| "rm -f #{release_path}/#{dir} && ln -s ~/shared/#{dir} #{release_path}/#{dir}"}.join(';')
-    end
-  end
+  # task :link_dirs do
+  #   on roles(:all), in: :sequence, wait: 5 do  
+  #     execute linked_files.map {|dir| "rm -f #{release_path}/#{dir} && ln -s ~/shared/#{dir} #{release_path}/#{dir}"}.join(';')
+  #   end
+  # end
 
   after :publishing, :restart
-  after 'deploy:updating', "deploy:link_files"
-  after 'deploy:updating', "deploy:link_dirs"
+  # after 'deploy:updating', "deploy:link_files"
+  # after 'deploy:updating', "deploy:link_dirs"
   after 'deploy:updated', "deploy:assets:precompile"
   after 'deploy:assets:precompile', 'deploy:assets:upload'
 
