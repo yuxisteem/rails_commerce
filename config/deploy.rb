@@ -17,8 +17,6 @@ set :rvm_ruby_string, 'ruby-2.1.0'
 
 set :rvm_bin_path, '/home/rails/.rvm/bin/rvm'
 
-
-
 set :linked_dirs, %w{bin log vendor/bundle public/system}
 
 set :puma_pid_file, "#{fetch(:deploy_to)}/shared/tmp/pids/puma.pid"
@@ -32,12 +30,10 @@ def bundler
 end
 
 def puma_start_cmd
-  # "cd #{fetch(:current_release)} && #{bundler} #{fetch(:puma_cmd)}"
   "cd #{fetch(:current_release)} && #{bundler} pumactl -F #{fetch(:config_file)} -S #{fetch(:puma_state_file)} start"
 end
 
 def puma_stop_cmd
-  # "kill `cat #{fetch(:puma_pid_file)}`"
   "cd #{fetch(:current_release)} && #{bundler} pumactl -S #{fetch(:puma_state_file)} stop"
 end
 
@@ -45,14 +41,11 @@ def puma_restart_cmd
   "cd #{fetch(:current_release)} && #{bundler} pumactl -F #{fetch(:config_file)} -S #{fetch(:puma_state_file)} restart"
 end
 
+def config_files
+  %w(config.yml database.yml newrelic.yml)
+end
 
 namespace :deploy do
-
-  after :publishing, :restart
-
-  #before "deploy:assets:precompile", "deploy:symlink_configs"
-
-  
 
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
@@ -78,70 +71,15 @@ namespace :deploy do
   end
 
   task :symlink_configs do
-    on roles(:app), in: :sequence, wait: 5 do      
-      execute "rm -f #{fetch(:release_path)}/config/config.yml && ln -s ~/shared/config/config.yml #{fetch(:release_path)}/config/config.yml"
-      execute "rm -f #{fetch(:release_path)}/config/database.yml && ln -s ~/shared/config/database.yml #{fetch(:release_path)}/config/database.yml"
-      execute "rm -f #{fetch(:release_path)}/config/newrelic.yml && ln -s ~/shared/config/newrelic.yml #{fetch(:release_path)}/config/newrelic.yml"
-    end
-  end
-
-
-  # Foreman
-  namespace :foreman do
-    desc "Export the Procfile to Ubuntu's upstart scripts"
-    task :export do
-      on roles(:app), in: :sequence, wait: 5 do
-        execute "cd #{fetch(:current_release)} && sudo #{bundler} foreman export upstart /etc/init -a #{fetch(:application)} -u rails -f #{fetch(:current_release)}/Procfile"
-      end
-    end
-
-    desc "Start the application services"
-    task :start do
-      on roles(:app), in: :sequence, wait: 5 do
-        execute "sudo service #{fetch(:application)} start"
-      end
-    end
-
-    desc "Stop the application services"
-    task :stop do
-      on roles(:app), in: :sequence, wait: 5 do
-        execute "sudo service #{fetch(:application)} stop"
-      end
-    end
-
-    desc "Restart the application services"
-    task :restart do
-      on roles(:app), in: :sequence, wait: 5 do
-        execute "sudo service #{fetch(:application)} start || sudo service #{fetch(:application)} restart"
+    on roles(:app), in: :sequence, wait: 5 do  
+      config_files.each do |f|
+        execute "rm -f #{fetch(:release_path)}/config/#{f} && ln -s ~/shared/config/#{f} #{fetch(:release_path)}/config/#{f}"  
       end
     end
   end
 
-  # Tasks for local assets precompilation and upload via rsync for faster deployments
-  namespace :assets do 
-
-    task :precompile do
-      run_locally do
-        execute "rake assets:clean && rake assets:precompile"
-      end
-    end
-
-    task :upload do
-      on roles(:web), in: :sequence, wait: 5 do |host|
-        run_locally do
-          execute "rsync -av ./public/assets/ #{host.ssh_options[:user]}@#{host}:#{fetch(:current_release)}/public/assets/"
-        end
-      end
-    end
-
-    task :remove do
-      run_locally do
-        execute "rm -rf public/assets"
-      end
-    end
-  end
-
-  after 'deploy:updated', 'deploy:symlink_configs'
+  after :publishing, :restart
+  after :updating, 'deploy:symlink_configs'
   after 'deploy:updated', "deploy:assets:precompile"
   after 'deploy:assets:precompile', 'deploy:assets:upload'
   
