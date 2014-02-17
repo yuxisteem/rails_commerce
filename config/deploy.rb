@@ -8,6 +8,7 @@ set :branch, ENV['BRANCH'] || 'master'
 set :rails_env, ENV['RAILS_ENV'] || 'production'
 set :deploy_to, '/home/rails'
 set :deploy_via, :remote_cache
+set :copy_exclude, [ '.git' ]
 
 set :keep_releases, 2
 
@@ -17,7 +18,8 @@ set :rvm_ruby_string, 'ruby-2.1.0'
 
 set :rvm_bin_path, '/home/rails/.rvm/bin/rvm'
 
-set :linked_dirs, %w{bin log vendor/bundle public/system}
+#set :linked_dirs, %w{bin log vendor/bundle public/system}
+#set :linked_files, %w(config/config.yml config/database.yml config/newrelic.yml)
 
 set :puma_pid_file, "#{fetch(:deploy_to)}/shared/tmp/pids/puma.pid"
 set :puma_state_file, "#{fetch(:deploy_to)}/shared/tmp/pids/puma.state"
@@ -41,8 +43,12 @@ def puma_restart_cmd
   "cd #{fetch(:current_release)} && #{bundler} pumactl -F #{fetch(:config_file)} -S #{fetch(:puma_state_file)} restart"
 end
 
-def config_files
-  %w(config.yml database.yml newrelic.yml)
+def linked_dirs
+  %w(bin log vendor/bundle public/system)
+end
+
+def linked_files
+  %w(config/config.yml config/database.yml config/newrelic.yml)
 end
 
 namespace :deploy do
@@ -70,17 +76,22 @@ namespace :deploy do
     end
   end
 
-  task :symlink_configs do
-    on roles(:app), in: :sequence, wait: 5 do  
-      config_files.each do |f|
-        execute "rm -f #{fetch(:release_path)}/config/#{f} && ln -s ~/shared/config/#{f} #{fetch(:release_path)}/config/#{f}"  
-      end
+  task :link_files do
+    on roles(:all), in: :sequence, wait: 5 do
+      execute linked_files.map {|file| "rm -f #{release_path}/#{file} && ln -s ~/shared/#{file} #{release_path}/#{file}"}.join(';')
+    end
+  end
+
+  task :link_dirs do
+    on roles(:all), in: :sequence, wait: 5 do  
+      execute linked_files.map {|dir| "rm -f #{release_path}/#{dir} && ln -s ~/shared/#{dir} #{release_path}/#{dir}"}.join(';')
     end
   end
 
   after :publishing, :restart
-  after :updating, 'deploy:symlink_configs'
+  after 'deploy:updating', "deploy:link_files"
+  after 'deploy:updating', "deploy:link_dirs"
   after 'deploy:updated', "deploy:assets:precompile"
   after 'deploy:assets:precompile', 'deploy:assets:upload'
-  
+
 end
