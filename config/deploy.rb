@@ -55,18 +55,6 @@ end
 
 namespace :deploy do
 
-  # task :start do
-  #   on roles(:app), in: :sequence, wait: 5 do
-  #     execute "#{puma_start_cmd}", :pty => false
-  #   end
-  # end
-
-  # task :stop do
-  #   on roles(:app), in: :sequence, wait: 5 do
-  #     execute "#{puma_stop_cmd}"
-  #   end
-  # end
-
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       begin
@@ -92,7 +80,7 @@ namespace :deploy do
   after :publishing, :restart
   # after 'deploy:updating', "deploy:link_files"
   # after 'deploy:updating', "deploy:link_dirs"
-  # after 'deploy:updated', "deploy:assets:precompile"
-  # after 'deploy:assets:precompile', 'deploy:assets:upload'
+  after 'deploy:updated', "deploy:assets:precompile"
+  after 'deploy:assets:precompile', 'deploy:assets:upload'
 
 end
