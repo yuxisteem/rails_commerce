@@ -1,0 +1,26 @@
+namespace :deploy do
+
+  # Tasks for local assets precompilation and upload via rsync for faster deployments
+  namespace :assets do 
+
+    task :precompile do
+      run_locally do
+        execute "rake assets:clean && rake assets:precompile"
+      end
+    end
+
+    task :upload do
+      on roles(:web), in: :sequence, wait: 5 do |host|
+        run_locally do
+          execute "rsync -av ./public/assets/ #{host.ssh_options[:user]}@#{host}:~/shared/public/assets/"
+        end
+      end
+    end
+
+    task :remove do
+      run_locally do
+        execute "rm -rf public/assets"
+      end
+    end
+  end
+end

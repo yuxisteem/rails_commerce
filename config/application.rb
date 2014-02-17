@@ -26,9 +26,13 @@ module Ecomm
     config.i18n.enforce_available_locales = true
     config.autoload_paths += Dir["#{config.root}/lib/"]
 
+    config.assets.initialize_on_precompile = false
+    # Precompile additional assets.
+    # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+
     config.generators do |g|
       g.test_framework :rspec
     end
-    #config.action_mailer.async = true
   end
 end
