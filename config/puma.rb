@@ -9,7 +9,7 @@ stdout_redirect "#{deploy_to}/shared/log/puma.log", "#{deploy_to}/shared/log/pum
 environment ENV['RAILS_ENV']
 
 threads 0, 16
-workers 1
+#workers 1
 preload_app!
 
 on_worker_boot do

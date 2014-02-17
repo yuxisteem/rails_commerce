@@ -29,11 +29,13 @@ def bundler
 end
 
 def puma_start_cmd
-  "cd #{fetch(:current_release)} && #{bundler} #{fetch(:puma_cmd)}"
+  # "cd #{fetch(:current_release)} && #{bundler} #{fetch(:puma_cmd)}"
+  "cd #{fetch(:current_release)} && #{bundler} pumactl -F #{fetch(:config_file)} -S #{fetch(:puma_state_file)} start"
 end
 
 def puma_stop_cmd
-  "kill `cat #{fetch(:puma_pid_file)}`"
+  # "kill `cat #{fetch(:puma_pid_file)}`"
+  "cd #{fetch(:current_release)} && #{bundler} pumactl -S #{fetch(:puma_state_file)} stop"
 end
 
 def puma_restart_cmd
