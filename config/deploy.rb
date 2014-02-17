@@ -20,7 +20,7 @@ set :rvm_ruby_string, 'ruby-2.1.0'
 
 set :rvm_bin_path, '/home/rails/.rvm/bin/rvm'
 
-set :linked_dirs, %w{bin log vendor/bundle public/system}
+set :linked_dirs, %w{bin log vendor/bundle public/system public/assets}
 set :linked_files, %w(config/config.yml config/database.yml config/newrelic.yml)
 
 set :puma_pid_file, "#{fetch(:deploy_to)}/shared/tmp/pids/puma.pid"
@@ -92,7 +92,7 @@ namespace :deploy do
   after :publishing, :restart
   # after 'deploy:updating', "deploy:link_files"
   # after 'deploy:updating', "deploy:link_dirs"
-  after 'deploy:updated', "deploy:assets:precompile"
-  after 'deploy:assets:precompile', 'deploy:assets:upload'
+  # after 'deploy:updated', "deploy:assets:precompile"
+  # after 'deploy:assets:precompile', 'deploy:assets:upload'
 
 end
