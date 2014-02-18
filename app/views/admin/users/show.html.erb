@@ -6,8 +6,8 @@
   <dt><%= t('user.sign_in_count') %></dt><dd><%= @user.sign_in_count %></dd>
   <dt><%= t('user.last_sign_in_at') %></dt><dd><%= @user.last_sign_in_at %></dd>
   <dt><%= t('user.last_sign_in_ip') %></dt>
-  <dd><%= link_to(@user.last_sign_in_ip,
-            "http://www.infobyip.com/ip-#{@user.last_sign_in_ip}.html") if @user.last_sign_in_ip %>
+  <dd><%= @user.last_sign_in_ip %> <%= link_to('whois',
+            "http://www.infobyip.com/ip-#{@user.last_sign_in_ip}.html", target: "_blank") if @user.last_sign_in_ip %>
               
   </dd>
 </dl>
