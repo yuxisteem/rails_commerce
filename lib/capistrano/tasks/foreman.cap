@@ -9,21 +9,21 @@ namespace :foreman do
 
   desc "Start the application services"
   task :start do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:app), in: :parallel do
       execute "sudo service #{fetch(:application)} start"
     end
   end
 
   desc "Stop the application services"
   task :stop do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:app), in: :parallel do
       execute "sudo service #{fetch(:application)} stop"
     end
   end
 
   desc "Restart the application services"
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:app), in: :parallel do
       execute "sudo service #{fetch(:application)} start || sudo service #{fetch(:application)} restart"
     end
   end

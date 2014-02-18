@@ -5,14 +5,15 @@ namespace :deploy do
 
     task :precompile do
       run_locally do
-        execute "rake assets:clean && rake assets:precompile"
+        # execute "rake assets:clean && rake assets:precompile"
+        execute "rake assets:clean && RAILS_ENV=test rake assets:precompile"
       end
     end
 
     task :upload do
-      on roles(:web), in: :sequence, wait: 5 do |host|
+      on roles(:web), in: :parallel do |host|
         run_locally do
-          execute "rsync -av ./public/assets/ #{host.ssh_options[:user]}@#{host}:~/shared/public/assets/"
+          execute "rsync -av ./public/assets/ #{host.ssh_options[:user]}@#{host}:#{release_path}/public/assets/"
         end
       end
     end
