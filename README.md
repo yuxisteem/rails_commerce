@@ -55,7 +55,7 @@ rails s
 There is no admin user by default, so you need to update any existing user to give him admin rights
 
 ```
-rails c -e production
+rails c
 2.1.0 :001 > User.find_by_email('paul@live.ru').update(admin: true)
 ```
 
