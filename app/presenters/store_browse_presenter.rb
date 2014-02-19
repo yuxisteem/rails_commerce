@@ -3,10 +3,10 @@ class StoreBrowsePresenter
 
 	def initialize(params ={})
 		category_id = params[:category_id]
-		self.q = params[:q] || {} # Params hash for filtering products by attributes
+		q = params[:q] || {} # Params hash for filtering products by attributes
 		products =  Product.all
-		if self.q.any?
-			self.q.each_with_index do |attribute, index|			
+		if @q.any?
+			@q.each_with_index do |attribute, index|			
 				
 				attributes_values_sql = attribute[1].map {|attribute_value| "attr#{index}.value = #{ActiveRecord::Base.sanitize(attribute_value)}"}.join(' OR ')
 
@@ -23,8 +23,8 @@ class StoreBrowsePresenter
 			products = products.where(category_id: category_id).includes(:images)
 		end 
 
-		self.products = products.paginate(page: params[:page])
-		self.category = Category.find(category_id)
-		self.product_attributes = ProductAttribute.where(category_id: category_id, filterable: true).includes(:product_attribute_values)
+		products = products.paginate(page: params[:page])
+		category = Category.find(category_id)
+		product_attributes = ProductAttribute.where(category_id: category_id, filterable: true).includes(:product_attribute_values)
 	end
 end
