@@ -2,30 +2,29 @@
 
 <h1><%= @presenter.category.name %></h1>
 <div class="row">
-	<% if @presenter.product_attributes.any? %>
-		<div class="col-md-2">
+
+	<% if @presenter.product_attributes.any? || @presenter.brands.any? %>
+		<div class="col-md-2">			
+			<ul class="nav nav-pills nav-stacked">		  
+				<% @presenter.brands.each do |brand| %>
+					<li class="<%= "active" if brand_filter_active?(brand) %>">
+						<%= brand_filter_link brand, category_id: @presenter.category.id %>
+					</li>
+				<% end %>
+			</ul>
+			
 			<% @presenter.product_attributes.each do |product_attribute| %>
 				<ul class="nav nav-pills nav-stacked">		  
 					<%= product_attribute.name %>
 					<% product_attribute.product_attribute_values.group_by(&:value).each do |attribute_value_group| %>
 						<% unless attribute_value_group[0].blank? %>						
-							<% if filter_active? @presenter.q, id: product_attribute.id, value: attribute_value_group[0] %>
-								<li class="active">
-									<%= filter_link_for @presenter.q, 
-														id: product_attribute.id,
-														value: attribute_value_group[0], 
-														count: attribute_value_group[1].count, 
-														category_id: @presenter.category.id %>
-								</li>					
-							<% else %>
-								<li>
-									<%= filter_link_for @presenter.q, 
-														id: product_attribute.id,
-														value: attribute_value_group[0], 
-														count: attribute_value_group[1].count, 
-														category_id: @presenter.category.id %>
-								</li>					
-							<% end %>
+							<li class="<%= 'active' if attribute_filter_active?(key: product_attribute.id, value: attribute_value_group[0]) %>">
+								<% puts attribute_value_group.inspect %>
+								<%= attribute_filter_link key: product_attribute.id,
+												     	  value: attribute_value_group[0], 
+														  count: attribute_value_group[1].count, 
+														  category_id: @presenter.category.id %>
+							</li>												
 						<% end %>					
 					<% end %>
 				</ul>

@@ -3,56 +3,85 @@ module StoreHelper
     @available_categories ||= Category.all
   end
 
-  def filter_link_for(q = nil, options = nil, html_options = nil) 
+  def attribute_filter_link(options = {}, html_options = nil)
 
-  	q ||= {}
+    filter_query = params[:q] || {}
 
-  	attribute_id = options[:id].to_s
-  	attribute_value = options[:value]
-  	attribute_params = q[attribute_id].try(:dup) || []
+    attribute_id = options[:key].to_s
+    attribute_value = options[:value]
+    attribute_params = filter_query[attribute_id].try(:dup) || []
 
-  	category_id = options[:category_id]
+    category_id = options[:category_id]
 
-  	active = attribute_params.include?(attribute_value) unless attribute_params.nil?
-
-  	if active
-  		attribute_params.delete(attribute_value)
-  	else
-  		attribute_params ||= []
-  		attribute_params << attribute_value
-  	end
+    if attribute_filter_active?(key: attribute_id, value: attribute_value)
+      attribute_params.delete(attribute_value)
+    else
+      attribute_params ||= []
+      attribute_params << attribute_value
+    end
 
 
-  	link_text = options[:value]
-  	link_text += "<span class=\"badge pull-right\">#{options[:count].to_s}</span>" if options[:count]
+    link_text = options[:value]
+    link_text += "<span class=\"badge pull-right\">#{options[:count].to_s}</span>" if options[:count]
 
-  	link_params = q.dup
-
-    #puts attribute_params.inspect
-
-  	if attribute_params.any?
-  		link_params[attribute_id] = attribute_params
-  	else
-  		link_params.delete(attribute_id)
-  		link_params = nil unless link_params.any?
-  	end
-  	
-
-
-  	link_path = store_browse_path(id: category_id, q: link_params)
-  	link_to link_text.html_safe, link_path
+    link_to link_text.html_safe, store_browse_path(id: category_id, q: attributes_link_params(attribute_params, attribute_id))
   end
 
-  def filter_active?(q, options ={})
-  	q ||= {}
-  	attribute_id = options[:id].to_s
-  	attribute_value = options[:value]
-  	if attribute_id && q[attribute_id]
-  		q[attribute_id].include?(attribute_value)
-  	end
+  def attribute_filter_active?(options ={})
+    filter_query = params[:q] || {}
+
+    attribute_id = options[:key].to_s
+    attribute_value = options[:value]
+    if attribute_id && filter_query[attribute_id]
+      filter_query[attribute_id].include?(attribute_value)
+    end
   end
 
   def search_query
-  	params[:search] if current_page?(store_search_path)
+    params[:search] if current_page?(store_search_path)
+  end
+
+  def brand_filter_link(brand, options = {})
+    brands_ids = []
+    selected_brand_id = brand.id
+
+    if params[:brands]
+      brands_ids = params[:brands].dup
+    end
+
+    link_params = params.dup
+
+    if brands_ids.include?(selected_brand_id.to_s)
+      brands_ids.delete(selected_brand_id.to_s)
+    else
+      brands_ids << selected_brand_id.to_s
+    end
+
+    link_params[:brands] = brands_ids
+
+    link_text = brand.name
+    link_text += "<span class=\"badge pull-right\">#{options[:count].to_s}</span>" if options[:count]
+
+    link_to link_text, store_browse_path(link_params)
+  end
+
+  def brand_filter_active?(brand)
+    if params[:brands]    
+      params[:brands].include?(brand.id.to_s)
+    end
+  end
+
+  private
+
+  def attributes_link_params(attribute_params, attribute_id)
+    filter_query = params[:q].try(:dup) || {}
+
+    if attribute_params.any?
+      filter_query[attribute_id] = attribute_params
+    else
+      filter_query.delete(attribute_id)
+      filter_query = nil unless params.any?
+    end
+    filter_query
   end
 end
