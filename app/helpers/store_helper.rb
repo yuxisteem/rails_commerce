@@ -1,39 +1,28 @@
 module StoreHelper
+
+  ATTRIBUTES_FILTER_KEY = :q
+
+
   def available_categories
     @available_categories ||= Category.all
   end
 
-  def attribute_filter_link(options = {}, html_options = nil)
+  def attribute_filter_link(attribute_value, options = {}, html_options = nil)
 
-    filter_query = params[:q] || {}
+    attribute_value_text = attribute_value.value
 
-    attribute_id = options[:key].to_s
-    attribute_value = options[:value]
-    attribute_params = filter_query[attribute_id].try(:dup) || []
-
-    category_id = options[:category_id]
-
-    if attribute_filter_active?(key: attribute_id, value: attribute_value)
-      attribute_params.delete(attribute_value)
-    else
-      attribute_params ||= []
-      attribute_params << attribute_value
-    end
-
-
-    link_text = options[:value]
+    link_text = attribute_value_text
     link_text += "<span class=\"badge pull-right\">#{options[:count].to_s}</span>" if options[:count]
 
-    link_to link_text.html_safe, store_browse_path(id: category_id, q: attributes_link_params(attribute_params, attribute_id))
+    link_to link_text.html_safe, store_browse_path(attributes_link_params(attribute_value))
   end
 
-  def attribute_filter_active?(options ={})
-    filter_query = params[:q] || {}
+  def attribute_filter_active?(attribute_value)
+    filter_query = params[ATTRIBUTES_FILTER_KEY] || {}
+    attribute_id = attribute_value.product_attribute.id.to_s
 
-    attribute_id = options[:key].to_s
-    attribute_value = options[:value]
     if attribute_id && filter_query[attribute_id]
-      filter_query[attribute_id].include?(attribute_value)
+      filter_query[attribute_id].include?(attribute_value.value)
     end
   end
 
@@ -66,22 +55,36 @@ module StoreHelper
   end
 
   def brand_filter_active?(brand)
-    if params[:brands]    
+    if params[:brands]
       params[:brands].include?(brand.id.to_s)
     end
   end
 
   private
 
-  def attributes_link_params(attribute_params, attribute_id)
-    filter_query = params[:q].try(:dup) || {}
+  def attributes_link_params(attribute_value)
+    link_params = params.dup
 
-    if attribute_params.any?
-      filter_query[attribute_id] = attribute_params
-    else
-      filter_query.delete(attribute_id)
-      filter_query = nil unless params.any?
+    attribute_params = []
+
+    attribute_id = attribute_value.product_attribute.id.to_s
+
+    if link_params[ATTRIBUTES_FILTER_KEY] && link_params[ATTRIBUTES_FILTER_KEY][attribute_id]
+      attribute_params = link_params[ATTRIBUTES_FILTER_KEY][attribute_id].dup
     end
-    filter_query
+
+    if attribute_filter_active?(attribute_value)
+      attribute_params.delete(attribute_value.value)
+    else
+      attribute_params  << attribute_value.value
+    end
+
+    if link_params[ATTRIBUTES_FILTER_KEY]
+      link_params[ATTRIBUTES_FILTER_KEY] = link_params[ATTRIBUTES_FILTER_KEY].merge({attribute_id => attribute_params})
+    else
+      link_params[ATTRIBUTES_FILTER_KEY] = {attribute_id => attribute_params}
+    end
+
+    link_params
   end
 end
