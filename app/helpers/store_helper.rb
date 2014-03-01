@@ -1,6 +1,7 @@
 module StoreHelper
 
   ATTRIBUTES_FILTER_KEY = :q
+  BRANDS_FILTER_KEY = :brands
 
 
   def available_categories
@@ -27,15 +28,15 @@ module StoreHelper
   end
 
   def search_query
-    params[:search] if current_page?(store_search_path)
+    params[:q] if current_page?(store_search_path)
   end
 
   def brand_filter_link(brand, options = {})
     brands_ids = []
     selected_brand_id = brand.id
 
-    if params[:brands]
-      brands_ids = params[:brands].dup
+    if params[BRANDS_FILTER_KEY]
+      brands_ids = params[BRANDS_FILTER_KEY].dup
     end
 
     link_params = params.dup
@@ -46,7 +47,7 @@ module StoreHelper
       brands_ids << selected_brand_id.to_s
     end
 
-    link_params[:brands] = brands_ids
+    link_params[BRANDS_FILTER_KEY] = brands_ids
 
     link_text = brand.name
     link_text += "<span class=\"badge pull-right\">#{options[:count].to_s}</span>" if options[:count]
@@ -55,8 +56,8 @@ module StoreHelper
   end
 
   def brand_filter_active?(brand)
-    if params[:brands]
-      params[:brands].include?(brand.id.to_s)
+    if params[BRANDS_FILTER_KEY]
+      params[BRANDS_FILTER_KEY].include?(brand.id.to_s)
     end
   end
 

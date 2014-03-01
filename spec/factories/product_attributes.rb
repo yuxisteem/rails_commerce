@@ -1,10 +1,11 @@
 # == Schema Information
 #
-# Table name: brands
+# Table name: product_attributes
 #
 #  id          :integer          not null, primary key
 #  name        :string(255)
-#  description :text
+#  category_id :integer
+#  filterable  :boolean
 #  created_at  :datetime
 #  updated_at  :datetime
 #
@@ -12,8 +13,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :brand do
-  	name Faker::Lorem::word
-  	description 'The best brand'
+  factory :product_attribute do
+    name Faker::Lorem::word
   end
 end

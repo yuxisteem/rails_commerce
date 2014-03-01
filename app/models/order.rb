@@ -15,6 +15,7 @@
 
 
 
+
 class Order < ActiveRecord::Base
   before_create :generate_shippment, :generate_invoice, :generate_code
   after_touch  :update_state

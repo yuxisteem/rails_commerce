@@ -17,7 +17,7 @@ class StoreController < ApplicationController
   end
 
   def search
-    @products = Product.find_all_by_term(params[:search]).paginate(page: params[:page])
+    @products = Product.find_all_by_term(params[:q]).paginate(page: params[:page])
     add_breadcrumb I18n.t('store.search')
   end
 
