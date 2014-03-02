@@ -94,6 +94,7 @@ en:
   uploader:
     upload_file: "Upload file"
   store:
+    brand: "Brand"
     checkout: "Checkout"
     search_input_placeholder: "Search..."
     add_to_cart_button_text: "Add to cart"

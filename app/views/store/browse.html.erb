@@ -5,7 +5,8 @@
 
 	<% if @presenter.product_attributes.any? || @presenter.brands.any? %>
 		<div class="col-md-2">			
-			<ul class="nav nav-pills nav-stacked">		  
+			<ul class="nav nav-pills nav-stacked">	
+				<li><%= t('store.brand') %></li>	  
 				<% @presenter.brands.each do |brand| %>
 					<li class="<%= "active" if brand_filter_active?(brand) %>">
 						<%= brand_filter_link brand, category_id: @presenter.category.id %>
