@@ -6,7 +6,7 @@ class StoreController < ApplicationController
   end
 
   def browse
-    @presenter = StoreBrowsePresenter.new(category_id: params[:id], page: params[:page], q: params[:q])
+    @presenter = StoreBrowsePresenter.new(category_id: params[:id], params: params)
   	add_breadcrumb @presenter.category.name
   end
 

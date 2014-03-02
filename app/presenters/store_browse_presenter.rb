@@ -1,12 +1,13 @@
 class StoreBrowsePresenter
-	attr_accessor :products, :category, :product_attributes, :q, :brands
+	attr_accessor :products, :category, :product_attributes, :params, :brands
 
 	def initialize(options = {})
 		category_id = options[:category_id]
 
 		# options hash for filtering products by attribute values
-		@product_attributes = options[:q] || {}
-		@brand_ids = options[:brands] || {}
+		@params = options[:params]
+		@product_attributes = params[:q] || {}
+		@brand_ids = params[:brands] || []
 
 
 		@products =  Product.all
@@ -32,9 +33,12 @@ class StoreBrowsePresenter
 		# Filter products by brands
 		@products = @products.where(brand_id: @brand_ids) if @brand_ids.any? 
 
-		@products = @products.paginate(page: options[:page])
+		@products = @products.paginate(page: params[:page])
+
 		@category = Category.find(category_id)
+		# @brands = Brand.where(id: @products.map(&:brand_id).uniq)
 		@brands = Brand.where(id: @products.map(&:brand_id).uniq)
+		
 		@product_attributes = ProductAttribute.where(category_id: category_id, filterable: true).includes(:product_attribute_values)
 	end
 end
