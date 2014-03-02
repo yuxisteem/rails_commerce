@@ -13,8 +13,9 @@ threads 0, 16
 preload_app!
 
 on_worker_boot do
+  ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
 	ActiveSupport.on_load(:active_record) do
-	ActiveRecord::Base.establish_connection
+	 ActiveRecord::Base.establish_connection
 	end
 end
 
