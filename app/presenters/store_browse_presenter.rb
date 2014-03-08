@@ -37,7 +37,7 @@ class StoreBrowsePresenter
 
 		@category = Category.find(category_id)
 		# @brands = Brand.where(id: @products.map(&:brand_id).uniq)
-		@brands = Brand.joins('INNER JOIN products ON products.brand_id = brands.id').distinct
+		@brands = Brand.joins("INNER JOIN products ON products.brand_id = brands.id AND products.category_id = #{ActiveRecord::Base.sanitize(category_id)}")
 		
 		@product_attributes = ProductAttribute.where(category_id: category_id, filterable: true).includes(:product_attribute_values)
 	end

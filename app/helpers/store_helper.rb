@@ -52,7 +52,7 @@ module StoreHelper
     link_text = brand.name
     link_text += "<span class=\"badge pull-right\">#{options[:count].to_s}</span>" if options[:count]
 
-    link_to link_text, store_browse_path(link_params)
+    link_to link_text.html_safe, store_browse_path(link_params)
   end
 
   def brand_filter_active?(brand)

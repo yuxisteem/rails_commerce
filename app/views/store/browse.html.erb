@@ -7,9 +7,9 @@
 		<div class="col-md-2">			
 			<ul class="nav nav-pills nav-stacked">	
 				<li><%= t('store.brand') %></li>	  
-				<% @presenter.brands.each do |brand| %>
-					<li class="<%= "active" if brand_filter_active?(brand) %>">
-						<%= brand_filter_link brand, category_id: @presenter.category.id %>
+				<% @presenter.brands.group_by(&:name).map { |k,v| [v.first, v.length] }.each do |brand_group| %>
+					<li class="<%= "active" if brand_filter_active?(brand_group[0]) %>">
+						<%= brand_filter_link brand_group[0], category_id: @presenter.category.id, count: brand_group[1] %>
 					</li>
 				<% end %>
 			</ul>
@@ -17,11 +17,11 @@
 			<% @presenter.product_attributes.each do |product_attribute| %>
 				<ul class="nav nav-pills nav-stacked">		  
 					<%= product_attribute.name %>
-					<% product_attribute.product_attribute_values.group_by(&:value).each do |attribute_value_group| %>
+					<% product_attribute.product_attribute_values.group_by(&:value).map { |k,v| [v.first, v.length] }.each do |attribute_value_group| %>
 						<% unless attribute_value_group[0].blank? %>						
-							<li class="<%= "active" if attribute_filter_active?(attribute_value_group[1].first) %>">
-								<%= attribute_filter_link attribute_value_group[1].first, 
-														  count: attribute_value_group[1].count, 
+							<li class="<%= "active" if attribute_filter_active?(attribute_value_group[0]) %>">
+								<%= attribute_filter_link attribute_value_group[0], 
+														  count: attribute_value_group[1], 
 														  category_id: @presenter.category.id %>
 							</li>												
 						<% end %>					
