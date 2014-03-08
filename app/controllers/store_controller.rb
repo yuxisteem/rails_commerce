@@ -1,5 +1,4 @@
-class StoreController < ApplicationController
-  
+class StoreController < ApplicationController 
   before_action :set_breadcrumb
 
   def index
@@ -7,9 +6,7 @@ class StoreController < ApplicationController
   end
 
   def browse
-  	# @products = Product.where(active: true, category_id: params[:id]).paginate(page: params[:page])
-  	# @category = Category.find(params[:id])
-    @presenter = StoreBrowsePresenter.new(category_id: params[:id], page: params[:page], q: params[:q])
+    @presenter = StoreBrowsePresenter.new(category_id: params[:id], params: params)
   	add_breadcrumb @presenter.category.name
   end
 
@@ -20,7 +17,7 @@ class StoreController < ApplicationController
   end
 
   def search
-    @products = Product.find_all_by_term(params[:search]).paginate(page: params[:page])
+    @products = Product.find_all_by_term(params[:q]).paginate(page: params[:page])
     add_breadcrumb I18n.t('store.search')
   end
 

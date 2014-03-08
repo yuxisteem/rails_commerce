@@ -1,30 +1,44 @@
 class StoreBrowsePresenter
-	attr_accessor :products, :category, :product_attributes, :q	 
+	attr_accessor :products, :category, :product_attributes, :params, :brands
 
-	def initialize(params ={})
-		category_id = params[:category_id]
-		self.q = params[:q] || {} # Params hash for filtering products by attributes
-		products =  Product.all
-		if self.q.any?
-			self.q.each_with_index do |attribute, index|			
+	def initialize(options = {})
+		category_id = options[:category_id]
+
+		# options hash for filtering products by attribute values
+		@params = options[:params]
+		@product_attributes = params[:q] || {}
+		@brand_ids = params[:brands] || []
+
+
+		@products =  Product.all
+		if @product_attributes.any?
+			@product_attributes.each do |key, value|
 				
-				attributes_values_sql = attribute[1].map {|attribute_value| "attr#{index}.value = #{ActiveRecord::Base.sanitize(attribute_value)}"}.join(' OR ')
-
+				attr_values_sql = value.map {|attr_value| "attr_#{key}.value = #{ActiveRecord::Base.sanitize(attr_value)}"}.join(' OR ')
+				
 				join_sql = %{
-					INNER JOIN product_attribute_values attr#{index} 
-					ON attr#{index}.product_id = products.id
-					AND ( #{attributes_values_sql} )
+					INNER JOIN product_attribute_values attr_#{key} 
+					ON attr_#{key}.product_id = products.id
+					AND ( #{attr_values_sql} )
 				}
 
-				products = products.joins(join_sql)
+				@products = @products.joins(join_sql)
 			end
-			products = products.distinct.includes(:images)
+			@products = @products.distinct.includes(:images)
 		else
-			products = products.where(category_id: category_id).includes(:images)
-		end 
+			# Filter products by category if no attributes given
+			@products = @products.where(category_id: category_id).includes(:images)
+		end
 
-		self.products = products.paginate(page: params[:page])
-		self.category = Category.find(category_id)
-		self.product_attributes = ProductAttribute.where(category_id: category_id, filterable: true).includes(:product_attribute_values)
+		# Filter products by brands
+		@products = @products.where(brand_id: @brand_ids) if @brand_ids.any? 
+
+		@products = @products.paginate(page: params[:page])
+
+		@category = Category.find(category_id)
+		# @brands = Brand.where(id: @products.map(&:brand_id).uniq)
+		@brands = Brand.joins("INNER JOIN products ON products.brand_id = brands.id AND products.category_id = #{ActiveRecord::Base.sanitize(category_id)}")
+		
+		@product_attributes = ProductAttribute.where(category_id: category_id, filterable: true).includes(:product_attribute_values)
 	end
 end

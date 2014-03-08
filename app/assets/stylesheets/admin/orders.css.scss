@@ -2,11 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-tr.order-completed, tr.order-complete a, tr.order-complete a:hover {
+tr.order-completed {
   color: #9c9c9c;
 }
 
-tr.order-canceled, tr.order-canceled a, tr.order-canceled a:hover {
+tr.order-canceled {
   color: #9c9c9c;
   text-decoration: line-through
 }

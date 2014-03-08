@@ -12,10 +12,10 @@ class OrdersController < ApplicationController
 
     if user_signed_in?
       @order_presenter.update(address: current_user.address,
-                             first_name: current_user.first_name,
-                             last_name: current_user.last_name,
-                             email: current_user.email,
-                             phone: current_user.phone)
+                              first_name: current_user.first_name,
+                              last_name: current_user.last_name,
+                              email: current_user.email,
+                              phone: current_user.phone)
     end
 
     respond_to do |format|
