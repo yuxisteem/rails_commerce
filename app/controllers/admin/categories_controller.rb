@@ -46,7 +46,7 @@ class Admin::CategoriesController < Admin::AdminController
 
   private
   def category_params
-    params.require(:category).permit(:name, :description)
+    params.require(:category).permit(:name, :description, :attribute_filter_enabled, :brand_filter_enabled)
   end
 
 end

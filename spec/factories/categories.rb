@@ -2,11 +2,13 @@
 #
 # Table name: categories
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  description :text
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id                       :integer          not null, primary key
+#  name                     :string(255)
+#  description              :text
+#  created_at               :datetime
+#  updated_at               :datetime
+#  attribute_filter_enabled :boolean          default(TRUE)
+#  brand_filter_enabled     :boolean          default(TRUE)
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
