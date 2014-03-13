@@ -1,0 +1,15 @@
+%h1 Listing admin_order_histories
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+  %tbody
+    - @admin_order_histories.each do |admin_order_history|
+      %tr
+        %td= link_to 'Show', admin_order_history
+        %td= link_to 'Edit', edit_admin_order_history_path(admin_order_history)
+        %td= link_to 'Destroy', admin_order_history, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Order history', new_admin_order_history_path

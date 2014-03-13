@@ -1,0 +1,32 @@
+= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder
+.row
+  .col-md-8
+    %h2= @product.name
+    %p.text-muted= "#{t('store.product_code')}: #{@product.id}"
+  .col-md-4
+    .pull-right
+      %h3
+        = number_to_currency @product.price
+        = link_to t('store.add_to_cart_button_text'), cart_items_path(product_id: @product.id), class: 'btn btn-success', remote: true, method: :post
+#product-mainpart.row
+  .col-md-4
+    #product-images-list
+      - if @product.images.any?
+        - @product.images.each do |image|
+          = link_to image_tag(image.image.url(:medium)), |
+            image.image.url,                             |
+            class: 'thumbnail',                          |
+            data: { lightbox: 'product-image'}           |
+  .col-md-6
+    %div
+      %h3= t('store.description')
+      %p= @product.description
+    %div
+      %h3= t('store.specifications')
+      %p
+        - if @product.product_attribute_values.any?
+          %dl.dl-horizontal
+            - @product.product_attribute_values.each do |attrib|
+              - unless attrib.value.blank?
+                %dt= attrib.name
+                %dd= attrib.value

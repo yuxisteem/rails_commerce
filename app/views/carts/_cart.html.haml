@@ -1,0 +1,46 @@
+.modal-header
+  %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
+  %h3#cart-modal-title.modal-title
+    Your cart (#{@cart.cart_items.count})
+.modal-body
+  #cart-items
+    - if @cart.empty?
+      %h4= t('store.cart_empty_message')
+    - else
+      %table.table.hover
+        %thead
+          %tr
+            %th= t('common.name')
+            %th= t('common.price')
+            %th= t('common.quantity')
+            %th= t('common.total')
+            %th
+        %tbody
+          - @cart.cart_items.each do |item|
+            %tr
+              %td= item.product.name
+              %td= number_to_currency item.product.price
+              %td
+                = link_to '<i class="glyphicon glyphicon-minus"></i>'.html_safe, |
+                  cart_item_decrease_path(item),                                 |
+                  method: :post,                                                 |
+                  remote: true,                                                  |
+                  class: 'btn btn-xs btn-default'                                |
+                = item.quantity
+                = link_to '<i class="glyphicon glyphicon-plus"></i>'.html_safe, |
+                  cart_item_increase_path(item),                                |
+                  method: :post,                                                |
+                  remote: true,                                                 |
+                  class: 'btn btn-xs btn-default'                               |
+              %td= number_to_currency(item.product.price * item.quantity)
+              %td= link_to "Remove", cart_item_path(item), remote: true, method: :delete, class: 'btn btn-danger btn-xs'
+          %tr
+            %td= t('common.total')
+            %td
+            %td
+            %td
+            %td= number_to_currency @cart.total_price
+.modal-footer
+  %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Continue shopping
+  - unless @cart.empty?
+    = link_to t('store.checkout'), new_order_path, class: 'btn btn-success'

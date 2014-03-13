@@ -1,0 +1,35 @@
+.order-items
+  %table.table.table-hover
+    %thead
+      %tr
+        %th= t('common.name')
+        %th= t('common.price')
+        %th= t('common.quantity')
+        %th= t('common.total')
+    %tbody
+      - order.order_items.each do |item|
+        %tr
+          %td= item.product.name
+          %td= number_to_currency item.price
+          %td= item.quantity
+          %td= number_to_currency(item.price * item.quantity)
+      %tr
+        %td
+        %td
+        %td
+        %td= number_to_currency order.total_price
+.order-details
+  %dl.dl-horizontal
+    %dt= t('common.name')
+    %dd
+      = order.user.first_name
+      = order.user.last_name
+    %dt= t('common.phone')
+    %dd= order.address.phone
+    %dt= t('common.email')
+    %dd= order.user.email
+    %dt= t('common.address')
+    %dd
+      = order.address.city
+      %br/
+      = order.address.street

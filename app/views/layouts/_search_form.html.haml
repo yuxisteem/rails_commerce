@@ -1,0 +1,6 @@
+%form#search-form.navbar-form{:action => store_search_path, :role => "form"}
+  .input-group
+    %input.form-control{:name => "q", :placeholder => t('store.search_input_placeholder'), :type => "text", :value => search_query}/
+    %span.input-group-btn
+      %button.btn.btn-default{:type => "submit"}
+        %i.glyphicon.glyphicon-search

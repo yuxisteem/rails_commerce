@@ -1,0 +1,9 @@
+%h2
+  = t('store.thanks_for_your_order_message')
+.order-success
+  = @order.user.first_name
+  , #{t('store.we_have_received_your_order_text')}
+%br/
+.order-info
+  %h4= t('store.order_details')
+  = render @order

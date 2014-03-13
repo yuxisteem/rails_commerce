@@ -1,0 +1,8 @@
+- provide(:title, t('admin.create_brand'))
+%h2 Create brand
+= form_for @brand, url: admin_brands_path do |f|
+  = render 'layouts/validation_errors', model: @brand
+  = render 'brand_fields', f: f
+  .form-group
+    = f.submit t('admin.save'), class: 'btn btn-primary'
+    = link_to t('admin.cancel'), admin_brands_path, class: 'btn btn-default'

@@ -1,0 +1,126 @@
+.row
+  .col-md-9
+    .panel.panel-default
+      .panel-heading
+        .btn-group
+          - if @order.previous.blank?
+            = link_to '<i class="glyphicon glyphicon-chevron-left"></i>'.html_safe, '', class: 'btn btn-default disabled'
+          - else
+            = link_to '<i class="glyphicon glyphicon-chevron-left"></i>'.html_safe, admin_order_path(@order.previous), class: 'btn btn-default'
+          - if @order.next.blank?
+            = link_to '<i class="glyphicon glyphicon-chevron-right"></i>'.html_safe, '', class: 'btn btn-default disabled'
+          - else
+            = link_to '<i class="glyphicon glyphicon-chevron-right"></i>'.html_safe, admin_order_path(@order.next), class: 'btn btn-default'
+        - unless @order.canceled?
+          .btn-group
+            = link_to 'Ready to ship',                                         |
+              admin_order_shipment_event_path(id: @order.id, event: :prepare), |
+              method: :post,                                                   |
+              class: 'btn btn-default' if @order.shipment.can_prepare?         |
+            -#
+            = link_to 'Ship order',                                         |
+              admin_order_shipment_event_path(id: @order.id, event: :ship), |
+              method: :post,                                                |
+              class: 'btn btn-default' if @order.shipment.can_ship?         |
+            -#
+            = link_to 'Return shipment',                                      |
+              admin_order_shipment_event_path(id: @order.id, event: :return), |
+              method: :post,                                                  |
+              data: {confirm: t('admin.confirm')},                            |
+              class: 'btn btn-default' if @order.shipment.can_return?         |
+          .btn-group
+            = link_to 'Mark as paid',                                     |
+              admin_order_invoice_event_path(id: @order.id, event: :pay), |
+              method: :post,                                              |
+              class: 'btn btn-default' if @order.invoice.can_pay?         |
+            -#
+            = link_to 'Refund payment',                                      |
+              admin_order_invoice_event_path(id: @order.id, event: :refund), |
+              method: :post,                                                 |
+              data: {confirm: t('admin.confirm')},                           |
+              class: 'btn btn-default' if @order.invoice.can_refund?         |
+        .btn-group.pull-right
+          = link_to 'Cancel',                                      |
+            admin_order_event_path(id: @order.id, event: :cancel), |
+            method: :post,                                         |
+            data: {confirm: t('admin.confirm')},                   |
+            class: 'btn btn-default' if @order.can_cancel?         |
+          -#
+          = link_to 'Resume',                                      |
+            admin_order_event_path(id: @order.id, event: :resume), |
+            method: :post,                                         |
+            data: {confirm: t('admin.confirm')},                   |
+            class: 'btn btn-default' if @order.can_resume?         |
+      .panel-body
+        .order-items
+          .order-details
+            %dl.dl-horizontal
+              %dt State
+              %dd= label_span @order.human_state_name
+              %dt Placed at
+              %dd= time_tag @order.created_at
+              %dt Updated at
+              %dd= time_tag @order.updated_at
+              %dt Payment
+              %dd
+                = label_span @order.invoice.human_state_name
+              %dt Shipment
+              %dd= label_span @order.shipment.human_state_name
+              %dt Customer's order note
+              %dd= @order.note
+          %table.table.table-hover
+            %thead
+              %tr
+                %th Name
+                %th Price
+                %th Total
+            %tbody
+              - @order.order_items.each do |item|
+                %tr
+                  %td= link_to item.product.name, admin_product_path(id: item.product_id)
+                  %td
+                    = number_to_currency item.price
+                    \&times;
+                    \#{item.quantity}
+                  %td= number_to_currency(item.price * item.quantity)
+              %tr
+                %td
+                %td
+                %td= number_to_currency @order.total_price
+    .order-history
+      %h4 History
+      - @order.order_histories.group_by { |x| x.created_at.to_date }.each do |history_group|
+        %strong= time_tag history_group.first
+        .panel.panel-default
+          .panel-body
+            %ul
+              - history_group.last.each do |history|
+                %li
+                  %span= time_tag history.created_at, format: '%H:%M'
+                  - unless history.attribute_name.blank?
+                    %strong= history.attribute_name
+                    = label_span history.to_name
+                  = history.note unless history.note.blank?
+      = form_for OrderHistory.new, url: admin_order_order_histories_path(order_id: @order.id) do |f|
+        .form-group
+          = f.text_area :note, placeholder: "Enter your note here...", class: 'form-control'
+        .form-group.pull-right
+          = f.submit "Add note", class:'btn btn-primary'
+  .col-md-3
+    .panel.panel-default
+      .panel-heading
+        %span.panel-title Shipping address
+        = link_to t('admin.edit'), '#'
+      .panel-body
+        %dl
+          %dt Name
+          %dd= link_to @order.user.full_name, admin_user_path(id: @order.user.id)
+          %dt Phone
+          %dd= number_to_phone @order.address.phone
+          %dt Email
+          %dd= mail_to @order.user.email
+          %dt Address
+          %dd
+            = @order.address.city
+            %br/
+            = @order.address.street

@@ -1,0 +1,14 @@
+%nav#navbar.navbar.navbar-fixed-top.navbar-default{:role => "navigation"}
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => "#main-navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only
+          = t('common.toggle_menu')
+          Toggle navigation
+      = link_to t('common.store_name'), root_path, class: 'navbar-brand'
+    #main-navbar-collapse.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li= link_to t('common.shipping_and_payment'), shipping_path
+        %li= link_to t('common.about_shop'), about_path
+      %ul.nav.navbar-nav.navbar-right
+        %li= render 'layouts/user_widget'

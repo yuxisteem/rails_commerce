@@ -1,0 +1,49 @@
+= render 'layouts/validation_errors', model: @order_presenter
+.row
+  .col-md-4
+    = form_for @order_presenter, url: orders_path, method: :post do |f|
+      .row
+        .form-group.col-md-6
+          = f.label :first_name
+          = f.text_field :first_name, class: 'form-control', readonly: !@order_presenter.first_name.blank?
+        .form-group.col-md-6
+          = f.label :last_name
+          = f.text_field :last_name, class: 'form-control', readonly: !@order_presenter.last_name.blank?
+      .form-group
+        = f.label :email
+        = f.text_field :email, class: 'form-control', readonly: !@order_presenter.email.blank?
+      .form-group
+        = f.label :phone
+        = f.text_field :phone, class: 'form-control'
+      .form-group
+        = f.label :street
+        = f.text_field :street, class: 'form-control'
+      .form-group
+        = f.label :city
+        = f.text_field :city, class: 'form-control'
+      .form-group
+        = f.label :note
+        = f.text_area :note, class: 'form-control'
+      .form-group
+        = f.submit t('store.submit_order_button_text'), class: 'btn btn-success'
+  .col-md-6
+    .order-items
+      %table.table.table-hover
+        %thead
+          %tr
+            %th Name
+            %th Price
+            %th Quantity
+            %th Total
+        %tbody
+          - @cart.cart_items.each do |cart_item|
+            %tr
+              %td= cart_item.product.name
+              %td= number_to_currency cart_item.product.price
+              %td= cart_item.quantity
+              %td= number_to_currency(cart_item.product.price * cart_item.quantity)
+          %tr
+            %td
+            %td
+            %td
+            %td= number_to_currency @cart.total_price

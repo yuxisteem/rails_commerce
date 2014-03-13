@@ -1,0 +1,12 @@
+.form-group
+  = f.label :name
+  = f.text_field :name, class: 'form-control'
+.form-group
+  = f.label :description
+  = f.text_area :description, class: 'form-control'
+.form-group
+  = f.label :brand_filter_enabled
+  = f.check_box :brand_filter_enabled
+.form-group
+  = f.label :attribute_filter_enabled
+  = f.check_box :attribute_filter_enabled

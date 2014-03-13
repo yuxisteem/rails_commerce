@@ -1,8 +1,0 @@
-<% if model.errors.any? %>
-    <div class="alert alert-danger alert-dismissable">
-      <strong><%= t('common.form_validation_error_message') %></strong>
-      <% model.errors.full_messages.each do |m| %>
-          <li><%= m %></li>
-      <% end %>
-    </div>
-<% end %>

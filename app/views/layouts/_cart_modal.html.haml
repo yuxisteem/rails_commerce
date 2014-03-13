@@ -1,0 +1,10 @@
+#cart-modal.modal.fade
+  .modal-dialog
+    #cart-modal-content.modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
+        %h3#cart-modal-title.modal-title= t('store.your_cart_label')
+      .modal-body
+        #cart-items
+      .modal-footer
+        %button.btn.btn-default{:type => "button"}= t('common.submit')

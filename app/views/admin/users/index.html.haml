@@ -1,0 +1,19 @@
+%table.table.hover
+  %thead
+    %tr
+      %th= t('admin.id')
+      %th= t('admin.email')
+      %th= t('admin.full_name')
+      %th= t('admin.register_date')
+      %th= t('admin.orders_total')
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= link_to "##{user.id}", admin_user_path(user)
+        %td
+          = mail_to user.email
+          = label_span "Admin", type: 'success' if user.admin?
+        %td= user.full_name
+        %td= time_tag user.created_at
+        %td= user.orders.map {|x| x.total_price}.inject(:+) || '—'
+= will_paginate @isers, renderer: BootstrapPagination::Rails

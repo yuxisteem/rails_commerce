@@ -1,0 +1,23 @@
+.form-group
+  = f.label :name
+  = f.text_field :name, class: 'form-control'
+.form-group
+  = f.label :description
+  = f.text_area :description, class: 'form-control', rows: 12
+.form-group
+  .row
+    .col-md-3
+      = f.label :category
+      = select :product, :category_id, @categories.collect { |x| [x.name, x.id] }, {}, {class: 'form-control'}
+    .col-md-3
+      = f.label :brand
+      = select :product, :brand_id, @brands.collect { |x| [x.name, x.id] }, {}, {class: 'form-control'}
+    .col-md-2
+      = f.label :price
+      = f.text_field :price, class: 'form-control'
+.form-group
+  = f.label :active
+  = f.check_box :active, data: {                                 |
+    toggle: 'tooltip',                                           |
+    placement: 'right'},                                         |
+    title: "Control if this product can be viewed in your store" |

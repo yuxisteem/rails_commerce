@@ -1,0 +1,23 @@
+- provide(:title, t('admin.categories_list'))
+%h2
+  = t('admin.categories_list')
+  (#{@categories.count})  #{link_to t('admin.create_new'), new_admin_category_path, class: 'btn btn-primary'}
+%table.table.table-hover
+  %thead
+    %tr
+      %th Id
+      %th Name
+      %th Description
+      %th Products count
+      %th Created
+      %th Updated
+  %tbody
+    - @categories.each do |c|
+      %tr
+        %td= c.id
+        %td= link_to truncate(c.name), admin_category_path(c)
+        %td= truncate c.description
+        %td= c.products.count
+        %td= c.created_at.to_formatted_s(:short)
+        %td= c.updated_at.to_formatted_s(:short)
+= will_paginate @categories, renderer: BootstrapPagination::Rails

@@ -58,6 +58,9 @@ gem 'puma', '~> 2.7.1'
 gem 'resque', '~> 1.25.1'
 gem 'resque_mailer', '~> 2.2.6'
 
+gem 'haml', '~> 4.0.5'
+gem 'haml-rails'
+
 group :development, :test do
 	gem 'capybara', '~> 2.2.1'
 	gem 'factory_girl_rails', '~> 4.3.0'

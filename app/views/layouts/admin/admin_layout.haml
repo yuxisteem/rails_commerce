@@ -1,0 +1,20 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    %title= full_title(yield(:title))
+    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body#admin-body
+    #wrapper
+      = render 'layouts/admin/admin_sidebar'
+      #page-content-wrapper
+        = render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder
+        = render 'layouts/flash'
+        = yield
+        = render 'layouts/footer'
+        = debug(params) if Rails.env.development?
