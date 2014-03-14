@@ -24,7 +24,7 @@ namespace :foreman do
   desc "Restart the application services"
   task :restart do
     on roles(:app), in: :parallel do
-      execute "sudo service #{fetch(:application)} start || sudo service #{fetch(:application)} restart"
+      execute "sudo service #{fetch(:application)} restart"
     end
   end
 end
