@@ -7,6 +7,9 @@ timeout 30
 
 listen '/home/rails/shared/tmp/sockets/unicorn.sock', :backlog => 2048
 
+stdout_path '/home/rails/shared/log/unicorn.log'
+stderr_path '/home/rails/shared/log/unicorn_error.log'
+
 pid_file = '/home/rails/shared/tmp/pids/unicorn.pid'
 pid pid_file
 
