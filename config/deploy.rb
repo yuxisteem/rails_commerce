@@ -37,11 +37,11 @@ def unicorn_start_cmd
 end
 
 def unicorn_stop_cmd
-  "kill `cat #{unicorn_pid_file}` || echo 'Unicorn is not runing'"
+  "kill `cat #{fetch(unicorn_pid_file)}` || echo 'Unicorn is not runing'"
 end
 
 def unicorn_restart_cmd
-  "kill -USR2 `cat #{unicorn_pid_file}` || echo 'Unicorn is not runing'"
+  "kill -USR2 `cat #{fetch(unicorn_pid_file)}` || echo 'Unicorn is not runing'"
 end
 
 namespace :deploy do
