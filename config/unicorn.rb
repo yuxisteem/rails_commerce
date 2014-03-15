@@ -1,12 +1,14 @@
-rails_env = ENV['RAILS_ENV'] || 'production'
-
 worker_processes 2
 
 preload_app true
 
 timeout 30
 
+
 listen '/home/rails/shared/tmp/sockets/unicorn.sock', :backlog => 2048
+
+pid_file = '/home/rails/shared/tmp/pids/unicorn.pid'
+pid pid_file
 
 # http://www.rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
 if GC.respond_to?(:copy_on_write_friendly=)
@@ -27,7 +29,7 @@ before_fork do |server, worker|
 
   ActiveRecord::Base.connection.disconnect!
 
-  old_pid = RAILS_ROOT + '/home/rails/shared/tmp/pids/unicorn.pid'
+  old_pid = pid_file
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)
