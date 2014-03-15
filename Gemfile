@@ -22,7 +22,7 @@ gem 'ransack', '~> 1.1.0'
 gem 'devise', '~> 3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.2'
+gem 'rails', '4.0.4'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -54,7 +54,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'state_machine', '~> 1.2.0'
 
 gem 'foreman', require: false
-gem 'puma', '~> 2.7.1'
+gem 'thin'
 
 gem 'resque', '~> 1.25.1'
 gem 'resque_mailer', '~> 2.2.6'
@@ -81,6 +81,7 @@ group :production do
 	gem 'mysql2', '~> 0.3.14'
 	gem 'newrelic_rpm'
 	gem 'rack-cache', '~> 1.2'
+	gem 'unicorn', '~> 4.8.2'
 end
 
 group :doc do

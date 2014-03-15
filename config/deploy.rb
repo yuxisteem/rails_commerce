@@ -23,44 +23,39 @@ set :rvm_bin_path, '/home/rails/.rvm/bin/rvm'
 set :linked_dirs, %w{bin log vendor/bundle public/system public/assets}
 set :linked_files, %w(config/config.yml config/database.yml config/newrelic.yml)
 
-set :puma_pid_file, "#{fetch(:deploy_to)}/shared/tmp/pids/puma.pid"
-set :puma_state_file, "#{fetch(:deploy_to)}/shared/tmp/pids/puma.state"
-set :config_file, "#{release_path}/config/puma.rb"
+set :unicorn_pid_file, "#{fetch(:deploy_to)}/shared/tmp/pids/unicorn.pid"
+set :config_file, "#{release_path}/config/unicorn.rb"
 
-set :puma_cmd, "puma -C #{fetch(:config_file)}"
+set :unicorn_cmd, "unicorn -C #{fetch(:config_file)}"
 
 def bundler
   "#{fetch(:rvm_bin_path)} #{fetch(:rvm_ruby_string)} do bundle exec"
 end
 
-def puma_start_cmd
-  "cd #{release_path} && #{bundler} pumactl -F #{fetch(:config_file)} -S #{fetch(:puma_state_file)} start"
+def unicorn_start_cmd
+  "cd #{release_path} && #{bundler} unicorn_rails -c #{fetch(:config_file)} -E production -D"
 end
 
-def puma_stop_cmd
-  "cd #{release_path} && #{bundler} pumactl -S #{fetch(:puma_state_file)} stop"
+def unicorn_stop_cmd
+  "kill `cat #{unicorn_pid_file}` || echo 'Unicorn is not runing'"
 end
 
-def puma_restart_cmd
-  "cd #{release_path} && #{bundler} pumactl -F #{fetch(:config_file)} -S #{fetch(:puma_state_file)} restart"
+def unicorn_restart_cmd
+  "kill -USR2 `cat #{unicorn_pid_file}` || echo 'Unicorn is not runing'"
 end
 
 namespace :deploy do
 
   task :restart do
     on roles(:app), in: :parallel do
-      begin
-        execute "#{puma_restart_cmd}"            
-      rescue Exception => ex 
-        puts "Failed to restart puma: #{ex}\nAssuming not started."
-      end
+      execute "#{unicorn_restart_cmd}"            
     end
   end
 
   namespace :resque do
     task :restart do
       on roles(:app), in: :parallel do
-        execute "sudo service ecomm-worker restart"
+        execute "sudo service ecomm restart"
       end
     end
   end

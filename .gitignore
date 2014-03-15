@@ -24,7 +24,6 @@ public/assets
 config/database.yml
 config/config.yml
 config/newrelic.yml
-config/unicorn.rb
 
 ecomm.sublime-workspace
 ecomm.sublime-project
