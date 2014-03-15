@@ -11,6 +11,7 @@
  *= require uploadify
  *= require lightbox
  *= require_self
+ *= require jquery.ui.all
  *= require_tree .
  */
 body {

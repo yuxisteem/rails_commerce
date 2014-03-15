@@ -119,6 +119,8 @@ GEM
     jquery-turbolinks (2.0.1)
       railties (>= 3.1.0)
       turbolinks
+    jquery-ui-rails (4.2.0)
+      railties (>= 3.2.16)
     json (1.8.1)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -280,6 +282,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   jquery-turbolinks
+  jquery-ui-rails
   mysql2 (~> 0.3.14)
   newrelic_rpm
   paperclip (~> 3.5.2)

@@ -8,18 +8,25 @@
   .form-group
     = f.submit t('admin.save'), class: 'btn btn-primary'
     = link_to t('admin.cancel'), admin_category_path(@category), class: 'btn btn-default'
+
 = form_for ProductAttribute.new, url: admin_category_product_attributes_path(category_id: @category.id), html: {class: 'form-inline'} do |f|
   = f.label :attributes
-  %ul
-    - @category.product_attributes.each do |attribute|
-      %li
-        = attribute.name
-        - if attribute.filterable?
-          %em (filterable)
-        = link_to t('admin.delete'),                                                          |
-          admin_category_product_attribute_path(id: attribute.id, category_id: @category.id), |
-          method: :delete,                                                                    |
-          data: {confirm: t('admin.confirm')}                                                 |
+
+  %div.row
+    %div.col-md-3
+      %ul#sortable.list-group
+        - @category.product_attributes.each do |attribute|
+          %li.list-group-item
+            %i{class: 'ui-icon ui-icon-arrowthick-2-n-s'}
+            = attribute.name
+            - if attribute.filterable?
+              %em (filterable)
+            = link_to admin_category_product_attribute_path(id: attribute.id, category_id: @category.id), |
+              method: :delete,                                                                            |
+              class: 'pull-right',                                                                        |
+              data: {confirm: t('admin.confirm')} do
+              Delete
+
   .row
     .col-md-6
       .form-group
