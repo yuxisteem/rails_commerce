@@ -8,14 +8,14 @@ module StoreHelper
     @available_categories ||= Category.all
   end
 
-  def attribute_filter_link(attribute_value, options = {}, html_options = nil)
+  def attribute_filter_link(attribute_value, options = {})
 
     attribute_value_text = attribute_value.value
 
     link_text = attribute_value_text
     link_text += "<span class=\"badge pull-right\">#{options[:count].to_s}</span>" if options[:count]
 
-    link_to link_text.html_safe, store_browse_path(attributes_link_params(attribute_value))
+    link_to link_text.html_safe, store_browse_path(attributes_link_params(attribute_value)), options
   end
 
   def attribute_filter_active?(attribute_value)
@@ -52,7 +52,7 @@ module StoreHelper
     link_text = brand.name
     link_text += "<span class=\"badge pull-right\">#{options[:count].to_s}</span>" if options[:count]
 
-    link_to link_text.html_safe, store_browse_path(link_params)
+    link_to link_text.html_safe, store_browse_path(link_params), options
   end
 
   def brand_filter_active?(brand)

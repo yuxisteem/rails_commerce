@@ -23,3 +23,16 @@
 #product-images-list {
 	margin-top: 25px;
 }
+
+ul.attributes-list {
+  list-style: none;
+}
+
+ul.attributes-list li {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+a.filter-link-active {
+  font-weight: bold;
+}
