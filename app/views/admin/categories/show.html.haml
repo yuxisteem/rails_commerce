@@ -17,7 +17,6 @@
       %ul#sortable.list-group
         - @category.product_attributes.each do |attribute|
           %li.list-group-item
-            %i{class: 'ui-icon ui-icon-arrowthick-2-n-s'}
             = attribute.name
             - if attribute.filterable?
               %em (filterable)
