@@ -13,44 +13,40 @@
             = link_to '<i class="glyphicon glyphicon-chevron-right"></i>'.html_safe, admin_order_path(@order.next), class: 'btn btn-default'
         - unless @order.canceled?
           .btn-group
-            = link_to 'Ready to ship',                                         |
-              admin_order_shipment_event_path(id: @order.id, event: :prepare), |
-              method: :post,                                                   |
-              class: 'btn btn-default' if @order.shipment.can_prepare?         |
-            -#
-            = link_to 'Ship order',                                         |
-              admin_order_shipment_event_path(id: @order.id, event: :ship), |
-              method: :post,                                                |
-              class: 'btn btn-default' if @order.shipment.can_ship?         |
-            -#
-            = link_to 'Return shipment',                                      |
-              admin_order_shipment_event_path(id: @order.id, event: :return), |
-              method: :post,                                                  |
-              data: {confirm: t('admin.confirm')},                            |
-              class: 'btn btn-default' if @order.shipment.can_return?         |
+            = link_to 'Ready to ship',                                         
+              admin_order_shipment_event_path(id: @order.id, event: :prepare), 
+              method: :post,                                                   
+              class: 'btn btn-default' if @order.shipment.can_prepare?         
+            = link_to 'Ship order',                                         
+              admin_order_shipment_event_path(id: @order.id, event: :ship), 
+              method: :post,                                                
+              class: 'btn btn-default' if @order.shipment.can_ship?         
+            = link_to 'Return shipment',                                      
+              admin_order_shipment_event_path(id: @order.id, event: :return), 
+              method: :post,                                                  
+              data: {confirm: t('admin.confirm')},                            
+              class: 'btn btn-default' if @order.shipment.can_return?         
           .btn-group
-            = link_to 'Mark as paid',                                     |
-              admin_order_invoice_event_path(id: @order.id, event: :pay), |
-              method: :post,                                              |
-              class: 'btn btn-default' if @order.invoice.can_pay?         |
-            -#
-            = link_to 'Refund payment',                                      |
-              admin_order_invoice_event_path(id: @order.id, event: :refund), |
-              method: :post,                                                 |
-              data: {confirm: t('admin.confirm')},                           |
-              class: 'btn btn-default' if @order.invoice.can_refund?         |
+            = link_to 'Mark as paid',                                     
+              admin_order_invoice_event_path(id: @order.id, event: :pay), 
+              method: :post,                                              
+              class: 'btn btn-default' if @order.invoice.can_pay?         
+            = link_to 'Refund payment',                                      
+              admin_order_invoice_event_path(id: @order.id, event: :refund), 
+              method: :post,                                                 
+              data: {confirm: t('admin.confirm')},                           
+              class: 'btn btn-default' if @order.invoice.can_refund?         
         .btn-group.pull-right
-          = link_to 'Cancel',                                      |
-            admin_order_event_path(id: @order.id, event: :cancel), |
-            method: :post,                                         |
-            data: {confirm: t('admin.confirm')},                   |
-            class: 'btn btn-default' if @order.can_cancel?         |
-          -#
-          = link_to 'Resume',                                      |
-            admin_order_event_path(id: @order.id, event: :resume), |
-            method: :post,                                         |
-            data: {confirm: t('admin.confirm')},                   |
-            class: 'btn btn-default' if @order.can_resume?         |
+          = link_to 'Cancel',                                      
+            admin_order_event_path(id: @order.id, event: :cancel), 
+            method: :post,                                         
+            data: {confirm: t('admin.confirm')},                   
+            class: 'btn btn-default' if @order.can_cancel?         
+          = link_to 'Resume',                                      
+            admin_order_event_path(id: @order.id, event: :resume), 
+            method: :post,                                         
+            data: {confirm: t('admin.confirm')},                   
+            class: 'btn btn-default' if @order.can_resume?         
       .panel-body
         .order-items
           .order-details
@@ -77,6 +73,7 @@
             %tbody
               - @order.order_items.each do |item|
                 %tr
+                  - puts item.inspect
                   %td= link_to item.product.name, admin_product_path(id: item.product_id)
                   %td
                     = number_to_currency item.price
@@ -110,7 +107,6 @@
     .panel.panel-default
       .panel-heading
         %span.panel-title Shipping address
-        = link_to t('admin.edit'), '#'
       .panel-body
         %dl
           %dt Name
@@ -122,5 +118,4 @@
           %dt Address
           %dd
             = @order.address.city
-            %br/
-            = @order.address.street
+            %br= @order.address.street

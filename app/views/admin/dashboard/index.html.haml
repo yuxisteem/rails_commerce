@@ -3,6 +3,19 @@
   .col-md-4
     .panel.panel-default
       .panel-heading
+        %h3.panel-title Recent orders
+      .panel-body
+        - @orders.each do |order|
+          %li
+            %span.text-muted= time_tag order.created_at
+            %p
+              = link_to "Order ##{order.id}", admin_order_path(order)
+              = number_to_currency order.total_price
+              = label_span order.shipment.human_state_name if order.shipment
+              = label_span order.invoice.human_state_name if order.shipment
+  .col-md-4
+    .panel.panel-default
+      .panel-heading
         %h3.panel-title Recent updates
       .panel-body
         - @updates.each do |update|
@@ -14,16 +27,3 @@
                 %strong= update.attribute_name
                 = label_span update.to_name
               = update.note unless update.note.blank?
-  .col-md-4
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title Recent orders
-      .panel-body
-        - @orders.each do |order|
-          %li
-            %span.text-muted= time_tag order.created_at
-            %p
-              = link_to "Order ##{order.id}", admin_order_path(order)
-              = number_to_currency order.total_price
-              = label_span order.shipment.human_state_name if order.shipment
-              = label_span order.invoice.human_state_name if order.shipment

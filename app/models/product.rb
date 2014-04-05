@@ -51,7 +51,7 @@ class Product < ActiveRecord::Base
 
   def clone
     product = self.dup
-    product.active = false
+    product.active = false # Product should be inactive by default
     product.product_attribute_values = self.product_attribute_values.map(&:dup)
     product
   end
