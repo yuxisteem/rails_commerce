@@ -19,9 +19,11 @@ class OrderPresenter
   end
 
   def address=(address)
-    self.city = address.city
-    self.street = address.street
-    self.phone = address.phone
+    if address
+      self.city = address.city
+      self.street = address.street
+      self.phone = address.phone
+    end
   end
 
   def update(attributes_hash = {})
