@@ -1,3 +1,8 @@
+- provide(:title, t('admin.orders'))
+%h2
+  = t('admin.orders')
+  (#{@orders.count})
+
 %table.table.table-hover
   %thead
     %tr

@@ -49,6 +49,7 @@
     text-decoration: none;
 }
 
+.sidebar-nav li a.active,
 .sidebar-nav li a:hover,
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus{

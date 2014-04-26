@@ -20,7 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  common:    
+  common:
     toggle_menu: "Show menu"
     toggle_categories: "Show categories"
     name: "Name"
@@ -43,10 +43,11 @@ en:
     internal_server_error_message: 'Ooops... something went wrong'
   admin:
     id: Id
-    email: Email 
+    email: Email
     full_name: "Full name"
     register_date: "Register date"
     orders_total: "Orders total"
+    orders_list: "Orders list"
     edit_category: "Edit category"
     category_deleted: "Category deleted"
     create_new: "Create new"
@@ -91,6 +92,7 @@ en:
     add_product_attribute: "Add attribute"
     users: Users
     user_updated: "User updated"
+    users_list: "Users list"
   uploader:
     upload_file: "Upload file"
   store:

@@ -1,6 +1,6 @@
-- provide(:title, t('admin.categories_list'))
+- provide(:title, t('admin.categories'))
 %h2
-  = t('admin.categories_list')
+  = t('admin.categories')
   (#{@categories.count})  #{link_to t('admin.create_new'), new_admin_category_path, class: 'btn btn-primary'}
 %table.table.table-hover
   %thead
