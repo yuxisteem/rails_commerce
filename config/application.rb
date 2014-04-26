@@ -21,9 +21,10 @@ module Ecomm
     # config.i18n.default_locale = :en
 
     Resque::Mailer.excluded_environments = [:test, :development]
-    
-    config.i18n.locale = :en
-    config.i18n.enforce_available_locales = true
+
+    # config.i18n.enforce_available_locales = true
+    # config.i18n.default_locale = :ru
+
     config.autoload_paths += Dir["#{config.root}/lib/"]
 
     config.assets.initialize_on_precompile = false
