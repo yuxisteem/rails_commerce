@@ -2,10 +2,10 @@
   %ul.sidebar-nav
     %li.sidebar-brand= link_to t('admin.admin_panel'), admin_path
     %li
-      = nav_link_to "<span class=\"glyphicon glyphicon-inbox\"></span>                    |
-        Orders  #{badge_span(unfulfilled_orders_count)}".html_safe, admin_orders_path |
-    %li= nav_link_to "<span class=\"glyphicon glyphicon-th-large\"></span>  Products".html_safe, admin_products_path
-    %li= nav_link_to "<span class=\"glyphicon glyphicon-tasks\"></span>  Categories".html_safe, admin_categories_path
-    %li= nav_link_to "<span class=\"glyphicon glyphicon-tags\"></span>  Brands".html_safe, admin_brands_path
-    %li= nav_link_to "<span class=\"glyphicon glyphicon-user\"></span>  Customers".html_safe, admin_users_path
+      = nav_link_to "<span class=\"glyphicon glyphicon-inbox\"></span> |
+        Orders  #{badge_span(unfulfilled_orders_count)}".html_safe, admin_orders_path, inclusive: true |
+    %li= nav_link_to "<span class=\"glyphicon glyphicon-th-large\"></span>  Products".html_safe, admin_products_path, inclusive: true
+    %li= nav_link_to "<span class=\"glyphicon glyphicon-tasks\"></span>  Categories".html_safe, admin_categories_path, inclusive: true
+    %li= nav_link_to "<span class=\"glyphicon glyphicon-tags\"></span>  Brands".html_safe, admin_brands_path, inclusive: true
+    %li= nav_link_to "<span class=\"glyphicon glyphicon-user\"></span>  Customers".html_safe, admin_users_path, inclusive: true
     %li= nav_link_to "Open store <span class=\"glyphicon glyphicon-new-window\"></span>".html_safe, store_index_path, target:'_blank'
