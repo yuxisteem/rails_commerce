@@ -31,10 +31,10 @@
       %table.table.table-hover
         %thead
           %tr
-            %th Name
-            %th Price
-            %th Quantity
-            %th Total
+            %th= t('common.name')
+            %th= t('common.price')
+            %th= t('common.quantity')
+            %th= t('common.total')
         %tbody
           - @cart.cart_items.each do |cart_item|
             %tr

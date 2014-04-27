@@ -17,13 +17,13 @@ module Ecomm
     # config.time_zone = 'Central Time (US & Canada)'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :en
+    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+
+    config.i18n.default_locale = :ru
+    config.i18n.enforce_available_locales = true
 
     Resque::Mailer.excluded_environments = [:test, :development]
-    
-    config.i18n.locale = :en
-    config.i18n.enforce_available_locales = true
+
     config.autoload_paths += Dir["#{config.root}/lib/"]
 
     config.assets.initialize_on_precompile = false

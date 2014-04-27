@@ -33,7 +33,7 @@
                   remote: true,                                                 |
                   class: 'btn btn-xs btn-default'                               |
               %td= number_to_currency(item.product.price * item.quantity)
-              %td= link_to "Remove", cart_item_path(item), remote: true, method: :delete, class: 'btn btn-danger btn-xs'
+              %td= link_to t('store.remove_from_cart_button'), cart_item_path(item), remote: true, method: :delete, class: 'btn btn-danger btn-xs'
           %tr
             %td= t('common.total')
             %td
@@ -41,6 +41,7 @@
             %td
             %td= number_to_currency @cart.total_price
 .modal-footer
-  %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Continue shopping
+  %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}
+    = t('store.continue_shopping_button')
   - unless @cart.empty?
-    = link_to t('store.checkout'), new_order_path, class: 'btn btn-success'
+    = link_to t('store.checkout_button'), new_order_path, class: 'btn btn-success'
