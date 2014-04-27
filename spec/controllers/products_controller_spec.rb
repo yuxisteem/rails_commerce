@@ -5,23 +5,21 @@ describe ProductsController do
 
   describe "GET show" do
 
-    it "should return categories page" do
-      get :show, {id: product.id}
+    it "should return categories page by SEO url" do
+      get :show, {id: product.id, seo_name: product.seo_name}
       expect(response).to be_success
       expect(assigns(:product)).to eq(product)
     end
 
-    pending "to be implemented" do
-      it "should load category page by SEO url"  do
-        get :show, {id: product.seo_name}
-      end
+    it "should redirect to SEO url if it exists" do
+      get :show, {id: product.id}
+      expect(response).to be_redirect
+      expect(assigns(:product)).to eq(product)
+    end
 
-      it "should redirect to SEO url if it exists" do
-        get :show, {id: product.id}
-      end
-
-      it "should return 404 if SEO url doesnt exist" do
-        get :show, {id: 'invalid-seo-url'}
+    it "should return 404 if SEO url doesnt exist" do
+      assert_raises(ActiveRecord::RecordNotFound) do
+        get :show, {id: product.id, seo_name: 'invalid_seo_name'}
       end
     end
 

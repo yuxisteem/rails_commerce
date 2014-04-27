@@ -3,7 +3,12 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.where(active: true).includes(:category).find(params[:id])
-    add_breadcrumb @product.category.name, category_path(@product.category)
+    if params[:seo_name].nil?
+      redirect_to category_seo_path(@product, @product.seo_name)
+    elsif params[:seo_name] != @product.seo_name
+      raise ActiveRecord::RecordNotFound
+    end
+    add_breadcrumb @product.category.name, category_seo_path(@product.category, @product.category.seo_name)
     add_breadcrumb @product.name
   end
 

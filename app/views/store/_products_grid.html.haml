@@ -3,7 +3,7 @@
     - row.each do |p|
       .col-md-4
         .thumbnail
-          %a{:href => product_path(p)}
+          %a{:href => product_seo_path(p, p.seo_name)}
             = if p.images.any? then image_tag p.images.first.image.url(:medium), class: 'media-object', alt: p.name  else holder_tag '300x200' end
           .caption
             %h3= p.name

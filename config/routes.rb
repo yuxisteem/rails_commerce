@@ -1,13 +1,15 @@
 Ecomm::Application.routes.draw do
-
   get "/404" => 'errors#not_found'
   get "/500" => 'errors#internal_server_error'
 
-  resources :categories, only: [:show]
+  get "/products/:id/:seo_name" => 'products#show', as: :product_seo
   resources :products, only: [:show]
 
+  get "/categories/:id/:seo_name" => 'categories#show', as: :category_seo
+  resources :categories, only: [:show]
+
   #Checkout controller
-  resources  :orders,     only: [:new, :create, :show, :update, :destroy]
+  resources  :orders, only: [:new, :create, :show, :update, :destroy]
 
   #Cart controller
   resources :cart_items, only: [:index, :create, :update, :destroy]
@@ -17,9 +19,7 @@ Ecomm::Application.routes.draw do
 
   #main namespace
   get '/store/index'
-  get '/store/browse/:id' => 'store#browse', as: :store_browse
-  get '/store/show/:id' => 'store#show', as: :store_show
-  get '/store/search/' => 'store#search', as: :store_search
+  get '/store/search' => 'store#search', as: :store_search
 
   #Static pages
   get '/shipping' => 'static_pages#shipping'
@@ -37,6 +37,7 @@ Ecomm::Application.routes.draw do
     resources :orders do
       resources :order_histories
     end
+
     post '/orders/:id/shipment_event/:event' => 'orders#shipment_event', as: :order_shipment_event
     post '/orders/:id/invoice_event/:event' => 'orders#invoice_event', as: :order_invoice_event
     post '/orders/:id/order_event/:event' => 'orders#order_event', as: :order_event
@@ -44,7 +45,7 @@ Ecomm::Application.routes.draw do
     resources :images, only: [:index, :new, :create, :show, :destroy]
     resources :brands
     resources :categories do
-      resources :product_attributes, only: [:create, :update, :destroy] 
+      resources :product_attributes, only: [:create, :update, :destroy]
     end
 
     resources :products, only: [:index, :new, :create, :show, :update, :destroy] do

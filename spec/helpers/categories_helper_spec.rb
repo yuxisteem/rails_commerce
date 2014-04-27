@@ -1,8 +1,13 @@
 require 'spec_helper'
 
 describe CategoriesHelper do
+
   let(:attribute) { create(:product_attribute_value) }
   let(:brand) { create(:brand) }
+
+  before(:each) do
+    controller.params[:seo_name] = 'mock_seo_name'
+  end
 
   describe "#available_categories" do
     it "should provide all categories list" do

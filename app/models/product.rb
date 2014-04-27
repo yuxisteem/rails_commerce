@@ -13,6 +13,8 @@
 #  updated_at  :datetime
 #
 
+require 'transliteration'
+
 class Product < ActiveRecord::Base
   belongs_to :category
   belongs_to :brand
@@ -54,6 +56,10 @@ class Product < ActiveRecord::Base
     product.active = false # Product should be inactive by default
     product.product_attribute_values = self.product_attribute_values.map(&:dup)
     product
+  end
+
+  def seo_name
+    Transliteration::transliterate(name).parameterize
   end
 
   private

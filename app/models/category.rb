@@ -21,4 +21,8 @@ def filters_enabled?
   attribute_filter_enabled || brand_filter_enabled
 end
 
+def seo_name
+  Transliteration::transliterate(name).parameterize
+end
+
 end
