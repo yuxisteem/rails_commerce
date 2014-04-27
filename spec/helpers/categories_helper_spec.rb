@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe StoreHelper do
+describe CategoriesHelper do
   let(:attribute) { create(:product_attribute_value) }
   let(:brand) { create(:brand) }
 
   describe "#available_categories" do
-    it "should provide all categories list" do 
+    it "should provide all categories list" do
       expect(helper.available_categories).to eq(Category.all)
     end
   end

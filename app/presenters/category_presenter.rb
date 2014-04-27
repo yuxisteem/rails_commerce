@@ -1,4 +1,4 @@
-class StoreBrowsePresenter
+class CategoryPresenter
 	attr_accessor :products, :category, :product_attributes, :params, :brands
 
 	def initialize(options = {})
@@ -13,9 +13,9 @@ class StoreBrowsePresenter
 		@products =  Product.all
 		if @product_attributes.any?
 			@product_attributes.each do |key, value|
-				
+
 				attr_values_sql = value.map {|attr_value| "attr_#{key}.value = #{ActiveRecord::Base.sanitize(attr_value)}"}.join(' OR ')
-				
+
 				join_sql = %{
 					INNER JOIN product_attribute_values attr_#{key} 
 					ON attr_#{key}.product_id = products.id
@@ -38,7 +38,7 @@ class StoreBrowsePresenter
 		@category = Category.find(category_id)
 		# @brands = Brand.where(id: @products.map(&:brand_id).uniq)
 		@brands = Brand.joins("INNER JOIN products ON products.brand_id = brands.id AND products.category_id = #{ActiveRecord::Base.sanitize(category_id)}")
-		
+
 		@product_attributes = ProductAttribute.where(category_id: category_id, filterable: true).includes(:product_attribute_values)
 	end
 end

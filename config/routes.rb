@@ -2,7 +2,9 @@ Ecomm::Application.routes.draw do
 
   get "/404" => 'errors#not_found'
   get "/500" => 'errors#internal_server_error'
-  
+
+  resources :categories, only: [:show]
+  resources :products, only: [:show]
 
   #Checkout controller
   resources  :orders,     only: [:new, :create, :show, :update, :destroy]
@@ -44,7 +46,7 @@ Ecomm::Application.routes.draw do
     resources :categories do
       resources :product_attributes, only: [:create, :update, :destroy] 
     end
-    
+
     resources :products, only: [:index, :new, :create, :show, :update, :destroy] do
       resources :images, only: [:create, :destroy, :show]
     end
