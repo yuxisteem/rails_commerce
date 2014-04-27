@@ -10,7 +10,7 @@ class CategoryPresenter
 		@brand_ids = params[:brands] || []
 
 
-		@products =  Product.all
+		@products =  Product.where(active: true)
 		if @product_attributes.any?
 			@product_attributes.each do |key, value|
 
