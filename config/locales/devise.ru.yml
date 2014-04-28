@@ -20,8 +20,8 @@ ru:
         change_my_password: Изменить пароль
         resend_confirmation: Отправить подтверждение еще раз
       label:
-        new_password: Подвердите новый пароль
-        confirm_new_password: Новый пароль
+        confirm_new_password: Подвердите новый пароль
+        new_password: Новый пароль
     confirmations:
       waiting_for_confirmation: Ожидается подтверждение
       confirmed: Ваша учётная запись подтверждена.

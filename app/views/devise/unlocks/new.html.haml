@@ -5,5 +5,5 @@
     = f.label :email
     %br/
     = f.email_field :email, :autofocus => true
-  %div= f.submit "Resend unlock instructions"
+  %div= f.submit t('devise.forms.links.resend_unlock')
 = render "devise/shared/links"

@@ -6,11 +6,11 @@
         = render 'layouts/validation_errors', :model => resource
         = f.hidden_field :reset_password_token
         .form-group
-          = f.label :password, "New password"
+          = f.label :password, t('devise.forms.label.new_password')
           = f.password_field :password, :autofocus => true, :class => 'form-control'
         .form-group
-          = f.label :password_confirmation, "Confirm new password"
+          = f.label :password_confirmation, t('devise.forms.label.confirm_new_password')
           = f.password_field :password_confirmation, :class => 'form-control'
         .form-group
-          = f.submit "Change my password", :class => 'btn btn-primary'
+          = f.submit t('devise.forms.submit.change_my_password'), :class => 'btn btn-primary'
       = render "devise/shared/links"

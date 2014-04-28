@@ -23,5 +23,5 @@
           %i ( #{t('devise.passwords.current_password_confirm_instructions')} )
           = f.password_field :current_password, :class => 'form-control'
         .form-group
-          = f.submit "Update", :class => 'btn btn-primary'
-      = link_to "Back", :back
+          = f.submit t('devise.forms.submit.update'), :class => 'btn btn-primary'
+      = link_to t('devise.forms.submit.back'), :back

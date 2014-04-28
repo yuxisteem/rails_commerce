@@ -17,5 +17,5 @@
           %br/
           = f.password_field :password_confirmation, :class => 'form-control'
         .form-group
-          = f.submit "Sign up", :class => 'btn btn-primary'
+          = f.submit t('devise.forms.submit.sign_up'), :class => 'btn btn-primary'
       = render "devise/shared/links"

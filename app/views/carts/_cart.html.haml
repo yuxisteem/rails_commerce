@@ -1,7 +1,7 @@
 .modal-header
   %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
   %h3#cart-modal-title.modal-title
-    Your cart (#{@cart.cart_items.count})
+    #{t('store.your_cart_label')} (#{@cart.cart_items.count})
 .modal-body
   #cart-items
     - if @cart.empty?
