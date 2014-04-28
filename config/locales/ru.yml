@@ -362,5 +362,15 @@ ru:
     errors:
       <<: *errors
   activerecord:
+    attributes:
+      user:
+        first_name: Имя
+        last_name: Фамилия
+        phone: Телефон
+        email: Email
+        password: Пароль
+        password_confirmation: Подтвердите пароль
+        current_password: Текущий пароль
+        remember_me: Запомнить меня
     errors:
       <<: *errors

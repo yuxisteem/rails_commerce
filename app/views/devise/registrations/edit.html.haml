@@ -10,17 +10,17 @@
           = f.email_field :email, :autofocus => true, :class => 'form-control'
         - if devise_mapping.confirmable? && resource.pending_reconfirmation?
           .form-group
-            Currently waiting confirmation for: #{resource.unconfirmed_email}
+            #{t('devise.confirmations.waiting_for_confirmation')}: #{resource.unconfirmed_email}
         .form-group
           = f.label :password
-          %i (leave blank if you don't want to change it)
+          %i ( #{t('devise.passwords.leave_blank_instructions')} )
           = f.password_field :password, :autocomplete => "off", :class => 'form-control'
         .form-group
           = f.label :password_confirmation
           = f.password_field :password_confirmation, :class => 'form-control'
         .form-group
           = f.label :current_password
-          %i (we need your current password to confirm your changes)
+          %i ( #{t('devise.passwords.current_password_confirm_instructions')} )
           = f.password_field :current_password, :class => 'form-control'
         .form-group
           = f.submit "Update", :class => 'btn btn-primary'

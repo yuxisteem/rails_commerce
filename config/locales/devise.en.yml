@@ -2,20 +2,42 @@
 
 en:
   devise:
+    forms:
+      links:
+        sign_in: Sign in
+        sign_up: Sign up
+        forgot_password: Forgot your password?
+        didnt_receive_confirmation: Didn't receive confirmation instructions?
+        didnt_receive_unlock: Didn't receive unlock instructions?
+        sign_in_with: Sign in with
+      submit:
+        resend_unlock: Resend unlock instructions
+        sign_in: Sign in
+        sign_up: Sign up
+        update: Update
+        back: Back
+        send_reset_password: Send me reset password instructions
+        change_my_password: Change my password
+        resend_confirmation: Resend confirmation instructions
+      label:
+        confirm_new_password: Confirm new password
+        new_password: New password
     confirmations:
+      waiting_for_confirmation: Currently waiting confirmation
       confirmed: "Your account was successfully confirmed."
       send_instructions: "You will receive an email with instructions about how to confirm your account in a few minutes."
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes."
     failure:
-      already_authenticated: "You are already signed in."
-      inactive: "Your account is not activated yet."
-      invalid: "Invalid email or password."
-      locked: "Your account is locked."
-      last_attempt: "You have one more attempt before your account will be locked."
-      not_found_in_database: "Invalid email or password."
-      timeout: "Your session expired. Please sign in again to continue."
-      unauthenticated: "You need to sign in or sign up before continuing."
-      unconfirmed: "You have to confirm your account before continuing."
+      user:
+        already_authenticated: "You are already signed in."
+        inactive: "Your account is not activated yet."
+        invalid: "Invalid email or password."
+        locked: "Your account is locked."
+        last_attempt: "You have one more attempt before your account will be locked."
+        not_found_in_database: "Invalid email or password."
+        timeout: "Your session expired. Please sign in again to continue."
+        unauthenticated: "You need to sign in or sign up before continuing."
+        unconfirmed: "You have to confirm your account before continuing."
     mailer:
       confirmation_instructions:
         subject: "Confirmation instructions"
@@ -27,6 +49,8 @@ en:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."
     passwords:
+      leave_blank_instructions: leave blank if you don't want to change it
+      current_password_confirm_instructions: we need your current password to confirm your changes
       no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."
       send_instructions: "You will receive an email with instructions about how to reset your password in a few minutes."
       send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
@@ -41,8 +65,9 @@ en:
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
       updated: "You updated your account successfully."
     sessions:
-      signed_in: "Signed in successfully."
-      signed_out: "Signed out successfully."
+      user:
+        signed_in: "Signed in successfully."
+        signed_out: "Signed out successfully."
     unlocks:
       send_instructions: "You will receive an email with instructions about how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions about how to unlock it in a few minutes."
