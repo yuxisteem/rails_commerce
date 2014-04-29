@@ -3,6 +3,14 @@
 en:
   devise:
     forms:
+      heading:
+        resend_unlock: Resend unlock instructions
+        sign_in: Sign in
+        change_password: Change password
+        edit: Edit
+        forgot_password: Forgot your password?
+        change_your_password: Change your password
+        didnt_receive_confirmation: Didn't receive confirmation instructions?
       links:
         sign_in: Sign in
         sign_up: Sign up

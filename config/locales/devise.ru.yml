@@ -3,6 +3,14 @@
 ru:
   devise:
     forms:
+      heading:
+        resend_unlock: Отправить еще раз иснтрукцию по разблокировке
+        sign_in: Войти
+        change_password: Изменить пароль
+        edit_profile: Редактировать профиль
+        forgot_password: Забыли пароль?
+        change_your_password: Изменить пароль
+        didnt_receive_confirmation: Не получили инструкции по подтверждению?
       links:
         sign_in: Войти
         sign_up: Зарегистрироваться
