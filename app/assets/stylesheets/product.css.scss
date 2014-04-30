@@ -1,3 +1,31 @@
 // Place all the styles related to the Product controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.product-label {
+  position: absolute;
+  left: 15px;
+  top: 0px;
+  overflow: hidden;
+  height: 85px;
+  width: 85px;
+  text-align: center;
+  z-index: 0;
+
+  width: 85px;
+  height: 85px;
+}
+
+.new-label {
+  background: #6ad4ff;
+  position: absolute;
+  left: -20px;
+  top: 20px;
+  width: 100px;
+  color: white;
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.24);
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  -webkit-transform: rotate(-45deg);
+}

@@ -1,8 +1,10 @@
 class StoreController < ApplicationController
   before_action :set_breadcrumb
 
+  ITEMS_PER_PAGE = 15
+
   def index
-    @products = Product.where(active: true).includes(:images).paginate(page: params[:page])
+    @products = Product.where(active: true).includes(:images).paginate(page: params[:page], per_page: ITEMS_PER_PAGE)
   end
 
   def search
