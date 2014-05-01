@@ -16,7 +16,7 @@ ru:
     shipping_and_payment: "Доставка и оплата"
     store_name: "Rails Commerce"
     profile: "Профиль"
-    form_validation_error_message: "There was an error with your submission:"
+    form_validation_error_message: "Возникли ошибки:"
     submit: "Отправить"
     not_found_message: 'Sorry, but you are looking for something that isn`t here'
     internal_server_error_message: 'Ooops... something went wrong'
@@ -215,6 +215,14 @@ ru:
       second: Секунд
       year: Год
   errors: &errors
+    attributes:
+      first_name: Имя
+      last_name: Фамилия
+      email: Email
+      phone: Телефон
+      street: Улица
+      city: Город
+      note: Примечание
     format: ! '%{attribute} %{message}'
     messages:
       accepted: нужно подтвердить
@@ -264,18 +272,6 @@ ru:
       create: Создать %{model}
       submit: Сохранить %{model}
       update: Сохранить %{model}
-    label:
-      order_presenter:
-        first_name: Имя
-        last_name: Фамилия
-        email: Email
-        phone: Телефон
-        street: Улица
-        city: Город
-        note: Примечание
-      product:
-        name: 'Имя'
-        description: 'Описание'
   number:
     currency:
       format:
@@ -359,10 +355,27 @@ ru:
     pm: вечера
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:
+    attributes:
+      order_presenter:
+        first_name: Имя
+        last_name: Фамилия
+        email: Email
+        phone: Телефон
+        street: Улица
+        city: Город
+        note: Примечание
     errors:
       <<: *errors
   activerecord:
     attributes:
+      order_presenter:
+        first_name: Имя
+        last_name: Фамилия
+        email: Email
+        phone: Телефон
+        street: Улица
+        city: Город
+        note: Примечание
       user:
         first_name: Имя
         last_name: Фамилия
@@ -372,5 +385,7 @@ ru:
         password_confirmation: Подтвердите пароль
         current_password: Текущий пароль
         remember_me: Запомнить меня
-    errors:
+      product:
+        name: Имя
+        description: Описание
       <<: *errors

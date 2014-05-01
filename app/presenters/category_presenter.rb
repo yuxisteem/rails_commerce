@@ -1,4 +1,6 @@
 class CategoryPresenter
+	include ActiveModel::Translation
+
 	attr_accessor :products, :category, :product_attributes, :params, :brands
 
 	def initialize(options = {})
