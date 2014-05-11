@@ -33,7 +33,7 @@ FactoryGirl.define do
     last_name  "Doe"
     admin false
   end
-  
+
   factory :admin, class: User do
     email "admin@example.com"
     password '12345'

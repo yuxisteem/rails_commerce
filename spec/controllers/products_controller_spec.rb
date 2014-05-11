@@ -23,5 +23,13 @@ describe ProductsController do
       end
     end
 
+    it "should return 404 if product is not active" do
+      product.active = false
+      product.save
+      assert_raises(ActiveRecord::RecordNotFound) do
+        get :show, {id: product.id, seo_name: 'invalid_seo_name'}
+      end
+    end
+
   end
 end

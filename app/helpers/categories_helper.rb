@@ -46,7 +46,11 @@ module CategoriesHelper
       brands_ids << selected_brand_id.to_s
     end
 
-    link_params[BRANDS_FILTER_KEY] = brands_ids
+    if brands_ids.any?
+      link_params[BRANDS_FILTER_KEY] = brands_ids
+    else
+      link_params.delete(BRANDS_FILTER_KEY)
+    end
 
     link_text = brand.name
     link_text += "<span class=\"badge pull-right\">#{options[:count].to_s}</span>" if options[:count]
@@ -80,7 +84,11 @@ module CategoriesHelper
     end
 
     if link_params[ATTRIBUTES_FILTER_KEY]
-      link_params[ATTRIBUTES_FILTER_KEY] = link_params[ATTRIBUTES_FILTER_KEY].merge({attribute_id => attribute_params})
+      if attribute_params.any?
+        link_params[ATTRIBUTES_FILTER_KEY] = link_params[ATTRIBUTES_FILTER_KEY].merge({attribute_id => attribute_params})
+      else
+        link_params.delete(ATTRIBUTES_FILTER_KEY)
+      end
     else
       link_params[ATTRIBUTES_FILTER_KEY] = {attribute_id => attribute_params}
     end

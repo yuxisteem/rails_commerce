@@ -16,5 +16,7 @@
 
 FactoryGirl.define do
   factory :shipment do
+    order
+    address
   end
 end

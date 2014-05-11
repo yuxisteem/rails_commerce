@@ -15,5 +15,7 @@
 FactoryGirl.define do
   factory :product_attribute do
     name Faker::Lorem::word
+    filterable true
+    category
   end
 end

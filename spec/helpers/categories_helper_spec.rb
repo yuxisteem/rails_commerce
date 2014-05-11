@@ -35,10 +35,11 @@ describe CategoriesHelper do
       link.should include(2.to_s)
     end
 
-    it "should remove filter for attribute if filter enabled" do
+    it "should remove filter for attribute if filter is already active" do
       params[:id] = 999
       params[:q]  = {attribute.product_attribute.id.to_s => [attribute.value]}
       link = helper.attribute_filter_link(attribute)
+      link.should_not include(attribute.product_attribute.id.to_s)
       link.should_not include("=#{attribute.value}")
     end
   end
@@ -67,11 +68,12 @@ describe CategoriesHelper do
       link.should include(brand.id.to_s)
     end
 
-    it "should remove filter for brand if filter is enabled" do
+    it "should remove filter for brand if filter is already active" do
       params[:id] = 999
       params[:brands]  = [brand.id.to_s]
       link = helper.brand_filter_link(brand)
       link.should_not include(brand.id.to_s)
+      link.should_not include('brand')
     end
   end
 

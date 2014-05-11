@@ -84,9 +84,8 @@ class Order < ActiveRecord::Base
   end
 
   def update_state
-    complete if self.invoice.paid? && self.shipment.shipped?
-    put_in_progress if (!self.invoice.paid? || !self.shipment.shipped?) && completed?
-    self.save
+    complete! if self.invoice.paid? && self.shipment.shipped?
+    put_in_progress! if (!self.invoice.paid? || !self.shipment.shipped?) && completed?
   end
 
   def generate_shippment
