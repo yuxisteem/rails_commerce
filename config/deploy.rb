@@ -1,5 +1,5 @@
-# config valid only for Capistrano 3.1
-lock '3.1.0'
+# config valid only for Capistrano 3.2.1
+lock '3.2.1'
 
 set :application, 'ecomm'
 
@@ -48,7 +48,7 @@ namespace :deploy do
 
   task :restart do
     on roles(:app), in: :parallel do
-      execute "#{unicorn_restart_cmd}"            
+      execute "#{unicorn_restart_cmd}"
     end
   end
 
