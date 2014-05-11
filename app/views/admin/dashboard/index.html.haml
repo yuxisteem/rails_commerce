@@ -11,8 +11,8 @@
             %p
               = link_to "Order ##{order.id}", admin_order_path(order)
               = number_to_currency order.total_price
-              = label_span order.shipment.human_state_name if order.shipment
-              = label_span order.invoice.human_state_name if order.shipment
+              = label_span order.shipment.aasm.human_state if order.shipment
+              = label_span order.invoice.aasm.human_state if order.invoice
   .col-md-4
     .panel.panel-default
       .panel-heading

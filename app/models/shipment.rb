@@ -13,31 +13,30 @@
 #
 
 class Shipment < ActiveRecord::Base
+
+  include AASM
+
   belongs_to    :order, touch: true
   belongs_to    :address
 
   SHIPPING_METHODS = %w(nova_poshta, self_pickup)
 
-  state_machine :initial => :pending do
-    state :pending,       value: 0
-    state :ready_to_ship, value: 1
-    state :shipped,       value: 2
-    state :returned,      value: 3
-
-    after_transition do |shipment, transition|
-      OrderHistory.log_transition(transition)
-    end
+  aasm do
+    state :pending, initial: true
+    state :ready_to_ship
+    state :shipped
+    state :returned
 
     event :prepare do
-      transition [:pending, :returned] => :ready_to_ship
+      transitions from: [:pending, :returned], to: :ready_to_ship, on_transition: :log_transition
     end
 
     event :ship do
-      transition :ready_to_ship => :shipped
+      transitions from: :ready_to_ship, to: :shipped, on_transition: :log_transition
     end
 
     event :return do
-      transition :shipped => :returned
+      transitions from: :shipped, to: :returned, on_transition: :log_transition
     end
   end
 
@@ -45,4 +44,9 @@ class Shipment < ActiveRecord::Base
     SHIPPING_METHODS[:shipping_method_id]
   end
 
+  private
+
+  def log_transition
+    OrderHistory.log_transition(order_id, self.class.name, aasm.from_state, aasm.to_state)
+  end
 end

@@ -16,12 +16,10 @@ class OrderHistory < ActiveRecord::Base
   belongs_to :order
   belongs_to :user
 
-  def self.log_transition(transition)
-    object = transition.object
-    #Transition object could be Order itself or it's related object (e.g. shipment, invoice...)
-    OrderHistory.create(order_id: object.try(:order_id) || object.id,
-                        attribute_name: object.class.name,
-                        from_name: transition.human_from_name,
-                        to_name: transition.human_to_name)
+  def self.log_transition(order_id, name, from_state, to_state)
+    OrderHistory.create(order_id: order_id,
+                        attribute_name: name,
+                        from_name: from_state,
+                        to_name: to_state)
   end
 end

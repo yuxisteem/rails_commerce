@@ -12,11 +12,10 @@
 #  updated_at :datetime
 #
 
-
-
-
-
 class Order < ActiveRecord::Base
+
+  include AASM
+
   before_create :generate_shippment, :generate_invoice, :generate_code
   after_touch  :update_state
   belongs_to  :user
@@ -27,33 +26,31 @@ class Order < ActiveRecord::Base
   has_many    :order_histories, dependent: :destroy
   acts_as_taggable
 
-  state_machine :state, :initial => :in_progress do
-    state :in_progress, value: 0
-    state :completed,   value: 1
-    state :canceled,    value: 2
-
-    # after_transition to: [:canceled, :in_progress] do |order, transition|
-    #   OrderHistory.log_transition(transition)
-    # end
+  aasm do
+    state :in_progress, initial: true
+    state :completed
+    state :canceled
 
     event :complete do
-      transition :in_progress => :completed
+      transitions from: :in_progress, to: :completed, on_transition: :log_transition
     end
 
     event :cancel do
-      transition [:in_progress, :completed] => :canceled, :if => lambda {|order| !order.shipment.shipped? && !order.invoice.paid?}
+      transitions from: [:in_progress, :completed], to: :canceled, on_transition: :log_transition, guards: :can_cancel?
     end
 
     event :resume do
-      transition :canceled => :in_progress
+      transitions from: :canceled, to: :in_progress, on_transition: :log_transition
     end
 
     event :put_in_progress do
-      transition :completed => :in_progress
+      transitions from: :completed, to: :in_progress, on_transition: :log_transition
     end
   end
 
-
+  def can_cancel?
+    !shipment.shipped? && !invoice.paid?
+  end
 
   def self.build_from_cart(cart)
     order = Order.new
@@ -68,30 +65,36 @@ class Order < ActiveRecord::Base
   end
 
   def total_price
-    self.order_items.collect{ |x| x.quantity * x.price }.inject(:+)
+    order_items.collect { |x| x.quantity * x.price }.inject(:+)
   end
 
   def previous
-    Order.find_by_id(self.id - 1)
+    Order.find_by_id(id - 1)
   end
 
   def next
-    Order.find_by_id(self.id + 1)
+    Order.find_by_id(id + 1)
   end
 
   private
 
+  def log_transition
+    # TODO log human readable states, e.g. ready_to_ship --> Ready to ship
+    OrderHistory.log_transition(id, self.class.name, aasm.from_state, aasm.to_state)
+  end
+
   def update_state
-    self.complete if self.invoice.paid? && self.shipment.shipped?
-    self.put_in_progress if !self.invoice.paid? || !self.shipment.shipped? && self.completed?
+    complete if self.invoice.paid? && self.shipment.shipped?
+    put_in_progress if (!self.invoice.paid? || !self.shipment.shipped?) && completed?
+    self.save
   end
 
   def generate_shippment
-    self.shipment = Shipment.new(address: self.address)
+    self.shipment = Shipment.new(address: address)
   end
 
   def generate_invoice
-    self.invoice = Invoice.new(amount: self.total_price)
+    self.invoice = Invoice.new(amount: total_price)
   end
 
   def generate_code

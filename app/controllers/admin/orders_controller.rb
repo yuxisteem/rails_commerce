@@ -3,19 +3,16 @@ class Admin::OrdersController < Admin::AdminController
   before_action :set_order, only: [:show, :edit, :update, :order_event, :shipment_event, :invoice_event, :destroy]
 
   # GET /admin/orders
-  # GET /admin/orders.json
   def index
     @orders = Order.all.includes(:invoice, :shipment, :order_items, :user).reverse_order.paginate(page: params[:page])
   end
 
   # GET /admin/orders/1
-  # GET /admin/orders/1.json
   def show
     add_breadcrumb "##{@order.id}"
   end
 
   # PATCH/PUT /admin/orders/1
-  # PATCH/PUT /admin/orders/1.json
   def update
     respond_to do |format|
       if Order.where(id: params[:id].split(',')).each { |x| x.update(order_params)}
@@ -26,22 +23,28 @@ class Admin::OrdersController < Admin::AdminController
     end
   end
 
+  # POST /admin/orders/:id/shipment_event/:event
   def shipment_event
-    process_order_update_result @order.shipment.fire_state_event(params[:event])  
+    fire_event @order.shipment, params[:event]
   end
 
+  # POST /admin/orders/:id/invoice_event/:event
   def invoice_event
-    process_order_update_result @order.invoice.fire_state_event(params[:event])
+    fire_event @order.invoice, params[:event]
   end
 
+  # POST /admin/orders/:id/order_event/:event
   def order_event
-    process_order_update_result @order.fire_state_event(params[:event])
+    fire_event @order, params[:event]
   end
 
   private
 
-  def process_order_update_result(success)
-    if success
+  def fire_event(object, event_name)
+    event_name = event_name.to_sym
+    if object.aasm.may_fire_event?(event_name)
+      object.send(event_name)
+      object.save
       flash[:notice] = "Order update succesfully"
     else
       flash[:error] = "Error updating order"
