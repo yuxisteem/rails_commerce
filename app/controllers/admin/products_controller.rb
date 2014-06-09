@@ -7,7 +7,8 @@ class Admin::ProductsController < Admin::AdminController
 
   def index
     @q = Product.search(params[:q])
-    @products = @q.result.includes(:category, :brand).reverse_order.paginate(page: params[:page])
+    @products = @q.result.includes(:category, :brand)
+                  .reverse_order.paginate(page: params[:page])
   end
 
   def show
@@ -60,10 +61,8 @@ class Admin::ProductsController < Admin::AdminController
 
   def product_params
     params.require(:product)
-          .permit(:name, :description, :price, :category_id,
-                  :active, :brand_id,
-                  product_attribute_values_attributes:
-                  [:id, [:value, :product_attribute_id]])
+          .permit(:name, :description, :price, :category_id, :active, :brand_id,
+                  product_attribute_values_attributes: [:id, [:value, :product_attribute_id]])
   end
 
   def set_brands

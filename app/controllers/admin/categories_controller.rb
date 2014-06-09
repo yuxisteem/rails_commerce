@@ -34,7 +34,7 @@ class Admin::CategoriesController < Admin::AdminController
       redirect_to admin_category_path(@category)
       flash[:notice] = t('admin.category_updated')
     else
-      render 'edit'
+      render 'show'
     end
   end
 

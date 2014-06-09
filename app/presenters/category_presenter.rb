@@ -12,18 +12,17 @@ class CategoryPresenter
     brand_ids = params[:brands] || []
 
     @products = filter_products(product_attributes_query, category_id, brand_ids)
-
-    @products = @products.paginate(page: params[:page])
+                .includes(:images)
+                .paginate(page: params[:page])
 
     @category = Category.find(category_id)
 
-    @brands = Brand.joins(%Q(INNER JOIN products ON products.brand_id =
-                          brands.id AND products.category_id =
-                          #{ActiveRecord::Base.sanitize(category_id)}))
+    @brands = Brand.joins(:products)
+                   .where('products.category_id = ?', category_id)
+
 
     @product_attributes = ProductAttribute
-      .where(category_id: category_id,
-             filterable: true)
+      .where(category_id: category_id, filterable: true)
       .includes(:product_attribute_values)
   end
 
@@ -32,29 +31,30 @@ class CategoryPresenter
   def filter_products(query, category_id, brand_ids)
     products =  Product.where(active: true)
     if query.any?
-      query.each do |key, value|
-        attr_values_sql = value.map do |attr_value|
-          %Q(#{ActiveRecord::Base.sanitize('attr_' + key)}.value =
-          #{ActiveRecord::Base.sanitize(attr_value)})
-        end.join(' OR ')
+      join_sql = query.map do |key, value|
+        attr_values_sql = value.map { |attr_value|
+          "#{sanitize('attr_' + key)}.value = #{sanitize(attr_value)}"
+        }.join(' OR ')
 
-        join_sql = %Q{
+        %Q(
           INNER JOIN product_attribute_values attr_#{key}
-          ON #{ActiveRecord::Base.sanitize('attr_' + key)}.product_id =
-          products.id
+          ON #{sanitize('attr_' + key)}.product_id = products.id
           AND ( #{attr_values_sql} )
-        }
-
-        products = products.joins(join_sql)
+        )
       end
-      products = products.distinct.includes(:images)
+
+      products = products.joins(join_sql).distinct
     else
       # Filter products by category if no attributes given
-      products = products.where(category_id: category_id).includes(:images)
+      products = products.where(category_id: category_id)
     end
 
     # Filter products by brands
     products = products.where(brand_id: brand_ids) if brand_ids.any?
     products
+  end
+
+  def sanitize(str)
+    ActiveRecord::Base.sanitize(str)
   end
 end

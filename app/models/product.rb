@@ -71,7 +71,7 @@ class Product < ActiveRecord::Base
 
   # Remove existing attributes values if we changed product's category
   def clear_attributes
-    return false unless category_id_changed?
+    return true unless category_id_changed?
     transaction do
       product_attribute_values.each { |x| x.delete }
     end
