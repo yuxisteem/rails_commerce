@@ -1,4 +1,5 @@
-#RailsCommerce [![Build Status](https://travis-ci.org/pavel-d/RailsCommerce.png?branch=master)](https://travis-ci.org/pavel-d/RailsCommerce)
+#RailsCommerce [![Build Status](https://travis-ci.org/pavel-d/RailsCommerce.png?branch=master)](https://travis-ci.org/pavel-d/RailsCommerce) [![Code Climate](https://codeclimate.com/github/pavel-d/RailsCommerce.png)](https://codeclimate.com/github/pavel-d/RailsCommerce)
+
 **RailsCommerce** is a ruby app for e-commerce
 
 
@@ -52,17 +53,19 @@ rake db:migrate
 rails s
 ```
 
-There is no admin user by default, so you need to update any existing user to give him admin rights
 
-```
-rails c
-2.1.0 :001 > User.find_by_email('paul@live.ru').update(admin: true)
-```
 
 * Database creation
 
 ```
 rake db:setup
+```
+
+There is no admin user by default, so you need to update any existing user to give him admin rights
+
+```
+rails c
+2.1.0 :001 > User.find_by_email('paul@live.ru').update(admin: true)
 ```
 
 * Database initialization
