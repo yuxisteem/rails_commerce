@@ -1,7 +1,8 @@
 class Admin::ProductsController < Admin::AdminController
 
   before_action :set_product, except: [:index, :new, :create]
-
+  before_action :set_brands, except: [:index, :clone, :destroy]
+  before_action :set_categories, except: [:index, :clone, :destroy]
   add_breadcrumb I18n.t('admin.products'), :admin_products_path
 
   def index
@@ -10,26 +11,20 @@ class Admin::ProductsController < Admin::AdminController
   end
 
   def show
-    @categories = Category.all
-    @brands = Brand.all
     add_breadcrumb @product.name
   end
 
   def new
     @product = Product.new
-    @categories = Category.all
-    @brands = Brand.all
     add_breadcrumb I18n.t('admin.create')
   end
 
   def create
-    @product = Product.create(product_params)
+    @product = Product.new(product_params)
     if @product.save
       flash[:notice] = t('admin.product_saved')
       redirect_to admin_product_path(@product)
     else
-      @categories = Category.all
-      @brands = Brand.all
       add_breadcrumb I18n.t('admin.create')
       render 'new'
     end
@@ -42,8 +37,6 @@ class Admin::ProductsController < Admin::AdminController
       flash[:notice] = t('admin.product_updated')
       redirect_to admin_product_path(@product)
     else
-      @categories = Category.all
-      @brands = Brand.all
       render 'show'
     end
   end
@@ -64,8 +57,21 @@ class Admin::ProductsController < Admin::AdminController
   end
 
   private
+
   def product_params
-    params.require(:product).permit(:name, :description, :price, :category_id, :active, :brand_id, product_attribute_values_attributes: [:id, [:value, :product_attribute_id]])
+    params.require(:product)
+          .permit(:name, :description, :price, :category_id,
+                  :active, :brand_id,
+                  product_attribute_values_attributes:
+                  [:id, [:value, :product_attribute_id]])
+  end
+
+  def set_brands
+    @brands = Brand.all
+  end
+
+  def set_categories
+    @categories = Category.all
   end
 
   def set_product

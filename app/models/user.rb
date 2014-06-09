@@ -22,7 +22,6 @@
 #
 
 class User < ActiveRecord::Base
-
   has_many :orders
   has_many :order_histories
 
@@ -32,14 +31,16 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   def full_name
-  	"#{self.first_name} #{self.last_name}"
+    "#{first_name} #{last_name}"
   end
 
   def address
-  	Order.where(user_id: self.id).last.try(:address)
+    Order.where(user_id: id).last.try(:address)
   end
 
   def update_from_order_info(order_info)
-    self.update(first_name: order_info.first_name, last_name: order_info.last_name, phone: order_info.phone)
+    update(first_name: order_info.first_name,
+           last_name: order_info.last_name,
+           phone: order_info.phone)
   end
 end

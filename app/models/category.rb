@@ -14,15 +14,14 @@
 class Category < ActiveRecord::Base
   has_many :products
   has_many :product_attributes, dependent: :destroy
-  validates :name, presence: true, length: {maximum: 255}
-  validates :description, length: {maximum: 255}
+  validates :name, presence: true, length: { maximum: 255 }
+  validates :description, length: { maximum: 255 }
 
-def filters_enabled?
-  attribute_filter_enabled || brand_filter_enabled
-end
+  def filters_enabled?
+    attribute_filter_enabled || brand_filter_enabled
+  end
 
-def seo_name
-  Transliteration::transliterate(name).parameterize
-end
-
+  def seo_name
+    Transliteration::transliterate(name).parameterize
+  end
 end

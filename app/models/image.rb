@@ -14,10 +14,13 @@
 #
 
 class Image < ActiveRecord::Base
-
   belongs_to :imageable, polymorphic: true
-  has_attached_file :image, :styles => {:big => "1024x1024>", :medium => "300x200#", :thumb => "100x100#"}, :default_url => "/images/:style/missing.png"
-  validates_attachment :image, :presence => true,
-                       :size => {:in => 0..10.megabytes}
-  validates_attachment_content_type :image, :content_type => /image/
+  has_attached_file :image, styles: { big: '1024x1024>',
+                                      medium: '300x200#',
+                                      thumb: '100x100#' },
+                            default_url: '/images/:style/missing.png'
+
+  validates_attachment :image, presence: true,
+                               size: { in: 0..10.megabytes }
+  validates_attachment_content_type :image, content_type: /image/
 end

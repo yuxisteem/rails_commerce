@@ -13,11 +13,10 @@
 #
 
 class Shipment < ActiveRecord::Base
-
   include AASM
 
-  belongs_to    :order, touch: true
-  belongs_to    :address
+  belongs_to :order, touch: true
+  belongs_to :address
 
   SHIPPING_METHODS = %w(nova_poshta, self_pickup)
 
@@ -28,11 +27,13 @@ class Shipment < ActiveRecord::Base
     state :returned
 
     event :prepare do
-      transitions from: [:pending, :returned], to: :ready_to_ship, on_transition: :log_transition
+      transitions from: [:pending, :returned],
+                  to: :ready_to_ship, on_transition: :log_transition
     end
 
     event :ship do
-      transitions from: :ready_to_ship, to: :shipped, on_transition: :log_transition
+      transitions from: :ready_to_ship,
+                  to: :shipped, on_transition: :log_transition
     end
 
     event :return do

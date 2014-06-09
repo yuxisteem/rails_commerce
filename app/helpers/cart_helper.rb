@@ -8,6 +8,6 @@ module CartHelper
   end
 
   def cart_widget_visible?
-  	!(params[:controller] == 'orders' && (params[:action] == 'new' || params[:action] == 'create'))
+    !(params[:controller] == 'orders' && (params[:action] == 'new' || params[:action] == 'create'))
   end
 end

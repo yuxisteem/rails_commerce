@@ -11,12 +11,11 @@
 #
 
 class ProductAttributeValue < ActiveRecord::Base
-	belongs_to :product
-	belongs_to :product_attribute
-	has_one :category, through: :product_attribute
+  belongs_to :product
+  belongs_to :product_attribute
+  has_one :category, through: :product_attribute
 
-	def name
-		self.product_attribute.name
-	end
-
+  def name
+    product_attribute.name
+  end
 end

@@ -3,13 +3,13 @@ class CreateOrders < ActiveRecord::Migration
     create_table :orders do |t|
       t.references :user, index: true
       t.string :code
-      t.integer :state
+      t.string :aasm_state
       t.text :note
       t.references :user, index: true
 
       t.timestamps
 
-      t.index :state
+      t.index :aasm_state
       t.index :code
     end
   end

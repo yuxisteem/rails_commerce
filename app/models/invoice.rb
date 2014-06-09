@@ -13,10 +13,9 @@
 #
 
 class Invoice < ActiveRecord::Base
-
   include AASM
 
-  belongs_to		:order, touch: true
+  belongs_to :order, touch: true
 
   aasm do
     state :pending, initial: true
@@ -26,7 +25,8 @@ class Invoice < ActiveRecord::Base
     state :voided
 
     event :pay do
-      transitions from: [:pending, :refunded, :voided, :authorized], to: :paid, on_transition: :log_transition
+      transitions from: [:pending, :refunded, :voided, :authorized],
+                  to: :paid, on_transition: :log_transition
     end
 
     event :refund do
@@ -37,7 +37,7 @@ class Invoice < ActiveRecord::Base
   private
 
   def log_transition
-    OrderHistory.log_transition(order_id, self.class.name, aasm.from_state, aasm.to_state)
+    OrderHistory.log_transition(order_id, self.class.name,
+                                aasm.from_state, aasm.to_state)
   end
-
 end

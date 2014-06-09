@@ -15,7 +15,7 @@ class OrderNotifier < AsyncMailer
   #
   #   en.order_notifier.order_shipped.subject
   #
-  def order_shipped(order_id)  
+  def order_shipped(order_id)
     @order = Order.find(order_id)
     mail to: @order.user.email
   end

@@ -18,25 +18,24 @@ require 'transliteration'
 class Product < ActiveRecord::Base
   belongs_to :category
   belongs_to :brand
-  validates :name, presence: true, length: {maximum: 255}
-  validates :description, presence: true, length: {maximum: 2048}
+  validates :name, presence: true, length: { maximum: 255 }
+  validates :description, presence: true, length: { maximum: 2048 }
   validates :category_id, presence: true
   validates :brand_id, presence: true
   validates :price, presence: true, numericality: true
-  has_many  :images, as: :imageable, dependent: :destroy
-  has_many  :product_attribute_values, dependent: :destroy
-  acts_as_taggable
+  has_many :images, as: :imageable, dependent: :destroy
+  has_many :product_attribute_values, dependent: :destroy
 
   accepts_nested_attributes_for :product_attribute_values
 
   before_update :clear_attributes
 
   def previous
-    Product.find_by_id(self.id - 1)
+    Product.find_by_id(id - 1)
   end
 
   def next
-    Product.find_by_id(self.id + 1)
+    Product.find_by_id(id + 1)
   end
 
   def self.find_all_by_term(search_term)
@@ -47,14 +46,20 @@ class Product < ActiveRecord::Base
   def available_attributes
     @available_attributes ||=
     transaction do
-      self.category.product_attributes.collect { |x| ProductAttributeValue.find_or_initialize_by(product_id: self.id, product_attribute_id: x.id) } if self.category.product_attributes.any?
+      if category.product_attributes.any?
+        category.product_attributes.map do |x|
+          ProductAttributeValue
+            .find_or_initialize_by(product_id: id,
+                                   product_attribute_id: x.id)
+        end
+      end
     end
   end
 
   def clone
-    product = self.dup
+    product = dup
     product.active = false # Product should be inactive by default
-    product.product_attribute_values = self.product_attribute_values.map(&:dup)
+    product.product_attribute_values = product_attribute_values.map(&:dup)
     product
   end
 
@@ -63,13 +68,12 @@ class Product < ActiveRecord::Base
   end
 
   private
+
   # Remove existing attributes values if we changed product's category
   def clear_attributes
-    if self.category_id_changed?
-      transaction do
-        self.product_attribute_values.each {|x| x.delete}
-      end
+    return false unless category_id_changed?
+    transaction do
+      product_attribute_values.each { |x| x.delete }
     end
   end
-
 end

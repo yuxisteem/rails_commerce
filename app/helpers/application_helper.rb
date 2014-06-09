@@ -10,7 +10,7 @@ module ApplicationHelper
         options[:class] = 'active'
       end
     end
-    options.delete(:inclusive) if options && options.has_key?(:inclusive)
+    options.delete(:inclusive) if options && options.key?(:inclusive)
     link_to(body, url, options)
   end
 
@@ -23,13 +23,12 @@ module ApplicationHelper
     end
   end
 
-  def label_span(text, params = {})
-  	type = params[:type] || 'default'
-      "<span class=\"label label-#{type}\">#{text}</span>".html_safe
+  def label_span(text, type: :default)
+    type = params[:type] || 'default'
+    "<span class=\"label label-#{type}\">#{text}</span>".html_safe
   end
 
   def badge_span(text)
-      "<span class=\"badge\">#{text}</span>".html_safe
+    "<span class=\"badge\">#{text}</span>".html_safe
   end
-
 end

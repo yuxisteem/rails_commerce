@@ -5,11 +5,11 @@ class CreateInvoices < ActiveRecord::Migration
       t.integer :payment_method
       t.decimal :amount
       t.string  :invoice_type
-      t.integer :state
+      t.string :aasm_state
 
       t.timestamps
 
-      t.index :state
+      t.index :aasm_state
     end
   end
 end

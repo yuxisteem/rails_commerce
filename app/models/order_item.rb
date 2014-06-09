@@ -16,7 +16,7 @@ class OrderItem < ActiveRecord::Base
 
   def self.new_from_cart_item(cart_item)
     OrderItem.new(product_id: cart_item.product_id,
-                   quantity: cart_item.quantity,
-                   price: cart_item.product.price)
+                  quantity: cart_item.quantity,
+                  price: cart_item.product.price)
   end
 end

@@ -17,12 +17,9 @@
 //= require uploadify
 //= require turbolinks
 //= require bootstrap
-//= require holder
-//= require holder_rails
 //= require lightbox
 //= require_tree .
 
 
 // Enable bootstrap tooltips on all pages
 $(function () { $("[data-toggle='tooltip']").tooltip(); });
-

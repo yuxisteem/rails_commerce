@@ -2,17 +2,15 @@ module CategoriesHelper
   ATTRIBUTES_FILTER_KEY = :q
   BRANDS_FILTER_KEY = :brands
 
-
   def available_categories
     @available_categories ||= Category.all
   end
 
   def attribute_filter_link(attribute_value, options = {})
-
     attribute_value_text = attribute_value.value
 
     link_text = attribute_value_text
-    link_text += "<span class=\"badge pull-right\">#{options[:count].to_s}</span>" if options[:count]
+    link_text += "<span class=\"badge pull-right\">#{options[:count]}</span>" if options[:count]
 
     link_to link_text.html_safe, category_seo_path(attributes_link_params(attribute_value)), options
   end
@@ -21,9 +19,8 @@ module CategoriesHelper
     filter_query = params[ATTRIBUTES_FILTER_KEY] || {}
     attribute_id = attribute_value.product_attribute.id.to_s
 
-    if attribute_id && filter_query[attribute_id]
-      filter_query[attribute_id].include?(attribute_value.value)
-    end
+    return false unless attribute_id && filter_query[attribute_id]
+    filter_query[attribute_id].include?(attribute_value.value)
   end
 
   def search_query
@@ -34,9 +31,7 @@ module CategoriesHelper
     brands_ids = []
     selected_brand_id = brand.id
 
-    if params[BRANDS_FILTER_KEY]
-      brands_ids = params[BRANDS_FILTER_KEY].dup
-    end
+    brands_ids = params[BRANDS_FILTER_KEY].dup if params[BRANDS_FILTER_KEY]
 
     link_params = params.dup
 
@@ -90,7 +85,7 @@ module CategoriesHelper
         link_params.delete(ATTRIBUTES_FILTER_KEY)
       end
     else
-      link_params[ATTRIBUTES_FILTER_KEY] = {attribute_id => attribute_params}
+      link_params[ATTRIBUTES_FILTER_KEY] = { attribute_id => attribute_params }
     end
 
     link_params

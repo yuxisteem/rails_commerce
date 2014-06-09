@@ -5,11 +5,11 @@ class CreateShipments < ActiveRecord::Migration
       t.references :shipping_method, index: true
       t.references :address, index: true
       t.string  :tracking
-      t.integer :state
+      t.string :aasm_state
 
       t.timestamps
 
-      t.index   :state
+      t.index   :aasm_state
     end
   end
 end

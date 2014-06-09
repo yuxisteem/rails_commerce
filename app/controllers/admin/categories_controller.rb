@@ -42,7 +42,7 @@ class Admin::CategoriesController < Admin::AdminController
     Category.find(params[:id]).destroy
     flash[:notice] = t('admin.category_deleted')
     redirect_to admin_categories_path
-  end  
+  end
 
   private
   def category_params

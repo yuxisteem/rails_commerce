@@ -13,7 +13,8 @@ class StoreController < ApplicationController
   end
 
   private
+
   def set_breadcrumb
-  	add_breadcrumb I18n.t('common.breadcrumb_home_name'), root_path
+    add_breadcrumb I18n.t('common.breadcrumb_home_name'), root_path
   end
 end

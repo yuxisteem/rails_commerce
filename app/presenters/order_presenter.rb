@@ -5,26 +5,26 @@ class OrderPresenter
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  validates :first_name, presence: true, length: {maximum: 255}
-  validates :last_name, presence: true, length: {maximum: 255}
-  validates :email, presence: true, length: {maximum: 50}, format: {with: VALID_EMAIL_REGEX}
-  validates :phone, presence: true, length: {maximum: 20}
-  validates :street, presence: true, length: {maximum: 255}
-  validates :city, presence: true, length: {maximum: 255}
-  validates :note, length: {maximum: 1024}
+  validates :first_name, presence: true, length: { maximum: 255 }
+  validates :last_name, presence: true, length: { maximum: 255 }
+  validates :email, presence: true, length: { maximum: 50 },
+                    format: { with: VALID_EMAIL_REGEX }
+  validates :phone, presence: true, length: { maximum: 20 }
+  validates :street, presence: true, length: { maximum: 255 }
+  validates :city, presence: true, length: { maximum: 255 }
+  validates :note, length: { maximum: 1024 }
 
   def address
-    Address.new(phone: self.phone,
-                street: self.street,
-                city: self.city)
+    Address.new(phone: phone,
+                street: street,
+                city: city)
   end
 
   def address=(address)
-    if address
-      self.city = address.city
-      self.street = address.street
-      self.phone = address.phone
-    end
+    return unless address
+    @city = address.city
+    @street = address.street
+    @phone = address.phone
   end
 
   def update(attributes_hash = {})
@@ -34,5 +34,4 @@ class OrderPresenter
       send("#{name}=", value)
     end
   end
-
 end

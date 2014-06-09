@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140502125502) do
+ActiveRecord::Schema.define(version: 20140308135915) do
 
   create_table "addresses", force: true do |t|
     t.string   "city"
@@ -74,11 +74,12 @@ ActiveRecord::Schema.define(version: 20140502125502) do
     t.integer  "payment_method"
     t.decimal  "amount"
     t.string   "invoice_type"
+    t.string   "aasm_state"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "aasm_state"
   end
 
+  add_index "invoices", ["aasm_state"], name: "index_invoices_on_aasm_state"
   add_index "invoices", ["order_id"], name: "index_invoices_on_order_id"
 
   create_table "order_histories", force: true do |t|
@@ -108,12 +109,13 @@ ActiveRecord::Schema.define(version: 20140502125502) do
   create_table "orders", force: true do |t|
     t.integer  "user_id"
     t.string   "code"
+    t.string   "aasm_state"
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "aasm_state"
   end
 
+  add_index "orders", ["aasm_state"], name: "index_orders_on_aasm_state"
   add_index "orders", ["code"], name: "index_orders_on_code"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
@@ -167,31 +169,15 @@ ActiveRecord::Schema.define(version: 20140502125502) do
     t.integer  "shipping_method_id"
     t.integer  "address_id"
     t.string   "tracking"
+    t.string   "aasm_state"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "aasm_state"
   end
 
+  add_index "shipments", ["aasm_state"], name: "index_shipments_on_aasm_state"
   add_index "shipments", ["address_id"], name: "index_shipments_on_address_id"
   add_index "shipments", ["order_id"], name: "index_shipments_on_order_id"
   add_index "shipments", ["shipping_method_id"], name: "index_shipments_on_shipping_method_id"
-
-  create_table "taggings", force: true do |t|
-    t.integer  "tag_id"
-    t.integer  "taggable_id"
-    t.string   "taggable_type"
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context",       limit: 128
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
-
-  create_table "tags", force: true do |t|
-    t.string "name"
-  end
 
   create_table "users", force: true do |t|
     t.string   "first_name"

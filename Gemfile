@@ -5,7 +5,6 @@ gem 'bootstrap-sass', '~> 3.0.3.0'
 #Pagination
 gem 'will_paginate', '~> 3.0.5'
 gem 'will_paginate-bootstrap', '~> 1.0.0'
-gem 'acts-as-taggable-on', '~> 3.0.0'
 
 gem 'breadcrumbs_on_rails', '~> 2.3.0'
 
@@ -32,7 +31,6 @@ gem 'sass-rails', '~> 4.0.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-gem 'holder_rails'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
@@ -62,7 +60,10 @@ gem 'resque_mailer', '~> 2.2.6'
 gem 'haml', '~> 4.0.5'
 gem 'haml-rails'
 
+gem 'draper', '~> 1.3'
+
 group :development, :test do
+	gem 'spring'
 	gem 'capybara', '~> 2.2.1'
 	gem 'factory_girl_rails', '~> 4.3.0'
 	gem 'rspec-rails', '~> 2.14.1'
@@ -91,4 +92,3 @@ end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
-

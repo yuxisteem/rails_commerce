@@ -13,18 +13,16 @@
 #
 
 class Order < ActiveRecord::Base
-
   include AASM
 
   before_create :generate_shippment, :generate_invoice, :generate_code
-  after_touch  :update_state
-  belongs_to  :user
-  has_one     :address
-  has_one     :invoice, dependent: :destroy
-  has_one     :shipment, dependent: :destroy
-  has_many    :order_items, dependent: :destroy
-  has_many    :order_histories, dependent: :destroy
-  acts_as_taggable
+  after_touch :update_state
+  belongs_to :user
+  has_one :address
+  has_one :invoice, dependent: :destroy
+  has_one :shipment, dependent: :destroy
+  has_many :order_items, dependent: :destroy
+  has_many :order_histories, dependent: :destroy
 
   aasm do
     state :in_progress, initial: true
@@ -32,19 +30,24 @@ class Order < ActiveRecord::Base
     state :canceled
 
     event :complete do
-      transitions from: :in_progress, to: :completed, on_transition: :log_transition
+      transitions from: :in_progress,
+                  to: :completed, on_transition: :log_transition
     end
 
     event :cancel do
-      transitions from: [:in_progress, :completed], to: :canceled, on_transition: :log_transition, guards: :can_cancel?
+      transitions from: [:in_progress, :completed],
+                  to: :canceled, on_transition: :log_transition,
+                  guards: :can_cancel?
     end
 
     event :resume do
-      transitions from: :canceled, to: :in_progress, on_transition: :log_transition
+      transitions from: :canceled,
+                  to: :in_progress, on_transition: :log_transition
     end
 
     event :put_in_progress do
-      transitions from: :completed, to: :in_progress, on_transition: :log_transition
+      transitions from: :completed,
+                  to: :in_progress, on_transition: :log_transition
     end
   end
 
@@ -54,18 +57,18 @@ class Order < ActiveRecord::Base
 
   def self.build_from_cart(cart)
     order = Order.new
-    cart.cart_items.each { |x|
+    cart.cart_items.each do |x|
       order.order_items.append(OrderItem.create(
-                                 product_id: x.product_id,
-                                 quantity: x.quantity,
-                                 price: x.product.price
+                               product_id: x.product_id,
+                               quantity: x.quantity,
+                               price: x.product.price
       ))
-    }
-    return order
+    end
+    order
   end
 
   def total_price
-    order_items.collect { |x| x.quantity * x.price }.inject(:+)
+    order_items.map { |x| x.quantity * x.price }.inject(:+)
   end
 
   def previous
@@ -79,13 +82,14 @@ class Order < ActiveRecord::Base
   private
 
   def log_transition
-    # TODO log human readable states, e.g. ready_to_ship --> Ready to ship
-    OrderHistory.log_transition(id, self.class.name, aasm.from_state, aasm.to_state)
+    # TODO: log human readable states, e.g. ready_to_ship --> Ready to ship
+    OrderHistory.log_transition(id, self.class.name,
+                                aasm.from_state, aasm.to_state)
   end
 
   def update_state
-    complete! if self.invoice.paid? && self.shipment.shipped?
-    put_in_progress! if (!self.invoice.paid? || !self.shipment.shipped?) && completed?
+    complete! if invoice.paid? && shipment.shipped?
+    put_in_progress! if (!invoice.paid? || !shipment.shipped?) && completed?
   end
 
   def generate_shippment
@@ -99,5 +103,4 @@ class Order < ActiveRecord::Base
   def generate_code
     self.code = SecureRandom.hex
   end
-
 end
