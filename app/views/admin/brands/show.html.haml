@@ -1,17 +1,10 @@
-- provide(:title, "#{t('admin.brand')} #{@brand.name}")
+- provide(:title, "#{t('admin.edit_brand').capitalize} #{@brand.name}")
 %h2
-  = t('admin.brand')
+  = t('admin.edit_brand')
   = @brand.name
-%dl
-  %dt Name
-  %dd= @brand.name
-  %dt Description
-  %dd= @brand.description
-  %dt Products count
-  %dd= @brand.products.count
-  %dt Created
-  %dd= @brand.created_at
-  %dt Updated
-  %dd= @brand.updated_at
-  = link_to t('admin.edit'), edit_admin_brand_path, class: 'btn btn-default'
-  = link_to t('admin.destroy'), admin_brand_path, class: 'btn btn-danger', method: :delete, data: {confirm: t('admin.confirm')}
+= form_for @brand, url: admin_brand_path(@brand) do |f|
+  = render 'layouts/validation_errors', model: @brand
+  = render 'brand_fields', f: f
+  .form-group
+    = f.submit t('admin.save'), class: 'btn btn-primary'
+    = link_to t('admin.cancel'), admin_brand_path(@brand), class: 'btn btn-default'

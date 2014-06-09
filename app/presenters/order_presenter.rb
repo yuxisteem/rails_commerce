@@ -34,4 +34,15 @@ class OrderPresenter
       send("#{name}=", value)
     end
   end
+
+  def build_order(cart, user)
+    user.update(first_name: first_name,
+                last_name: last_name,
+                phone: phone)
+
+    @order = Order.build_from_cart(cart)
+    @order.update(address: address, note: note, user: user)
+    @order
+  end
+
 end

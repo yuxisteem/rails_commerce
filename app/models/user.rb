@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :order_histories
 
+  after_create :send_mail
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -42,5 +44,21 @@ class User < ActiveRecord::Base
     update(first_name: order_info.first_name,
            last_name: order_info.last_name,
            phone: order_info.phone)
+  end
+
+  def create_from_checkout(options)
+    password = Devise.friendly_token.first(8)
+    user = self.create(
+      first_name: options[:first_name],
+      last_name: options[:last_name],
+      email: options[:email],
+      phone: options[:phone]
+    )
+  end
+
+  private
+
+  def send_mail
+    UserNotifier.account_created(id, password).deliver
   end
 end

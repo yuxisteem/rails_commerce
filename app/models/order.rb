@@ -16,8 +16,11 @@ class Order < ActiveRecord::Base
   include AASM
 
   before_create :generate_shippment, :generate_invoice, :generate_code
+  after_create :send_mail
   after_touch :update_state
+
   belongs_to :user
+
   has_one :address
   has_one :invoice, dependent: :destroy
   has_one :shipment, dependent: :destroy
@@ -102,5 +105,9 @@ class Order < ActiveRecord::Base
 
   def generate_code
     self.code = SecureRandom.hex
+  end
+
+  def send_mail
+    OrderNotifier.order_received(id).deliver
   end
 end

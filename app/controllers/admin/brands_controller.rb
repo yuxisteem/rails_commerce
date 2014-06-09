@@ -1,12 +1,16 @@
 class Admin::BrandsController < Admin::AdminController
+
   add_breadcrumb I18n.t('admin.brands'), :admin_brands_path
+
+  before_action :set_brand, except: [:index, :create, :new]
+
   def index
     @brands = Brand.all.reverse_order.paginate(page: params[:page])
   end
 
   def show
-    @brand = Brand.find(params[:id])
     add_breadcrumb @brand.name, admin_brand_path(@brand)
+    add_breadcrumb t('admin.edit')
   end
 
   def new
@@ -24,14 +28,7 @@ class Admin::BrandsController < Admin::AdminController
     end
   end
 
-  def edit
-    @brand = Brand.find(params[:id])
-    add_breadcrumb @brand.name, admin_brand_path(@brand)
-    add_breadcrumb t('admin.edit')
-  end
-
   def update
-    @brand = Brand.find(params[:id])
     add_breadcrumb @brand.name, admin_brand_path(@brand)
     add_breadcrumb t('admin.edit')
     if @brand.update(brand_params)
@@ -43,13 +40,18 @@ class Admin::BrandsController < Admin::AdminController
   end
 
   def destroy
-    Brand.find(params[:id]).destroy
+    @brand.destroy
     flash[:notice] = t('admin.brand_deleted')
     redirect_to admin_brands_path
   end
 
   private
+
   def brand_params
     params.require(:brand).permit(:name, :description)
+  end
+
+  def set_brand
+    @brand = Brand.find(params[:id])
   end
 end

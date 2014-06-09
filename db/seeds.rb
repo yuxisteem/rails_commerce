@@ -8,3 +8,14 @@
 
 
 # Store initial data
+
+Category.create(name: 'Default', description: 'Default category')
+
+Brand.create(name: 'Default', description: 'Default category')
+
+User.create(email: 'paul@live.ru',
+            first_name: 'Pavel',
+            last_name: 'D',
+            password: '12345',
+            password_confirmation: '12345',
+            admin: true)
