@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'bootstrap-sass', '~> 3.0.3.0'
+gem 'bootstrap-sass', '~> 3.1.1.1'
 
 #Pagination
 gem 'will_paginate', '~> 3.0.5'
@@ -8,10 +8,10 @@ gem 'will_paginate-bootstrap', '~> 1.0.0'
 
 gem 'breadcrumbs_on_rails', '~> 2.3.0'
 
-gem 'faker', '~> 1.2.0'
+gem 'faker', '~> 1.3.0'
 
 gem 'paperclip', '~> 3.5.2'
-gem 'flash_cookie_session'
+gem 'flash_cookie_session', '~> 1.1.6'
 gem 'uploadify-rails', '~> 3.1.1.1'
 
 #Search forms against your application's models
@@ -21,7 +21,7 @@ gem 'ransack', '~> 1.2.3'
 gem 'devise', '~> 3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.0'
+gem 'rails', '4.1.1'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -47,11 +47,11 @@ gem 'jquery-turbolinks'
 
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 2.0.8'
 
-gem 'aasm', '~> 3.1.1'
+gem 'aasm', '~> 3.2.0'
 
-gem 'foreman', require: false
+gem 'foreman', '~> 0.71.0', require: false
 gem 'thin'
 
 gem 'resque', '~> 1.25.1'
@@ -79,10 +79,9 @@ group :development do
 end
 
 group :production do
-	gem 'mysql2', '~> 0.3.14'
-	gem 'newrelic_rpm'
+	gem 'mysql2', '~> 0.3.16'
 	gem 'rack-cache', '~> 1.2'
-	gem 'unicorn', '~> 4.8.2'
+	gem 'unicorn', '~> 4.8.3'
 end
 
 group :doc do
