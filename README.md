@@ -32,6 +32,21 @@ RailsCommerce uses `Devise` for authentication, `paperclip` for images upload, `
 
 #Setup
 
+* Server setup
+
+Ruby with RVM
+
+```
+\curl -sSL https://get.rvm.io | bash -s stable
+```
+
+Nginx
+```
+sudo apt-get update
+sudo apt-get install nginx
+sudo update-rc.d nginx defaults
+```
+
 * System dependencies
 
 ImageMagic needed for images converting and Redis for resque
