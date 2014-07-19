@@ -15,10 +15,6 @@
 class Order < ActiveRecord::Base
   include AASM
 
-  before_create :generate_shippment, :generate_invoice, :generate_code
-  after_create :send_mail
-  after_touch :update_state
-
   belongs_to :user
 
   has_one :address
@@ -26,6 +22,13 @@ class Order < ActiveRecord::Base
   has_one :shipment, dependent: :destroy
   has_many :order_items, dependent: :destroy
   has_many :order_histories, dependent: :destroy
+
+  accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :user
+
+  before_create :generate_shippment, :generate_invoice, :generate_code
+  after_create :send_mail
+  after_touch :update_state
 
   aasm do
     state :in_progress, initial: true
@@ -58,28 +61,8 @@ class Order < ActiveRecord::Base
     !shipment.shipped? && !invoice.paid?
   end
 
-  def self.build_from_cart(cart)
-    order = Order.new
-    cart.cart_items.each do |x|
-      order.order_items.append(OrderItem.create(
-                               product_id: x.product_id,
-                               quantity: x.quantity,
-                               price: x.product.price
-      ))
-    end
-    order
-  end
-
   def total_price
     order_items.map { |x| x.quantity * x.price }.inject(:+)
-  end
-
-  def previous
-    Order.find_by_id(id - 1)
-  end
-
-  def next
-    Order.find_by_id(id + 1)
   end
 
   private

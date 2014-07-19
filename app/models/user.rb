@@ -40,19 +40,15 @@ class User < ActiveRecord::Base
     Order.where(user_id: id).last.try(:address)
   end
 
-  def update_from_order_info(order_info)
-    update(first_name: order_info.first_name,
-           last_name: order_info.last_name,
-           phone: order_info.phone)
-  end
-
-  def create_from_checkout(options)
+  def self.generate(options)
     password = Devise.friendly_token.first(8)
-    user = self.create(
+    User.new(
       first_name: options[:first_name],
       last_name: options[:last_name],
       email: options[:email],
-      phone: options[:phone]
+      phone: options[:phone],
+      password: password,
+      password_confirmation: password
     )
   end
 

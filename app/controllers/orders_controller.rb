@@ -8,15 +8,9 @@ class OrdersController < ApplicationController
       redirect_to root_path
     end
 
-    @order_presenter = OrderPresenter.new
-
-    if user_signed_in?
-      @order_presenter.update(address: current_user.address,
-                              first_name: current_user.first_name,
-                              last_name: current_user.last_name,
-                              email: current_user.email,
-                              phone: current_user.phone)
-    end
+    @order = Order.new(order_items: @cart.to_order_items,
+                       user: current_user || User.new,
+                       address: current_user.try(:address) || Address.new)
   end
 
   def create
@@ -24,16 +18,14 @@ class OrdersController < ApplicationController
       flash[:notice] = t('store.cart_empty_message')
       redirect_to root_path
     else
-      @order_presenter = OrderPresenter.new(order_info_params)
-
-      if @order_presenter.valid?
-        user = find_or_create_user(order_info_params)
-        @order = @order_presenter.build_order(@cart, user)
-
-        if @order.save!
+      @order = Order.new(order_params.merge(order_items: @cart.to_order_items))
+      @order.user = init_user
+      if @order.valid?
+        Order.transaction do
+          @order.save!
           @cart.destroy
-          flash[:success] = t('checkout.order_successful_submit')
         end
+        flash[:success] = t('checkout.order_successful_submit')
         redirect_to order_path(id: @order.code)
       else
         render 'new'
@@ -46,18 +38,25 @@ class OrdersController < ApplicationController
   end
 
   private
-  def order_info_params
-    params.require(:order_presenter).permit(:first_name, :last_name, :email,
-                                            :phone, :street, :city, :note)
+
+  def order_params
+    params.require(:order)
+          .permit(user_attributes: [:first_name, :last_name, :email],
+                  address_attributes: [:phone, :street, :city], note: {})
   end
 
-  def find_or_create_user(params)
-    User.find_by_email(params[:email]) || User.find_by_email(params[:phone]) || create_user(params)
+  def user_params
+    order_params[:user_attributes]
   end
 
-  def create_user(params)
-    User.create_from_checkout(params)
+  def address_params
+    order_params[:address_attributes]
   end
 
-
+  # Find user by email or phone, create new if no user found
+  def init_user
+    User.find_by_email(user_params[:email]) ||
+      User.find_by_phone(address_params[:phone]) ||
+        User.generate(user_params)
+  end
 end

@@ -17,4 +17,14 @@ class Cart < ActiveRecord::Base
   def empty?
     !cart_items.any?
   end
+
+  def to_order_items
+    cart_items.map do |item|
+      OrderItem.new(
+                      product_id: item.product_id,
+                      quantity: item.quantity,
+                      price: item.product.price
+                    )
+    end
+  end
 end
