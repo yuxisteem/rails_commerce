@@ -4,19 +4,18 @@ preload_app true
 
 timeout 30
 
+listen '/home/ubuntu/shared/sockets/unicorn.sock', backlog: 2048
 
-listen '~/shared/tmp/sockets/unicorn.sock', backlog: 2048
+stdout_path '/home/ubuntu/shared/log/unicorn.log'
+stderr_path '/home/ubuntu/shared/log/unicorn_error.log'
 
-stdout_path '~/shared/log/unicorn.log'
-stderr_path '~/shared/log/unicorn_error.log'
-
-pid_file = '~/shared/tmp/pids/unicorn.pid'
+pid_file = '/home/ubuntu/shared/pids/unicorn.pid'
 pid pid_file
 
 # http://www.rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
 GC.copy_on_write_friendly = true if GC.respond_to?(:copy_on_write_friendly=)
 
-before_fork do |server|
+before_fork do |server, worker|
   ##
   # When sent a USR2, Unicorn will suffix its pidfile with .oldbin and
   # immediately start loading up a new version of itself (loaded with a new
@@ -40,7 +39,7 @@ before_fork do |server|
   end
 end
 
-after_fork do
+after_fork do |server, worker|
   ##
   # Unicorn master loads the app then forks off workers - because of the way
   # Unix forking works, we need to make sure we aren't using any of the parent's
