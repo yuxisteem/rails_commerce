@@ -55,7 +55,7 @@ namespace :deploy do
   namespace :resque do
     task :restart do
       on roles(:app), in: :parallel do
-        execute 'sudo service ecomm restart'
+        execute 'sudo service ecomm-worker restart'
       end
     end
   end
