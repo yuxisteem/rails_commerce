@@ -1,6 +1,6 @@
 class Admin::OrdersController < Admin::AdminController
   add_breadcrumb I18n.t('admin.orders'), :admin_orders_path
-  before_action :set_order, only: [:show, :edit, :update, :order_event, :shipment_event, :invoice_event, :destroy]
+  before_action :set_order, except: :index #[:show, :edit, :update, :order_event, :shipment_event, :invoice_event, :destroy]
 
   # GET /admin/orders
   def index
@@ -54,11 +54,11 @@ class Admin::OrdersController < Admin::AdminController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_order
-    @order = Order.includes(:address, :shipment, :invoice, :order_histories).find(params[:id])
+    @order = Order.includes(:address, :shipment, :invoice, :order_histories).find(params[:id]).decorate
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def order_params
-    params.require(:order).permit()
+    params.require(:order).permit
   end
 end
