@@ -368,14 +368,15 @@ ru:
       <<: *errors
   activerecord:
     attributes:
-      order_presenter:
-        first_name: Имя
-        last_name: Фамилия
-        email: Email
-        phone: Телефон
-        street: Улица
+      address:
         city: Город
-        note: Примечание
+        street: Улица
+        phone: Телефон
+      order:
+        note: Заметка
+      product:
+        name: Имя
+        description: Описание
       user:
         first_name: Имя
         last_name: Фамилия
@@ -385,7 +386,4 @@ ru:
         password_confirmation: Подтвердите пароль
         current_password: Текущий пароль
         remember_me: Запомнить меня
-      product:
-        name: Имя
-        description: Описание
       <<: *errors
