@@ -5,20 +5,18 @@ preload_app true
 timeout 30
 
 
-listen '/home/rails/shared/tmp/sockets/unicorn.sock', :backlog => 2048
+listen '~/shared/tmp/sockets/unicorn.sock', backlog: 2048
 
-stdout_path '/home/rails/shared/log/unicorn.log'
-stderr_path '/home/rails/shared/log/unicorn_error.log'
+stdout_path '~/shared/log/unicorn.log'
+stderr_path '~/shared/log/unicorn_error.log'
 
-pid_file = '/home/rails/shared/tmp/pids/unicorn.pid'
+pid_file = '~/shared/tmp/pids/unicorn.pid'
 pid pid_file
 
 # http://www.rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
-if GC.respond_to?(:copy_on_write_friendly=)
-  GC.copy_on_write_friendly = true
-end
+GC.copy_on_write_friendly = true if GC.respond_to?(:copy_on_write_friendly=)
 
-before_fork do |server, worker|
+before_fork do |server|
   ##
   # When sent a USR2, Unicorn will suffix its pidfile with .oldbin and
   # immediately start loading up a new version of itself (loaded with a new
@@ -33,21 +31,19 @@ before_fork do |server, worker|
   ActiveRecord::Base.connection.disconnect!
 
   old_pid = pid_file
-  if File.exists?(old_pid) && server.pid != old_pid
+  if File.exist?(old_pid) && server.pid != old_pid
     begin
-      Process.kill("QUIT", File.read(old_pid).to_i)
+      Process.kill('QUIT', File.read(old_pid).to_i)
     rescue Errno::ENOENT, Errno::ESRCH
       # someone else did our job for us
     end
   end
 end
 
-
-after_fork do |server, worker|
+after_fork do
   ##
   # Unicorn master loads the app then forks off workers - because of the way
   # Unix forking works, we need to make sure we aren't using any of the parent's
   # sockets, e.g. db connection
- 
   ActiveRecord::Base.establish_connection
 end

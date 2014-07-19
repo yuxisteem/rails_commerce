@@ -6,9 +6,9 @@ set :application, 'ecomm'
 set :repo_url, 'git@github.com:pavel-d/RailsCommerce.git'
 set :branch, ENV['BRANCH'] || 'master'
 set :rails_env, ENV['RAILS_ENV'] || 'production'
-set :deploy_to, '/home/rails'
+set :deploy_to, '~'
 set :deploy_via, :remote_cache
-set :copy_exclude, [ '.git' ]
+set :copy_exclude, ['.git']
 
 set :rails_env, 'production'
 
@@ -18,10 +18,10 @@ set :current_release, "#{fetch(:deploy_to)}/current"
 
 set :rvm_ruby_string, 'ruby-2.1.0'
 
-set :rvm_bin_path, '/home/rails/.rvm/bin/rvm'
+set :rvm_bin_path, '~/.rvm/bin/rvm'
 
-set :linked_dirs, %w{bin log vendor/bundle public/system public/assets}
-set :linked_files, %w(config/config.yml config/database.yml config/newrelic.yml)
+set :linked_dirs, %w(bin log vendor/bundle public/system public/assets)
+set :linked_files, %w(config/config.yml config/database.yml)
 
 set :unicorn_pid_file, "#{fetch(:deploy_to)}/shared/tmp/pids/unicorn.pid"
 set :config_file, "#{release_path}/config/unicorn.rb"
@@ -55,13 +55,13 @@ namespace :deploy do
   namespace :resque do
     task :restart do
       on roles(:app), in: :parallel do
-        execute "sudo service ecomm restart"
+        execute 'sudo service ecomm restart'
       end
     end
   end
 
   after :publishing, :restart
-  after :restart, "deploy:resque:restart"
-  after :updating, "deploy:assets:precompile"
-  after "deploy:assets:precompile", "deploy:assets:upload"
+  after :restart, 'deploy:resque:restart'
+  after :updating, 'deploy:assets:precompile'
+  after 'deploy:assets:precompile', 'deploy:assets:upload'
 end

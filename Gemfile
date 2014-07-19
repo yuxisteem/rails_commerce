@@ -78,7 +78,7 @@ group :development do
 end
 
 group :production do
-	gem 'mysql2', '~> 0.3.16'
+	gem 'pg', '~> 0.17.1'
 	gem 'rack-cache', '~> 1.2'
 	gem 'unicorn', '~> 4.8.3'
 end
