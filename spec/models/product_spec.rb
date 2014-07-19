@@ -16,13 +16,12 @@
 require 'spec_helper'
 
 describe Product do
-  it "should be cloneable" do
-  	product = create(:product)
+  it 'should be cloneable' do
+    product = create(:product)
 
-  	clone = product.clone
-  	product.name.should match(clone.name)
-  	product.description.should match(clone.description)
-  	product.product_attribute_values.should match_array(clone.product_attribute_values)
-  	
+    clone = product.clone
+    product.name.should match(clone.name)
+    product.description.should match(clone.description)
+    product.product_attribute_values.should match_array(clone.product_attribute_values)
   end
 end
