@@ -52,7 +52,6 @@ gem 'jbuilder', '~> 2.0.8'
 gem 'aasm', '~> 3.2.0'
 
 gem 'foreman', '~> 0.71.0', require: false
-gem 'thin'
 
 gem 'resque', '~> 1.25.1'
 gem 'resque_mailer', '~> 2.2.6'
