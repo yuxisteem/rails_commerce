@@ -12,4 +12,8 @@
 #
 
 class Address < ActiveRecord::Base
+  validates :city, presence: true
+  validates :street, presence: true
+  validates :phone, presence: true
+  belongs_to :order
 end
