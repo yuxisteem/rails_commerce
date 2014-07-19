@@ -16,7 +16,7 @@ set :keep_releases, 2
 
 set :current_release, "#{fetch(:deploy_to)}/current"
 
-set :rvm_ruby_string, 'ruby-2.1.0'
+set :rvm_ruby_string, 'ruby-2.1.2'
 
 set :rvm_bin_path, '~/.rvm/bin/rvm'
 
