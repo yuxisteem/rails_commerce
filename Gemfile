@@ -8,8 +8,6 @@ gem 'will_paginate-bootstrap', '~> 1.0.0'
 
 gem 'breadcrumbs_on_rails', '~> 2.3.0'
 
-gem 'faker', '~> 1.3.0'
-
 gem 'paperclip', '~> 3.5.2'
 gem 'flash_cookie_session', '~> 1.1.6'
 gem 'uploadify-rails', '~> 3.1.1.1'
@@ -39,7 +37,6 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -66,12 +63,13 @@ group :development, :test do
 	gem 'capybara', '~> 2.2.1'
 	gem 'factory_girl_rails', '~> 4.3.0'
 	gem 'rspec-rails', '~> 2.14.1'
+	gem 'faker', '~> 1.3.0'
 end
 
 
 group :development do
 	gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
-	gem 'capistrano',  '~> 3.1'
+	gem 'capistrano', '~> 3.2.1'
 	gem 'capistrano-rails'
 	gem 'capistrano-bundler'
 	gem 'capistrano-rvm'
