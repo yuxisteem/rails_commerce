@@ -19,9 +19,9 @@ test:
   timeout: 5000
 
 production:
-  adapter: mysql2
-  database: rails
-  username: rails
-  password: password
-  host: 127.0.0.1
-  port: 3306
+  adapter: postgresql
+  database: <%= ENV['PG_DB']  %>
+  username: <%= ENV['PG_USER']  %>
+  password: <%= ENV['PG_PASS']  %>
+  host: <%= ENV['PG_HOST']  %>
+  port: <%= ENV['PG_PORT']  %>

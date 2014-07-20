@@ -7,7 +7,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 # Load configs from config.yaml
-AppConfig = YAML.load_file("#{Rails.root}config/config.yml")
+AppConfig = YAML.load(ERB.new(File.read("#{Rails.root}config/config.yml")).result)
 # Override config options by correct environment
 env_options = AppConfig.delete(Rails.env)
 AppConfig.merge!(env_options) unless env_options.nil?

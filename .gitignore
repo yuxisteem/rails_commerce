@@ -20,10 +20,5 @@
 public/system/images
 public/assets
 
-# Ignore config
-config/database.yml
-config/config.yml
-config/newrelic.yml
-
 ecomm.sublime-workspace
 ecomm.sublime-project
