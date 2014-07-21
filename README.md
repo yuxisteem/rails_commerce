@@ -32,9 +32,8 @@ RailsCommerce uses `Devise` for authentication, `paperclip` for images upload, `
 
 #Setup
 
-* Server setup
 
-Ruby with RVM
+* Ruby with RVM
 
 ```
 \curl -sSL https://get.rvm.io | bash -s stable
@@ -50,13 +49,13 @@ sudo apt-get update
 sudo apt-get install imagemagick redis-server
 ```
 
-* Configuration
+* Clone and run
 ```
 git clone git@github.com:pavel-d/RailsCommerce.git
 bundle install
 
 rake db:migrate
-rails s
+rails server
 ```
 
 
@@ -70,7 +69,7 @@ rake db:setup
 There is no admin user by default, so you need to update any existing user to give him admin rights
 
 ```
-rails c
+rails console
 2.1.0 :001 > User.find_by_email('paul@live.ru').update(admin: true)
 ```
 
