@@ -38,13 +38,8 @@ Ruby with RVM
 
 ```
 \curl -sSL https://get.rvm.io | bash -s stable
-```
-
-Nginx
-```
-sudo apt-get update
-sudo apt-get install nginx
-sudo update-rc.d nginx defaults
+source $HOME/.rvm/scripts/rvm
+rvm install 2.1.2
 ```
 
 * System dependencies
@@ -59,10 +54,6 @@ sudo apt-get install imagemagick redis-server
 ```
 git clone git@github.com:pavel-d/RailsCommerce.git
 bundle install
-
-# Don't forget to edit sample configs
-cp config/database.yml.sample config/database.yml
-cp config/config.yml.sample config/config.yml
 
 rake db:migrate
 rails s
