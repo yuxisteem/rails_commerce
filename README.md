@@ -43,7 +43,7 @@ rvm install 2.1.2
 
 * System dependencies
 
-ImageMagic needed for images converting and Redis for resque
+ImageMagic needed for images converting and Redis for `resque`
 ```
 sudo apt-get update
 sudo apt-get install imagemagick redis-server
