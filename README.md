@@ -43,10 +43,10 @@ rvm install 2.1.2
 
 * System dependencies
 
-ImageMagic needed for images converting and Redis for `resque`
+ImageMagic needed for images converting, Redis for `resque`, libpq-dev - for `pg` gem.
 ```
 sudo apt-get update
-sudo apt-get install imagemagick redis-server
+sudo apt-get install imagemagick redis-server libpq-dev
 ```
 
 * Clone and run
