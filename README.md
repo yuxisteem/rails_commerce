@@ -28,7 +28,7 @@ RailsCommerce has following features:
 
 Comes with clean `Bootstrap` based design
 
-RailsCommerce uses `Devise` for authentication, `paperclip` for images upload, `puma` as a http server.
+RailsCommerce uses `Devise` for authentication, `paperclip` for images upload.
 
 #Setup
 
