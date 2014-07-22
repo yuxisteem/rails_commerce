@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Railscommerce : Online shop application written on ruby on rails" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Railscommerce</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/pavel-d/RailsCommerce">View on GitHub</a>
+
+          <h1 id="project_title">Railscommerce</h1>
+          <h2 id="project_tagline">Online shop application written on ruby on rails</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/pavel-d/RailsCommerce/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/pavel-d/RailsCommerce/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="railscommerce--" class="anchor" href="#railscommerce--"><span class="octicon octicon-link"></span></a>RailsCommerce <a href="https://travis-ci.org/pavel-d/RailsCommerce"><img src="https://travis-ci.org/pavel-d/RailsCommerce.png?branch=master" alt="Build Status"></a> <a href="https://codeclimate.com/github/pavel-d/RailsCommerce"><img src="https://codeclimate.com/github/pavel-d/RailsCommerce.png" alt="Code Climate"></a>
+</h1>
+
+<p><strong>RailsCommerce</strong> is a ruby app for e-commerce</p>
+
+<p><a href="https://github.com/pavel-d/RailsCommerce/wiki/Screenshots">Screenshots</a></p>
+
+<h1>
+<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h1>
+
+<p>RailsCommerce has following features:</p>
+
+<ul>
+<li>
+<strong>Admin panel</strong>
+
+<ul>
+<li>
+<strong>Dashboard</strong>. Shows recent orders, unfulfilled orders count and order updates</li>
+<li>
+<strong>Orders tool</strong>. Review order info, manage order's shipment and invoice status, post comments, notify customers about order</li>
+<li>
+<strong>Products management tool</strong>. </li>
+<li>
+<strong>Categories management tool</strong>.</li>
+<li>
+<strong>Brands management tool</strong>.</li>
+</ul>
+</li>
+<li>
+<strong>Store</strong>
+
+<ul>
+<li>
+<strong>Browse</strong> products</li>
+<li>
+<strong>Search</strong> products by keywords</li>
+<li>
+<strong>Filter</strong> products by attributes</li>
+</ul>
+</li>
+<li>
+<strong>Checkout</strong>
+
+<ul>
+<li>
+<strong>Add to cart</strong> button with ajax cart</li>
+<li>
+<strong>Simple</strong> checkout for signed in/ not signed in</li>
+<li>
+<strong>Account creation</strong> for new customers during checkout</li>
+<li><strong>Email notifications</strong></li>
+</ul>
+</li>
+<li><strong>Static pages</strong></li>
+</ul><p>Comes with clean <code>Bootstrap</code> based design</p>
+
+<p>RailsCommerce uses <code>Devise</code> for authentication, <code>paperclip</code> for images upload.</p>
+
+<h1>
+<a name="setup" class="anchor" href="#setup"><span class="octicon octicon-link"></span></a>Setup</h1>
+
+<ul>
+<li>Ruby with RVM</li>
+</ul><pre><code>\curl -sSL https://get.rvm.io | bash -s stable
+source $HOME/.rvm/scripts/rvm
+rvm install 2.1.2
+</code></pre>
+
+<ul>
+<li>System dependencies</li>
+</ul><p>ImageMagic needed for images converting, Redis for <code>resque</code>, libpq-dev - for <code>pg</code> gem.</p>
+
+<pre><code>sudo apt-get update
+sudo apt-get install imagemagick redis-server libpq-dev
+</code></pre>
+
+<ul>
+<li>Clone and run</li>
+</ul><pre><code>git clone git@github.com:pavel-d/RailsCommerce.git
+bundle install
+
+rake db:migrate
+rails server
+</code></pre>
+
+<ul>
+<li>Database creation</li>
+</ul><pre><code>rake db:setup
+</code></pre>
+
+<p>There is no admin user by default, so you need to update any existing user to give him admin rights</p>
+
+<pre><code>rails console
+2.1.0 :001 &gt; User.find_by_email('paul@live.ru').update(admin: true)
+</code></pre>
+
+<ul>
+<li>Database initialization</li>
+</ul><p>You may want to create a DB with fake products</p>
+
+<pre><code>rake db:demo
+</code></pre>
+
+<ul>
+<li>How to run the test suite</li>
+</ul><pre><code>rspec
+</code></pre>
+
+<ul>
+<li>Deployment instructions</li>
+</ul><p>There is a built in <a href="https://github.com/pavel-d/RailsCommerce/blob/master/config/deploy.rb">capistrano</a> script for deployment, so deploying to production is simple:</p>
+
+<pre><code>cap production deploy
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Railscommerce maintained by <a href="https://github.com/pavel-d">pavel-d</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
