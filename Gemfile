@@ -46,7 +46,7 @@ gem 'jquery-turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0.8'
 
-gem 'aasm', '~> 3.2.0'
+gem 'aasm', '~> 3.3.0'
 
 gem 'foreman', '~> 0.71.0', require: false
 

@@ -7,7 +7,7 @@
             - if p.images.any?
               = image_tag p.images.first.image.url(:medium), class: 'media-object', alt: p.name
           .caption
-            %h3= p.name
+            %h3= link_to p.name, product_seo_path(p, p.seo_name)
             %p= truncate p.description, length: 150
             %p
               %strong
