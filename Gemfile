@@ -68,6 +68,7 @@ end
 
 
 group :development do
+	gem 'capistrano', '~> 3.2.0'
 	gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
 end
 
