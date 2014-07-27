@@ -59,7 +59,7 @@ gem 'haml-rails'
 gem 'draper', '~> 1.3'
 
 group :development, :test do
-	gem 'spring'
+	gem 'spring', '~> 1.1.3'
 	gem 'capybara', '~> 2.2.1'
 	gem 'factory_girl_rails', '~> 4.3.0'
 	gem 'rspec-rails', '~> 2.14.1'
