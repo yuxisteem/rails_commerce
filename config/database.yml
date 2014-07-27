@@ -20,8 +20,5 @@ test:
 
 production:
   adapter: postgresql
-  database: <%= ENV['PG_DB']  %>
-  username: <%= ENV['PG_USER']  %>
-  password: <%= ENV['PG_PASS']  %>
-  host: <%= ENV['PG_HOST']  %>
-  port: <%= ENV['PG_PORT']  %>
+  pool: 5
+  url: <%= ENV['DATABASE_URL']  %>
