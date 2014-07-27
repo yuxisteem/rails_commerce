@@ -21,6 +21,7 @@ module Configuration
       @hash_table
     end
   end
-  config = YAML.load(ERB.new(File.read("#{Rails.root}/config/config.yml")).result)[Rails.env]
-  Kernel.const_set('AppConfig', Settings.new(config))
 end
+
+config = YAML.load(ERB.new(File.read("#{Rails.root}/config/config.yml")).result)[Rails.env]
+AppConfig = Kernel.const_set('AppConfig', Configuration::Settings.new(config))
