@@ -4,12 +4,12 @@ preload_app true
 
 timeout 30
 
-listen '/home/ubuntu/shared/sockets/unicorn.sock', backlog: 2048
+listen 'tmp/sockets/unicorn.sock', backlog: 2048
 
-stdout_path '/home/ubuntu/shared/log/unicorn.log'
-stderr_path '/home/ubuntu/shared/log/unicorn_error.log'
+stdout_path 'log/unicorn.log'
+stderr_path 'log/unicorn_error.log'
 
-pid_file = '/home/ubuntu/shared/pids/unicorn.pid'
+pid_file = 'tmp/pids/unicorn.pid'
 pid pid_file
 
 # http://www.rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
