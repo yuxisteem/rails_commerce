@@ -62,15 +62,15 @@ Ecomm::Application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => AppConfig['host'] }
+  config.action_mailer.default_url_options = { host: AppConfig.mailer.host }
 
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    :address   => AppConfig['smtp']['address'],
-    :port      => AppConfig['smtp']['port'],
-    :user_name => AppConfig['smtp']['user'],
-    :password  => AppConfig['smtp']['password'],
+    :address   => AppConfig.smtp.address,
+    :port      => AppConfig.smtp.port,
+    :user_name => AppConfig.smtp.user,
+    :password  => AppConfig.smtp.password,
     :enable_starttls_auto => true
   }
 

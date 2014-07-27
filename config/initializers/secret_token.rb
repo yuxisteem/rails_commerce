@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Ecomm::Application.config.secret_key_base = AppConfig['secret_key_base']
+Ecomm::Application.config.secret_key_base = AppConfig.secret_key_base

@@ -6,12 +6,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Load configs from config.yaml
-AppConfig = YAML.load(ERB.new(File.read("#{Rails.root}config/config.yml")).result)
-# Override config options by correct environment
-env_options = AppConfig.delete(Rails.env)
-AppConfig.merge!(env_options) unless env_options.nil?
-
 module Ecomm
   class Application < Rails::Application
     # config.time_zone = 'Central Time (US & Canada)'
