@@ -3,6 +3,8 @@ lock '3.2.1'
 
 set :application, 'rails_commerce'
 set :repo_url, 'git@github.com:pavel-d/RailsCommerce.git'
+set :rbenv_type, :user
+set :rbenv_ruby, '2.1.2'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
