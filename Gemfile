@@ -32,9 +32,6 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
@@ -42,11 +39,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0.8'
-
-gem 'aasm', '~> 3.3.0'
+gem 'aasm', '~> 3.3.1'
 
 gem 'foreman', '~> 0.71.0', require: false
 
@@ -76,7 +69,6 @@ end
 
 group :production do
   gem 'pg', '~> 0.17.1'
-  gem 'rack-cache', '~> 1.2'
   gem 'unicorn', '~> 4.8.3'
 end
 
