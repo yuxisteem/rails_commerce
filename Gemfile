@@ -59,23 +59,25 @@ gem 'haml-rails'
 gem 'draper', '~> 1.3'
 
 group :development, :test do
-	gem 'spring', '~> 1.1.3'
-	gem 'capybara', '~> 2.2.1'
-	gem 'factory_girl_rails', '~> 4.3.0'
-	gem 'rspec-rails', '~> 2.14.1'
-	gem 'faker', '~> 1.3.0'
+  gem 'spring', '~> 1.1.3'
+  gem 'capybara', '~> 2.2.1'
+  gem 'factory_girl_rails', '~> 4.3.0'
+  gem 'rspec-rails', '~> 2.14.1'
+  gem 'faker', '~> 1.3.0'
 end
 
 
 group :development do
-	gem 'capistrano', '~> 3.2.0'
-	gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  gem 'capistrano', '~> 3.2'
+  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-rails', '~> 1.1.1'
+  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
 end
 
 group :production do
-	gem 'pg', '~> 0.17.1'
-	gem 'rack-cache', '~> 1.2'
-	gem 'unicorn', '~> 4.8.3'
+  gem 'pg', '~> 0.17.1'
+  gem 'rack-cache', '~> 1.2'
+  gem 'unicorn', '~> 4.8.3'
 end
 
 group :doc do

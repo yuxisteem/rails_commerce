@@ -67,10 +67,10 @@ Ecomm::Application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    :address   => AppConfig.smtp.address,
-    :port      => AppConfig.smtp.port,
-    :user_name => AppConfig.smtp.user,
-    :password  => AppConfig.smtp.password,
+    :address   => AppConfig.mailer.smtp.address,
+    :port      => AppConfig.mailer.smtp.port,
+    :user_name => AppConfig.mailer.smtp.user,
+    :password  => AppConfig.mailer.smtp.password,
     :enable_starttls_auto => true
   }
 

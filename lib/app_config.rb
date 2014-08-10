@@ -24,4 +24,5 @@ module Configuration
 end
 
 config = YAML.load(ERB.new(File.read("#{Rails.root}/config/config.yml")).result)[Rails.env]
-AppConfig = Kernel.const_set('AppConfig', Configuration::Settings.new(config))
+# AppConfig = Kernel.const_set('AppConfig', Configuration::Settings.new(config))
+AppConfig = Configuration::Settings.new(config)

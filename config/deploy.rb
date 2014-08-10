@@ -3,11 +3,13 @@ lock '3.2.1'
 
 set :application, 'rails_commerce'
 set :repo_url, 'git@github.com:pavel-d/RailsCommerce.git'
+set :rbenv_type, :user
+set :rbenv_ruby, '2.1.2'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-# set :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call'
+set :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
 # set :deploy_to, '/var/www/my_app'
@@ -25,7 +27,7 @@ set :repo_url, 'git@github.com:pavel-d/RailsCommerce.git'
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w(.env)
+# set :linked_files, %w(.env)
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system)
@@ -47,6 +49,7 @@ namespace :deploy do
   end
 
   after :publishing, :restart
+  after :updated, :migrate
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
