@@ -1,20 +1,20 @@
 = render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder
-%h1= @presenter.category.name
+%h1= @category.name
 .row
-  - if @presenter.category.filters_enabled?
+  - if @category.filters_enabled?
     .col-md-2
-      - if @presenter.category.brand_filter_enabled?
+      - if @category.brand_filter_enabled?
         %ul.attributes-list
           = t('store.brand')
-          - @presenter.brands.group_by(&:name).map { |k,v| [v.first, v.length] }.each do |brand_group|
+          - @category.brands.group_by(&:name).map { |k,v| [v.first, v.length] }.each do |brand_group|
             %li
               %input{type: "checkbox", checked: brand_filter_active?(brand_group[0]), class: 'attribute-filter'}
               - if brand_filter_active?(brand_group[0])
-                = brand_filter_link brand_group[0], category_id: @presenter.category.id, class: 'filter-link-active'
+                = brand_filter_link brand_group[0], category_id: @category.id, class: 'filter-link-active'
               - else
-                = brand_filter_link brand_group[0], category_id: @presenter.category.id
-      - if @presenter.category.attribute_filter_enabled?
-        - @presenter.product_attributes.each do |product_attribute|
+                = brand_filter_link brand_group[0], category_id: @category.id
+      - if @category.attribute_filter_enabled?
+        - @category.product_attributes.each do |product_attribute|
           %ul.attributes-list
             = product_attribute.name
             - product_attribute.product_attribute_values.group_by(&:value).map { |k,v| [v.first, v.length] }.each do |attribute_value_group|
@@ -23,11 +23,11 @@
                   %input{type: "checkbox", checked: attribute_filter_active?(attribute_value_group[0]), class: 'attribute-filter'}
                   - if attribute_filter_active?(attribute_value_group[0])
                     = attribute_filter_link attribute_value_group[0],
-                      category_id: @presenter.category.id,
+                      category_id: @category.id,
                       class: 'filter-link-active'
                   - else
-                    = attribute_filter_link attribute_value_group[0], category_id: @presenter.category.id
+                    = attribute_filter_link attribute_value_group[0], category_id: @category.id
     .col-md-9
-      = render 'products_grid', products: @presenter.products
+      = render 'products_grid', products: @category.products
   - else
-    = render 'products_grid', products: @presenter.products
+    = render 'products_grid', products: @category.products
