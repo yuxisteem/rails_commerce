@@ -3,7 +3,7 @@ require 'spec_helper'
 describe CategoryPresenter do
   let(:product_attribute) { create(:product_attribute) }
   let(:category) { product_attribute.category }
-  let(:presenter) { CategoryPresenter.new(category_id: category.id, params: {}) }
+  let(:presenter) { CategoryPresenter.new(category, params: {}) }
   let(:brands) { Brand.joins("INNER JOIN products ON products.brand_id = brands.id AND products.category_id = #{category.id}") }
   describe '#products' do
     it 'should have products within category' do
@@ -20,7 +20,7 @@ describe CategoryPresenter do
 
   describe '#category' do
     it 'should equal category passed in constructor' do
-      presenter.category.should eq(category)
+      presenter.id.should eq(category.id)
     end
   end
   describe '#product_attributes' do
