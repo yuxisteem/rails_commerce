@@ -1,6 +1,11 @@
 module Filterable
   extend ActiveSupport::Concern
 
+  included do
+    scope :by_attributes, ->(attributes) { filter.by_attributes(attributes) }
+    scope :by_keyword, ->(keyword) { filter.by_keyword(keyword) }
+  end
+
   module ClassMethods
     def filter
       @filter ||= Filterable::Base.new(self)
@@ -8,15 +13,15 @@ module Filterable
   end
 
   class Base
-    def initialize(instance)
-      @instance = instance
-      @attributes_table_name = "#{@instance.name.downcase}_attribute_values"
-      @table_name = instance.name.tableize
-      @foreign_key = instance.name.foreign_key
+    def initialize(klass)
+      @klass = klass
+      @attributes_table_name = "#{@klass.name.downcase}_attribute_values"
+      @table_name = klass.name.tableize
+      @foreign_key = klass.name.foreign_key
     end
 
     def by_attributes(attributes)
-      entities = @instance.all
+      entities = @klass.all
       if attributes
         join_sql = attributes.map do |key, value|
 
@@ -33,6 +38,11 @@ module Filterable
       end
       entities = entities.joins(join_sql).distinct
       entities
+    end
+
+    def by_keyword(keyword)
+      keyword = "%#{keyword}%"
+      Product.where('name LIKE ? OR description LIKE ?', keyword, keyword)
     end
 
     def sanitize(str)

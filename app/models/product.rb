@@ -17,6 +17,7 @@ require 'transliteration'
 
 class Product < ActiveRecord::Base
   include Filterable
+  include SeoNames
 
   belongs_to :category
   belongs_to :brand
@@ -31,19 +32,6 @@ class Product < ActiveRecord::Base
   accepts_nested_attributes_for :product_attribute_values
 
   before_update :clear_attributes
-
-  def previous
-    Product.find_by_id(id - 1)
-  end
-
-  def next
-    Product.find_by_id(id + 1)
-  end
-
-  def self.find_all_by_term(search_term)
-    search_term = "%#{search_term}%"
-    Product.where('name LIKE ? OR description LIKE ?', search_term, search_term)
-  end
 
   def available_attributes
     @available_attributes ||=
@@ -63,10 +51,6 @@ class Product < ActiveRecord::Base
     product.active = false # Product should be inactive by default
     product.product_attribute_values = product_attribute_values.map(&:dup)
     product
-  end
-
-  def seo_name
-    Transliteration::transliterate(name).parameterize
   end
 
   private

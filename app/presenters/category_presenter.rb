@@ -13,8 +13,7 @@ class CategoryPresenter
   end
 
   def products
-    products = Product.filter
-                      .by_attributes(@product_attributes_query)
+    products = Product.by_attributes(@product_attributes_query)
                       .where(category_id: @category_id)
                       .includes(:images)
                       .paginate(page: @params[:page])

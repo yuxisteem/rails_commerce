@@ -12,6 +12,8 @@
 #
 
 class Category < ActiveRecord::Base
+  include SeoNames
+
   has_many :products
   has_many :product_attributes, dependent: :destroy
   validates :name, presence: true, length: { maximum: 255 }
@@ -19,9 +21,5 @@ class Category < ActiveRecord::Base
 
   def filters_enabled?
     attribute_filter_enabled || brand_filter_enabled
-  end
-
-  def seo_name
-    Transliteration::transliterate(name).parameterize
   end
 end
