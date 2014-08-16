@@ -1,14 +1,14 @@
 !!!
-%html{:lang => "en"}
+%html{:lang => 'en'}
   %head
-    %meta{:charset => "utf-8"}/
-    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-    %meta{:content => "", :name => "description"}/
-    %meta{:content => "", :name => "author"}/
+    %meta{:charset => 'utf-8'}/
+    %meta{:content => 'width=device-width, initial-scale=1.0', :name => 'viewport'}/
+    %meta{:content => '', :name => 'description'}/
+    %meta{:content => '', :name => 'author'}/
     %title= full_title(yield(:title))
-    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
-    = javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false", "data-turbolinks-track" => true
+    = stylesheet_link_tag 'admin/application', media: 'all'
+    = javascript_include_tag 'admin/application'
+    = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body#admin-body
     #wrapper
