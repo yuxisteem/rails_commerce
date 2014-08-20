@@ -2,7 +2,7 @@
 lock '3.2.1'
 
 set :application, 'rails_commerce'
-set :repo_url, 'git@github.com:pavel-d/RailsCommerce.git'
+set :repo_url, 'git@git.assembla.com:cheholtrade.git'
 set :rbenv_type, :user
 set :rbenv_ruby, '2.1.2'
 
