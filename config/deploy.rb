@@ -43,8 +43,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      invoke 'foreman:export'
-      invoke 'foreman:restart'
+      invoke 'init:upgrade'
     end
   end
 
