@@ -13,7 +13,6 @@
 #= require jquery
 #= require jquery.turbolinks
 #= require jquery_ujs
-#= require uploadify
 #= require turbolinks
 #= require bootstrap
 #= require lightbox
