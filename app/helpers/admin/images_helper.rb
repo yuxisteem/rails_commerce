@@ -2,7 +2,11 @@ module Admin::ImagesHelper
   def image_upload_tag(imageable_type, imageable_id, id: 'fileupload', url: '')
     form_data = {imageable_type: imageable_type, imageable_id: imageable_id}.to_json
     %(
-      <input id="#{id}", type="file", name="files[]", data-form-data='#{form_data}', data-url="#{url}">
+      <span class="btn btn-success fileinput-button">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>Select files...</span>
+        <input id="#{id}", type="file", name="files[]", data-form-data='#{form_data}', data-url="#{url}" multiple>
+      </span>
      ).html_safe
   end
 end

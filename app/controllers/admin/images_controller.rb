@@ -10,9 +10,11 @@ class Admin::ImagesController < Admin::AdminController
   end
 
   def create
-    image_upload_params[:files].each do |file|
-
+    puts image_upload_params
+    params[:files].each do |file|
+      puts file
     end
+    render json: {}
   end
 
   def show
@@ -30,7 +32,11 @@ class Admin::ImagesController < Admin::AdminController
 
   private
   def image_upload_params
-    params.permit(:files, :imageable_type, :imageable_id)
+    params.permit(:imageable_type, :imageable_id, :product_id, :files)
+  end
+
+  def imageable_id
+    params[:imageable_id]
   end
 
   def set_imageable_klass
