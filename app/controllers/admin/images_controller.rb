@@ -1,5 +1,5 @@
 class Admin::ImagesController < Admin::AdminController
-  before_action :set_imageable_klass, only: :create
+  before_action :set_imageable, only: :create
 
   def index
     @images = Image.all
@@ -10,11 +10,13 @@ class Admin::ImagesController < Admin::AdminController
   end
 
   def create
-    puts image_upload_params
     params[:files].each do |file|
-      puts file
+      @imageable.images.build(image: file)
     end
-    render json: {}
+
+    if @imageable.save
+      render json: {}
+    end
   end
 
   def show
@@ -39,8 +41,9 @@ class Admin::ImagesController < Admin::AdminController
     params[:imageable_id]
   end
 
-  def set_imageable_klass
-    @imageable_klass = image_upload_params[:imageable_type].capitalize.constantize
+  def set_imageable
+    imageable_class = image_upload_params[:imageable_type].capitalize.constantize
+    @imageable = imageable_class.find imageable_id
   end
 
 end
