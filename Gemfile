@@ -8,9 +8,7 @@ gem 'will_paginate-bootstrap', '~> 1.0.0'
 
 gem 'breadcrumbs_on_rails', '~> 2.3.0'
 
-gem 'paperclip', '~> 3.5.2'
-gem 'flash_cookie_session', '~> 1.1.6'
-gem 'uploadify-rails', '~> 3.1.1.1'
+gem 'paperclip', '~> 4.2.0'
 
 #Search forms against your application's models
 gem 'ransack', '~> 1.2.3'
