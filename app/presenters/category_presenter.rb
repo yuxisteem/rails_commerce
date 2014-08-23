@@ -3,7 +3,8 @@ class CategoryPresenter
 
   attr_accessor :params, :category
 
-  delegate :id, :brands, :products, :product_attributes, :name, :seo_name,
+  # TODO: Can we make this better?
+  delegate :id, :brands, :products, :name, :seo_name,
            :"attribute_filter_enabled?", :"filters_enabled?", :"brand_filter_enabled?",
            to: :category
 
@@ -25,6 +26,7 @@ class CategoryPresenter
     products
   end
 
+  # TODO: Move this stuff to Category model
   def product_attributes
     ProductAttribute
       .where(category_id: @category.id, filterable: true)
