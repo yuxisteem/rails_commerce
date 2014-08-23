@@ -1,4 +1,6 @@
 class Admin::ImagesController < Admin::AdminController
+  before_action :set_imageable, only: :create
+
   def index
     @images = Image.all
   end
@@ -8,19 +10,13 @@ class Admin::ImagesController < Admin::AdminController
   end
 
   def create
-    @image = Image.new
-    params[:Filedata].content_type = MIME::Types.type_for(params[:Filedata].original_filename)[0].to_s
-
-    @image.image = params[:Filedata]
-
-    @image.imageable_id = params[:imageable_id] unless params[:imageable_id].blank?
-    @image.imageable_type = params[:imageable_type] unless params[:imageable_type].blank?
-
-    respond_to do |format|
-      if @image.save
-        format.js { render :layout => false }
-      end
+    uploads = params[:files].map do |file|
+      @imageable.images.build(image: file)
     end
+
+    @imageable.save!
+
+    render uploads
   end
 
   def show
@@ -32,14 +28,22 @@ class Admin::ImagesController < Admin::AdminController
     @image.destroy
 
     respond_to do |format|
-      format.js { render :layout => false }
+      format.js { render layout: false }
     end
   end
 
   private
-  def image_params
-    params.require(:image).permit(:image)
+
+  def image_upload_params
+    params.permit(:imageable_type, :imageable_id, :product_id, :files)
   end
 
+  def imageable_id
+    params[:imageable_id]
+  end
 
+  def set_imageable
+    imageable_class = image_upload_params[:imageable_type].capitalize.constantize
+    @imageable = imageable_class.find imageable_id
+  end
 end

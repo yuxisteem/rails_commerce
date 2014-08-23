@@ -1,7 +1,5 @@
 module ApplicationHelper
 
-  include UploadifyRailsHelper
-
   def nav_link_to(body, url, options = {})
     if current_page?(url) || options[:inclusive] && request.path.include?(url)
       if options[:class]

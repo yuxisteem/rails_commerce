@@ -1,0 +1,9 @@
+= form_tag do
+  .form-group
+    = label_tag 'images'
+  .form-group
+    #upload-progress.progress
+      %div#upload-progress-bar.progress-bar.progress-bar-success
+    = image_upload_tag 'product', product.id, url: admin_product_images_path(product_id: product.id)
+  #admin-images-list.row
+    = render product.images

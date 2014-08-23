@@ -8,9 +8,7 @@ gem 'will_paginate-bootstrap', '~> 1.0.0'
 
 gem 'breadcrumbs_on_rails', '~> 2.3.0'
 
-gem 'paperclip', '~> 3.5.2'
-gem 'flash_cookie_session', '~> 1.1.6'
-gem 'uploadify-rails', '~> 3.1.1.1'
+gem 'paperclip', '~> 4.2.0'
 
 #Search forms against your application's models
 gem 'ransack', '~> 1.2.3'
@@ -38,6 +36,7 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem 'jquery-turbolinks'
+gem 'jquery-ui-rails'
 
 gem 'aasm', '~> 3.3.1'
 
