@@ -5,7 +5,7 @@ preload_app true
 timeout 30
 
 # Path to socket should be absolute
-listen File.expand_path("tmp/sockets/unicorn.sock"), backlog: 2048
+listen '/srv/rails_commerce/shared/tmp/sockets/unicorn.sock', backlog: 2048
 
 stdout_path 'log/unicorn.log'
 stderr_path 'log/unicorn_error.log'
