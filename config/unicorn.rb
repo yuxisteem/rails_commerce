@@ -16,6 +16,10 @@ pid pid_file
 # http://www.rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
 GC.copy_on_write_friendly = true if GC.respond_to?(:copy_on_write_friendly=)
 
+before_exec do |_server|
+  ENV['BUNDLE_GEMFILE'] = File.expand_path('Gemfile')
+end
+
 before_fork do |server, _worker|
   ##
   # When sent a USR2, Unicorn will suffix its pidfile with .oldbin and
