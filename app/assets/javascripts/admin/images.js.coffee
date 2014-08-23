@@ -1,12 +1,16 @@
 # Upload button for images form
 $ ->
+  uploadProgress = $('#upload-progress')
+  uploadProgressBar = $('#upload-progress-bar')
+  imagesList = $('#admin-images-list')
   $('#fileupload').fileupload
     dataType: 'html',
     start: ->
-      $('#upload-progress').show()
+      uploadProgress.show()
     progressall: (e, data) ->
       progress = parseInt(data.loaded / data.total * 100, 10)
-      $('#upload-progress-bar').css('width', progress + '%')
+      uploadProgressBar.css('width', progress + '%')
     done: (e, data) ->
-      $('#admin-images-list').append(data.result)
-      $('#upload-progress').hide()
+      imagesList.append(data.result)
+      uploadProgressBar.css('width', '0%')
+      uploadProgress.hide()

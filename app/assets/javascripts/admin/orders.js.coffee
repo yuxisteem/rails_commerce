@@ -11,7 +11,7 @@ $ ->
       zoom: 8
 
     map = new google.maps.Map(mapCanvas[0], myOptions)
-    
+
     google.maps.event.addDomListener window, "load", initialize
     codeAddress(mapCanvas.data('address'), map)
     return

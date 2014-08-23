@@ -3,7 +3,6 @@
 #= require bootstrap
 #= require jquery-ui
 #= require jquery.fileupload
-#= require jquery.iframe-transport
 #= require_tree .
 
 $("#menu-toggle").click (e) ->
