@@ -10,5 +10,6 @@
   %li
     = link_to t('common.sign_out'), destroy_user_session_path
 - else
-  %li{class: current_page?(new_user_session_path) && 'active'}
-    = link_to t('common.sign_in'), new_user_session_path
+  - unless AppConfig.authentication_disabled
+    %li{class: current_page?(new_user_session_path) && 'active'}
+      = link_to t('common.sign_in'), new_user_session_path

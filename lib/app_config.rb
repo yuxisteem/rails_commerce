@@ -1,19 +1,32 @@
 require 'ostruct'
 
 module Configuration
-  class Settings < OpenStruct
+  CONFIG_PATH = "#{Rails.root}/config/config.yml"
 
-    def initialize(hash=nil)
+  class Settings < OpenStruct
+    def self.load
+      config = YAML.load(ERB.new(File.read(CONFIG_PATH)).result)
+
+      if config['all']
+        config = config['all'].merge(config[Rails.env])
+      else
+        config = config[Rails.env]
+      end
+
+      new(config)
+    end
+
+    def initialize(hash = nil)
       @table = {}
       @hash_table = {}
 
-      if hash
-        hash.each do |k,v|
-          @table[k.to_sym] = (v.is_a?(Hash) ? self.class.new(v) : v)
-          @hash_table[k.to_sym] = v
+      return unless hash
 
-          new_ostruct_member(k)
-        end
+      hash.each do |k, v|
+        @table[k.to_sym] = (v.is_a?(Hash) ? self.class.new(v) : v)
+        @hash_table[k.to_sym] = v
+
+        new_ostruct_member(k)
       end
     end
 
@@ -23,6 +36,4 @@ module Configuration
   end
 end
 
-config = YAML.load(ERB.new(File.read("#{Rails.root}/config/config.yml")).result)[Rails.env]
-# AppConfig = Kernel.const_set('AppConfig', Configuration::Settings.new(config))
-AppConfig = Configuration::Settings.new(config)
+AppConfig = Configuration::Settings.load
