@@ -21,8 +21,7 @@ module ApplicationHelper
     end
   end
 
-  def label_span(text, type: :default)
-    type = params[:type] || 'default'
+  def label_span(text, type: 'default')
     "<span class=\"label label-#{type}\">#{text}</span>".html_safe
   end
 
