@@ -1,5 +1,7 @@
 #= require jquery
 #= require jquery_ujs
+#= require turbolinks
+#= require jquery.turbolinks
 #= require bootstrap
 #= require jquery-ui
 #= require jquery.fileupload
