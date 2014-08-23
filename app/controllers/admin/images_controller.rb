@@ -10,13 +10,13 @@ class Admin::ImagesController < Admin::AdminController
   end
 
   def create
-    params[:files].each do |file|
+    uploads = params[:files].map do |file|
       @imageable.images.build(image: file)
     end
 
-    if @imageable.save
-      render json: {}
-    end
+    @imageable.save!
+
+    render uploads
   end
 
   def show
@@ -28,11 +28,12 @@ class Admin::ImagesController < Admin::AdminController
     @image.destroy
 
     respond_to do |format|
-      format.js { render :layout => false }
+      format.js { render layout: false }
     end
   end
 
   private
+
   def image_upload_params
     params.permit(:imageable_type, :imageable_id, :product_id, :files)
   end
@@ -45,5 +46,4 @@ class Admin::ImagesController < Admin::AdminController
     imageable_class = image_upload_params[:imageable_type].capitalize.constantize
     @imageable = imageable_class.find imageable_id
   end
-
 end
