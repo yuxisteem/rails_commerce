@@ -1,20 +1,17 @@
 class OrderNotifier < AsyncMailer
-
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.order_notifier.order_received.subject
-  #
+  # Notify Customer that we've recieved new order
   def order_received(order_id)
     @order = Order.find(order_id)
     mail to: @order.user.email
   end
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.order_notifier.order_shipped.subject
-  #
+  # Notify Admin that we've recieved new order
+  def order_received_admin(order_id, user_id)
+    @order = Order.find(order_id)
+    mail to: User.find(user_id)
+  end
+
+  # Notify Customer that we've shipped order
   def order_shipped(order_id)
     @order = Order.find(order_id)
     mail to: @order.user.email

@@ -1,7 +1,6 @@
 class Admin::OrderHistoriesController < Admin::AdminController
   before_action :set_admin_order_history, only: [:show, :edit, :update, :destroy]
 
-
   # POST /admin/order_histories
   # POST /admin/order_histories.json
   def create
@@ -26,6 +25,6 @@ class Admin::OrderHistoriesController < Admin::AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_order_history_params
-      params.require(:order_history).permit(:note)
+      params.require(:order_history).permit(:note).merge(user: current_user)
     end
 end

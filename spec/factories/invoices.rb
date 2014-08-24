@@ -7,7 +7,7 @@
 #  payment_method :integer
 #  amount         :decimal(, )
 #  invoice_type   :string(255)
-#  state          :integer
+#  aasm_state     :string(255)
 #  created_at     :datetime
 #  updated_at     :datetime
 #

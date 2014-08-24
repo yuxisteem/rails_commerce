@@ -12,9 +12,11 @@
                 %li
                   %span= time_tag history.created_at, format: '%H:%M'
                   - unless history.attribute_name.blank?
-                    %strong= history.attribute_name
-                    = label_span history.to_name
+                    = history.attribute_name
+                    = history.to_name
                   = history.note unless history.note.blank?
+                  - if history.user
+                    %em (#{link_to history.user.full_name, admin_user_path(history.user) })
       = form_for OrderHistory.new, url: admin_order_order_histories_path(order_id: @order.id) do |f|
         .form-group
           = f.text_area :note, placeholder: "Enter your note here...", class: 'form-control'

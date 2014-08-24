@@ -15,7 +15,7 @@ class Admin::OrdersController < Admin::AdminController
   # PATCH/PUT /admin/orders/1
   def update
     respond_to do |format|
-      if Order.where(id: params[:id].split(',')).each { |x| x.update(order_params)}
+      if Order.where(id: params[:id].split(',')).each { |x| x.update(order_params) }
         format.html { redirect_to admin_order_path(@order), notice: 'Order was successfully updated.' }
       else
         format.html { render action: 'edit' }
@@ -43,7 +43,8 @@ class Admin::OrdersController < Admin::AdminController
   def fire_event(object, event_name)
     event_name = event_name.to_sym
     if object.aasm.may_fire_event?(event_name)
-      object.send(event_name)
+      # Pass current current_user, it will be logged in order history changes
+      object.send(event_name, nil, current_user)
       object.save
       flash[:notice] = "Order update succesfully"
     else

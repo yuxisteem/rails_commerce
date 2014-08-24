@@ -25,7 +25,9 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :order_histories
 
-  after_create :send_mail
+  scope :admins, -> { where(admin: true) }
+
+  after_create :notify_created
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -54,7 +56,7 @@ class User < ActiveRecord::Base
 
   private
 
-  def send_mail
+  def notify_created
     UserNotifier.account_created(id, password).deliver
   end
 end

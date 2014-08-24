@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: order_histories
+#
+#  id             :integer          not null, primary key
+#  order_id       :integer
+#  attribute_name :string(255)
+#  from_name      :string(255)
+#  to_name        :string(255)
+#  note           :text
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+
 require 'spec_helper'
 
 describe OrderHistory do

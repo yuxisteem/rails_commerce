@@ -5,9 +5,8 @@
 #  id         :integer          not null, primary key
 #  user_id    :integer
 #  code       :string(255)
-#  state      :integer
+#  aasm_state :string(255)
 #  note       :text
-#  address_id :integer
 #  created_at :datetime
 #  updated_at :datetime
 #

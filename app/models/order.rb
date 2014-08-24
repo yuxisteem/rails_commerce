@@ -5,9 +5,8 @@
 #  id         :integer          not null, primary key
 #  user_id    :integer
 #  code       :string(255)
-#  state      :integer
+#  aasm_state :string(255)
 #  note       :text
-#  address_id :integer
 #  created_at :datetime
 #  updated_at :datetime
 #
@@ -27,7 +26,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :user
 
   before_create :generate_shippment, :generate_invoice, :generate_code
-  after_create :send_mail
+  after_create :notify_customer, :notify_admins
   after_touch :update_state
 
   aasm do
@@ -57,7 +56,7 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def can_cancel?
+  def can_cancel?(_user)
     !shipment.shipped? && !invoice.paid?
   end
 
@@ -67,10 +66,13 @@ class Order < ActiveRecord::Base
 
   private
 
-  def log_transition
+  def log_transition(user)
+    # We pass user object as argument to event when firing
+    # event from Controller to know who had triggered an event
+
     # TODO: log human readable states, e.g. ready_to_ship --> Ready to ship
     OrderHistory.log_transition(id, self.class.name,
-                                aasm.from_state, aasm.to_state)
+                                aasm.from_state, aasm.to_state, user)
   end
 
   def update_state
@@ -90,7 +92,13 @@ class Order < ActiveRecord::Base
     self.code = SecureRandom.hex
   end
 
-  def send_mail
+  def notify_customer
     OrderNotifier.order_received(id).deliver
+  end
+
+  def notify_admins
+    User.admins.each do |admin|
+      OrderNotifier.order_received_admin(id, admin.id).deliver
+    end
   end
 end

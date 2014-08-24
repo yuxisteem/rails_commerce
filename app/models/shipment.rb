@@ -7,7 +7,7 @@
 #  shipping_method_id :integer
 #  address_id         :integer
 #  tracking           :string(255)
-#  state              :integer
+#  aasm_state         :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
 #
@@ -47,7 +47,8 @@ class Shipment < ActiveRecord::Base
 
   private
 
-  def log_transition
-    OrderHistory.log_transition(order_id, self.class.name, aasm.from_state, aasm.to_state)
+  def log_transition(user)
+    OrderHistory.log_transition(order_id, self.class.name,
+                                aasm.from_state, aasm.to_state, user)
   end
 end

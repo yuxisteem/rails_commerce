@@ -7,7 +7,7 @@
 #  shipping_method_id :integer
 #  address_id         :integer
 #  tracking           :string(255)
-#  state              :integer
+#  aasm_state         :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
 #
