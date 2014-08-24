@@ -56,7 +56,7 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def can_cancel?(_user)
+  def can_cancel?(*)
     !shipment.shipped? && !invoice.paid?
   end
 
