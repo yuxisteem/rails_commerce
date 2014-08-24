@@ -18,7 +18,7 @@ namespace :init do
   desc 'Restart the application services'
   task :restart do
     on roles(:app) do
-      invoke 'init:unicorn:restart'
+      invoke 'init:unicorn:upgrade'
       invoke 'init:worker:restart'
     end
   end
