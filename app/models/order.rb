@@ -97,8 +97,6 @@ class Order < ActiveRecord::Base
   end
 
   def notify_admins
-    User.admins.each do |admin|
-      OrderNotifier.order_received_admin(id, admin.id).deliver
-    end
+    OrderNotifier.order_received_admin(id).deliver
   end
 end
