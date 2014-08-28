@@ -1,6 +1,6 @@
 class SMSNotifier
-  def initialize(method_name=nil, *args)
-    @client = SmsClub::Client.new(
+  def initialize
+    @client = SmsClub::AsyncClient.new(
                                     AppConfig.sms_notifier.login,
                                     AppConfig.sms_notifier.password,
                                     from: AppConfig.sms_notifier.from,
@@ -9,14 +9,14 @@ class SMSNotifier
   end
 
   def sms(message, to: nil, from: nil, transliterate: false)
+    return false unless AppConfig.sms_notifier.enabled
+
     raise ArgumentError, 'Recepient phone number is nil' unless to
-    @client.send_many(message, to: to, from: from, transliterate: transliterate)
+    @client.send_async(message, to: to, from: from, transliterate: transliterate)
   end
 
-  protected
-
   def self.method_missing(method_name, *args)
-   if instance_methods.include?(method_name)
+    if instance_methods.include?(method_name)
       new(method_name, *args).send(method_name, args)
     else
       super

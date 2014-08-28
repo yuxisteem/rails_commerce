@@ -94,9 +94,11 @@ class Order < ActiveRecord::Base
 
   def notify_customer
     OrderNotifier.order_received(id).deliver
+    OrderSMSNotifier.order_received(id)
   end
 
   def notify_admins
     OrderNotifier.order_received_admin(id).deliver
+    OrderSMSNotifier.order_received_admin(id)
   end
 end
