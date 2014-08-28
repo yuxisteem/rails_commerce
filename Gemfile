@@ -48,7 +48,7 @@ gem 'haml-rails'
 
 gem 'draper', '~> 1.3'
 
-gem 'sms-club', github: 'pavel-d/sms-club'
+gem 'sms-club', '~> 0.3'
 
 group :development, :test do
   gem 'spring', '~> 1.1.3'
