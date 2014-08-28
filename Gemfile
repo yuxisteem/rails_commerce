@@ -40,8 +40,6 @@ gem 'jquery-ui-rails'
 
 gem 'aasm', '~> 3.3.1'
 
-gem 'foreman', '~> 0.71.0', require: false
-
 gem 'resque', '~> 1.25.1'
 gem 'resque_mailer', '~> 2.2.6'
 
@@ -49,6 +47,8 @@ gem 'haml', '~> 4.0.5'
 gem 'haml-rails'
 
 gem 'draper', '~> 1.3'
+
+gem 'sms-club', github: 'pavel-d/sms-club'
 
 group :development, :test do
   gem 'spring', '~> 1.1.3'
