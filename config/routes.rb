@@ -1,4 +1,7 @@
 Ecomm::Application.routes.draw do
+
+  default_url_options :host => AppConfig.mailer.host
+
   get "/404" => 'errors#not_found'
   get "/500" => 'errors#internal_server_error'
 

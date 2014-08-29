@@ -1,4 +1,5 @@
 class SMSNotifier
+  include Rails.application.routes.url_helpers
   def initialize
     @client = SmsClub::AsyncClient.new(
                                     AppConfig.sms_notifier.login,
@@ -8,16 +9,23 @@ class SMSNotifier
                                   )
   end
 
-  def sms(message, to: nil, from: nil, transliterate: false)
+  def sms(message, to: nil)
     return false unless AppConfig.sms_notifier.enabled
 
     raise ArgumentError, 'Recepient phone number is nil' unless to
-    @client.send_async(message, to: to, from: from, transliterate: transliterate)
+
+    @client.send_async(message, to: to) #if Rails.env.production?
+
+    Rails.logger.info %(
+      SMS Sent
+      To: #{to}
+      Message: #{message}
+    )
   end
 
   def self.method_missing(method_name, *args)
     if instance_methods.include?(method_name)
-      new(method_name, *args).send(method_name, args)
+      new.send(method_name, *args)
     else
       super
     end

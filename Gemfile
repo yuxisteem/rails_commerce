@@ -63,7 +63,7 @@ group :development do
   gem 'capistrano', '~> 3.2'
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-rails', '~> 1.1.1'
-  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  gem 'annotate', '~> 2.6'
 end
 
 group :production do
