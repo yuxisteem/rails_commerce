@@ -66,7 +66,7 @@ class Order < ActiveRecord::Base
 
   private
 
-  def log_transition(user)
+  def log_transition(user = nil)
     # We pass user object as argument to event when firing
     # event from Controller to know who had triggered an event
 
@@ -94,9 +94,11 @@ class Order < ActiveRecord::Base
 
   def notify_customer
     OrderNotifier.order_received(id).deliver
+    OrderSMSNotifier.order_received(id)
   end
 
   def notify_admins
     OrderNotifier.order_received_admin(id).deliver
+    OrderSMSNotifier.order_received_admin(id)
   end
 end

@@ -31,6 +31,7 @@ FactoryGirl.define do
     password_confirmation "12345"
     first_name "John"
     last_name  "Doe"
+    phone Faker::PhoneNumber.phone_number
     admin false
   end
 
@@ -40,6 +41,7 @@ FactoryGirl.define do
     password_confirmation '12345'
     first_name "Admin"
     last_name  "User"
+    phone      Faker::PhoneNumber.phone_number
     admin      true
   end
 end

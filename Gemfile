@@ -40,8 +40,6 @@ gem 'jquery-ui-rails'
 
 gem 'aasm', '~> 3.3.1'
 
-gem 'foreman', '~> 0.71.0', require: false
-
 gem 'resque', '~> 1.25.1'
 gem 'resque_mailer', '~> 2.2.6'
 
@@ -49,6 +47,8 @@ gem 'haml', '~> 4.0.5'
 gem 'haml-rails'
 
 gem 'draper', '~> 1.3'
+
+gem 'sms-club', '~> 0.3'
 
 group :development, :test do
   gem 'spring', '~> 1.1.3'
@@ -63,7 +63,7 @@ group :development do
   gem 'capistrano', '~> 3.2'
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-rails', '~> 1.1.1'
-  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
+  gem 'annotate', '~> 2.6'
 end
 
 group :production do

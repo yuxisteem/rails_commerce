@@ -36,7 +36,7 @@ class Invoice < ActiveRecord::Base
 
   private
 
-  def log_transition(user)
+  def log_transition(user = nil)
     OrderHistory.log_transition(order_id, self.class.name,
                                 aasm.from_state, aasm.to_state, user)
   end
