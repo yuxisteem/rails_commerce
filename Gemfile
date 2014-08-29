@@ -58,7 +58,6 @@ group :development, :test do
   gem 'faker', '~> 1.3.0'
 end
 
-
 group :development do
   gem 'capistrano', '~> 3.2'
   gem 'capistrano-rbenv', '~> 2.0'

@@ -10,11 +10,9 @@ class SMSNotifier
   end
 
   def sms(message, to: nil)
-    return false unless AppConfig.sms_notifier.enabled
-
     raise ArgumentError, 'Recepient phone number is nil' unless to
 
-    @client.send_async(message, to: to) if Rails.env.production?
+    @client.send_async(message, to: to) if AppConfig.sms_notifier.enabled
 
     Rails.logger.info %(
       SMS Sent
