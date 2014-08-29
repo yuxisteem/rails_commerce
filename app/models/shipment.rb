@@ -18,6 +18,7 @@ class Shipment < ActiveRecord::Base
   belongs_to :order, touch: true
   belongs_to :address
 
+  # TODO: Chage it to ActiveRecord::Enum
   SHIPPING_METHODS = %w(nova_poshta, self_pickup)
 
   aasm do
@@ -42,12 +43,12 @@ class Shipment < ActiveRecord::Base
   end
 
   def shipping_method
-    SHIPPING_METHODS[:shipping_method_id]
+    SHIPPING_METHODS[shipping_method_id]
   end
 
   private
 
-  def log_transition(user)
+  def log_transition(user = nil)
     OrderHistory.log_transition(order_id, self.class.name,
                                 aasm.from_state, aasm.to_state, user)
   end

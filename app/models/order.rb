@@ -66,7 +66,7 @@ class Order < ActiveRecord::Base
 
   private
 
-  def log_transition(user)
+  def log_transition(user = nil)
     # We pass user object as argument to event when firing
     # event from Controller to know who had triggered an event
 

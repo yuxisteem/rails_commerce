@@ -15,6 +15,7 @@ require 'spec_helper'
 
 describe Order do
   let(:order) { create(:order) }
+  let(:user) { order.user }
 
   it 'should have invoice generated automatically' do
     order.invoice.should be_true
@@ -30,22 +31,22 @@ describe Order do
     end
 
     it 'should log state transitions' do
-      order.cancel!
+      order.cancel!(nil, user)
       order.order_histories.last.to_name.should eq('canceled')
     end
 
     it 'should be in Completed state if invoice is paid and shipment shipped' do
-      order.invoice.pay!
-      order.shipment.prepare!
-      order.shipment.ship!
+      order.invoice.pay!(nil, user)
+      order.shipment.prepare!(nil, user)
+      order.shipment.ship!(nil, user)
       order.aasm.current_state.should eq(:completed)
     end
 
     it 'should be in In Progress state unless invoice is paid and shipment shipped' do
-      order.invoice.pay!
-      order.shipment.prepare!
-      order.shipment.ship!
-      order.invoice.refund!
+      order.invoice.pay!(nil, user)
+      order.shipment.prepare!(nil, user)
+      order.shipment.ship!(nil, user)
+      order.invoice.refund!(nil, user)
       order.aasm.current_state.should eq(:in_progress)
     end
 
@@ -54,7 +55,7 @@ describe Order do
     end
 
     it 'should not be cancelable if shipped or paid' do
-      order.invoice.pay
+      order.invoice.pay!(nil, user)
       order.may_cancel?.should be_false
     end
   end
