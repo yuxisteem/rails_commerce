@@ -1,6 +1,6 @@
 class Admin::BrandsController < Admin::AdminController
 
-  add_breadcrumb I18n.t('admin.brands'), :admin_brands_path
+  add_breadcrumb I18n.t('admin.brands.brands'), :admin_brands_path
 
   before_action :set_brand, except: [:index, :create, :new]
 
@@ -21,7 +21,7 @@ class Admin::BrandsController < Admin::AdminController
   def create
     @brand = Brand.new(brand_params)
     if @brand.save
-      flash[:notice] = t('admin.brand_saved')
+      flash[:notice] = t('admin.brands.brand_saved')
       redirect_to admin_brand_path(@brand)
     else
       render 'new'
@@ -33,7 +33,7 @@ class Admin::BrandsController < Admin::AdminController
     add_breadcrumb t('admin.common.edit')
     if @brand.update(brand_params)
       redirect_to admin_brand_path(@brand)
-      flash[:notice] = t('admin.brand_updated')
+      flash[:notice] = t('admin.brands.brand_updated')
     else
       render 'edit'
     end
@@ -41,7 +41,7 @@ class Admin::BrandsController < Admin::AdminController
 
   def destroy
     @brand.destroy
-    flash[:notice] = t('admin.brand_deleted')
+    flash[:notice] = t('admin.brands.brand_deleted')
     redirect_to admin_brands_path
   end
 
