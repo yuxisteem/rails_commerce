@@ -15,7 +15,6 @@ ru:
       cancel: Cancel
       id: Id
       upload_images: Upload images
-    email: Email
     orders:
       orders_total: Orders total
       orders_list: Orders list
@@ -55,6 +54,7 @@ ru:
       create_brand: Create brand
       edit_brand: Edit brand
     users:
+      email: Email
       users_heading: Users
       sign_in_count: Sign in count
       last_sign_in_at: Last sign in at
