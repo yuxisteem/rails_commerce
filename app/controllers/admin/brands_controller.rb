@@ -15,7 +15,7 @@ class Admin::BrandsController < Admin::AdminController
 
   def new
     @brand = Brand.new
-    add_breadcrumb t('admin.create')
+    add_breadcrumb t('admin.common.create')
   end
 
   def create

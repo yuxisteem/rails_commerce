@@ -17,7 +17,7 @@ class Admin::ProductsController < Admin::AdminController
 
   def new
     @product = Product.new
-    add_breadcrumb I18n.t('admin.create')
+    add_breadcrumb I18n.t('admin.common.create')
   end
 
   def create
@@ -26,7 +26,7 @@ class Admin::ProductsController < Admin::AdminController
       flash[:notice] = t('admin.product_saved')
       redirect_to admin_product_path(@product)
     else
-      add_breadcrumb I18n.t('admin.create')
+      add_breadcrumb I18n.t('admin.common.create')
       render 'new'
     end
   end

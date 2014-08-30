@@ -14,7 +14,7 @@ class Admin::CategoriesController < Admin::AdminController
 
   def new
     @category = Category.new
-    add_breadcrumb t('admin.create')
+    add_breadcrumb t('admin.common.create')
   end
 
   def create

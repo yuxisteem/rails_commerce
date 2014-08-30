@@ -7,7 +7,7 @@
   = render 'admin/categories/category_fields', f: f
   .form-group
     = f.submit t('admin.common.save'), class: 'btn btn-primary'
-    = link_to t('admin.cancel'), admin_category_path(@category), class: 'btn btn-default'
+    = link_to t('admin.common.cancel'), admin_category_path(@category), class: 'btn btn-default'
 
 = form_for ProductAttribute.new, url: admin_category_product_attributes_path(category_id: @category.id), html: {class: 'form-inline'} do |f|
   = f.label :attributes
