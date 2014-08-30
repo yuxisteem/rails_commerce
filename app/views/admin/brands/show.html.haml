@@ -1,6 +1,6 @@
-- provide(:title, "#{t('admin.common.edit_brand').capitalize} #{@brand.name}")
+- provide(:title, "#{t('admin.brands.edit_brand').capitalize} #{@brand.name}")
 %h2
-  = t('admin.common.edit_brand')
+  = t('admin.brands.edit_brand')
   = @brand.name
 = form_for @brand, url: admin_brand_path(@brand) do |f|
   = render 'layouts/validation_errors', model: @brand

@@ -23,7 +23,7 @@ class Admin::ProductsController < Admin::AdminController
   def create
     @product = Product.new(product_params)
     if @product.save
-      flash[:notice] = t('admin.products.products.product_saved')
+      flash[:notice] = t('admin.products.product_saved')
       redirect_to admin_product_path(@product)
     else
       add_breadcrumb I18n.t('admin.common.create')
@@ -35,7 +35,7 @@ class Admin::ProductsController < Admin::AdminController
     add_breadcrumb @product.name, admin_product_path(@product)
     add_breadcrumb 'Edit'
     if @product.update(product_params)
-      flash[:notice] = t('admin.products.products.product_updated')
+      flash[:notice] = t('admin.products.product_updated')
       redirect_to admin_product_path(@product)
     else
       render 'show'
@@ -44,7 +44,7 @@ class Admin::ProductsController < Admin::AdminController
 
   def destroy
     if @product.destroy!
-      flash[:notice] = t('admin.products.products.product_deleted')
+      flash[:notice] = t('admin.products.product_deleted')
       redirect_to admin_products_path
     end
   end
@@ -52,7 +52,7 @@ class Admin::ProductsController < Admin::AdminController
   def clone
     @product = @product.clone
     if @product.save!
-      flash[:notice] = t('admin.products.products.product_cloned')
+      flash[:notice] = t('admin.products.product_cloned')
       redirect_to admin_product_path(@product)
     end
   end

@@ -1,6 +1,6 @@
-- provide(:title, "#{t('admin.common.edit_category').capitalize} #{@category.name}")
+- provide(:title, "#{t('admin.categories.edit_category').capitalize} #{@category.name}")
 %h2
-  = t('admin.common.edit_category')
+  = t('admin.categories.edit_category')
   = @category.name
 = form_for @category, url: admin_category_path(@category) do |f|
   = render 'layouts/validation_errors', model: @category
