@@ -4,7 +4,7 @@
   %small= mail_to @user.email
 %dl.dl-horizontal
   %dt= t('user.phone')
-  %dd= number_to_phone @user.phone
+  %dd= number_to_phone @user.address.phone
   %dt= t('admin.created_at')
   %dd= time_tag @user.created_at
   %dt= t('admin.updated_at')

@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :order_histories
 
+
+  has_one :address, through: :orders
+  has_many :addresses, through: :orders
+
   scope :admins, -> { where(admin: true) }
 
   after_create :notify_created

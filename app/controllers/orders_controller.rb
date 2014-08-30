@@ -53,10 +53,9 @@ class OrdersController < ApplicationController
     order_params[:address_attributes]
   end
 
-  # Find user by email or phone, create new if no user found
+  # Find user by email create new if no user found
   def init_user
     User.find_by_email(user_params[:email]) ||
-      User.find_by_phone(address_params[:phone]) ||
-        User.generate(user_params)
+      User.generate(user_params)
   end
 end
