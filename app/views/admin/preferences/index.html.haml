@@ -1,0 +1,25 @@
+%h2=t('admin.preferences.heading')
+.row
+  .col-md-3
+    =form_for @user, url: admin_preferences_path do |f|
+      = render 'layouts/validation_errors', model: @user
+      .form-group
+        = f.label :first_name
+        = f.text_field :first_name, class: 'form-control'
+      .form-group
+        = f.label :last_name
+        = f.text_field :last_name, class: 'form-control'
+      .form-group
+        = f.label :phone
+        = f.text_field :phone, class: 'form-control'
+      .form-group
+        = f.label :email
+        = f.text_field :email, class: 'form-control'
+      .form-group
+        = f.check_box :receive_sms
+        = f.label :receive_sms
+      .form-group
+        = f.check_box :receive_email
+        = f.label :receive_email
+      .form-group
+        = f.submit t('admin.save'), class: 'btn btn-primary'

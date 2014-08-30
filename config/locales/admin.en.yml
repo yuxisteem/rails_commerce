@@ -1,0 +1,65 @@
+en:
+  admin:
+    id: Id
+    email: Email
+    full_name: "Full name"
+    register_date: "Register date"
+    orders_total: "Orders total"
+    orders_list: "Orders list"
+    edit_category: "Edit category"
+    category_deleted: "Category deleted"
+    create_new: "Create new"
+    category_updated: "Category updated"
+    create_category: "Create category"
+    save: "Save"
+    destroy: "Destroy"
+    edit: "Edit"
+    categories_list: "Categories list"
+    category: "Category"
+    confirm: "Are you sure?"
+    product_list: "Product list"
+    category_saved: "Category saved"
+    admin_panel: "Admin panel"
+    product_updated: "Product updated"
+    product_saved: "Product saved"
+    product_deleted: "Product deleted"
+    product_cloned: "Product cloned"
+    products: "Products"
+    product_attribute_saved: "Product attribute saved"
+    product_attribute_updated: "Product attribute updated"
+    product_attribute_deleted: "Product attribute deleted"
+    categories: "Categories"
+    create: "Create"
+    cancel: "Cancel"
+    clone:  "Clone"
+    product: "Product"
+    create_product: "Create product"
+    edit_product: "Edit product"
+    brands: "Brands"
+    brand_saved: "Brand saved"
+    brand_updated: "Brand updated"
+    brand_deleted: "Brand deleted"
+    brands_list: "Brands list"
+    brand: "Brand"
+    create_brand: "Create brand"
+    edit_brand: "Edit brand"
+    upload_images: "Upload images"
+    remove: "Remove"
+    delete: "Delete"
+    orders: "Orders"
+    add_product_attribute: "Add attribute"
+    users: Users
+    user_updated: "User updated"
+    users_list: "Users list"
+    preferences:
+      heading: My preferences
+      page_title: Preferences
+      updated: Your preferences updated
+    sidebar:
+      orders: Orders
+      products: Products
+      categories: Categories
+      brands: Brands
+      customers: Customers
+      preferences: My preferences
+      open_store: Open store

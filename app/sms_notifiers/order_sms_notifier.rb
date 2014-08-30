@@ -5,7 +5,7 @@ class OrderSMSNotifier < SMSNotifier
   end
 
   def order_received_admin(order_id)
-    @admin_phones = User.where(admin: true).pluck(:phone)
+    @admin_phones = User.admins.pluck(:phone)
     @order = Order.find(order_id)
 
     sms "New order ##{@order.id}! By #{@order.user.full_name}", to: @admin_phones

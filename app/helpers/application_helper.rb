@@ -28,4 +28,8 @@ module ApplicationHelper
   def badge_span(text)
     "<span class=\"badge\">#{text}</span>".html_safe
   end
+
+  def glyphicon(name, text: nil, before_text: nil)
+    "#{before_text} <span class=\"glyphicon #{name}\"></span> #{text}".html_safe
+  end
 end

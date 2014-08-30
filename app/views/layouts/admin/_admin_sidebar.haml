@@ -1,11 +1,10 @@
 #sidebar-wrapper
   %ul.sidebar-nav
     %li.sidebar-brand= link_to t('admin.admin_panel'), admin_path
-    %li
-      = nav_link_to "<span class=\"glyphicon glyphicon-inbox\"></span> |
-        Orders  #{badge_span(unfulfilled_orders_count)}".html_safe, admin_orders_path, inclusive: true |
-    %li= nav_link_to "<span class=\"glyphicon glyphicon-th-large\"></span>  Products".html_safe, admin_products_path, inclusive: true
-    %li= nav_link_to "<span class=\"glyphicon glyphicon-tasks\"></span>  Categories".html_safe, admin_categories_path, inclusive: true
-    %li= nav_link_to "<span class=\"glyphicon glyphicon-tags\"></span>  Brands".html_safe, admin_brands_path, inclusive: true
-    %li= nav_link_to "<span class=\"glyphicon glyphicon-user\"></span>  Customers".html_safe, admin_users_path, inclusive: true
-    %li= nav_link_to "Open store <span class=\"glyphicon glyphicon-new-window\"></span>".html_safe, store_index_path, target:'_blank'
+    %li= nav_link_to glyphicon('glyphicon-inbox', text: "#{t('admin.sidebar.orders')} #{badge_span(unfulfilled_orders_count)}"), admin_orders_path, inclusive: true
+    %li= nav_link_to glyphicon('glyphicon-th-large', text: t('admin.sidebar.products')), admin_products_path, inclusive: true
+    %li= nav_link_to glyphicon('glyphicon-tasks', text: t('admin.sidebar.categories')), admin_categories_path, inclusive: true
+    %li= nav_link_to glyphicon('glyphicon-tags', text: t('admin.sidebar.brands')), admin_brands_path, inclusive: true
+    %li= nav_link_to glyphicon('glyphicon-user', text: t('admin.sidebar.users')), admin_users_path, inclusive: true
+    %li= nav_link_to glyphicon('glyphicon-wrench', text: t('admin.sidebar.preferences')), admin_preferences_path, inclusive: true
+    %li= nav_link_to glyphicon('glyphicon-new-window', before_text: t('admin.sidebar.open_store')), store_index_path, target:'_blank'

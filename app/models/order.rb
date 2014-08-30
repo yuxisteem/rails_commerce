@@ -81,11 +81,11 @@ class Order < ActiveRecord::Base
   end
 
   def generate_shippment
-    self.shipment = Shipment.new(address: address)
+    build_shipment(address: address)
   end
 
   def generate_invoice
-    self.invoice = Invoice.new(amount: total_price)
+    build_invoice(amount: total_price)
   end
 
   def generate_code

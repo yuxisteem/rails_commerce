@@ -32,8 +32,7 @@ Ecomm::Application.routes.draw do
 
   devise_for :users
 
-
-  #Admin panel
+  # Admin panel
   namespace :admin do
     get '/' => 'dashboard#index'
 
@@ -57,5 +56,8 @@ Ecomm::Application.routes.draw do
     post '/products/clone/:id' => 'products#clone', as: :product_clone
 
     resources :users
+
+    get '/preferences' => 'preferences#index'
+    patch '/preferences' => 'preferences#update'
   end
 end
