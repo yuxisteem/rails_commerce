@@ -27,20 +27,22 @@ ru:
       create_category: Create category
       categories_list: Categories list
       category_saved: Category saved
-    product_list: Product list
-    product_updated: Product updated
-    product_saved: Product saved
-    product_deleted: Product deleted
-    product_cloned: Product cloned
-    products: Products
-    clone:  Clone
-    product: Product
-    create_product: Create product
-    edit_product: Edit product
-    product_attribute_saved: Product attribute saved
-    product_attribute_updated: Product attribute updated
-    product_attribute_deleted: Product attribute deleted
-    add_product_attribute: Add attribute
+    product_attributes:
+      product_attribute_saved: Product attribute saved
+      product_attribute_updated: Product attribute updated
+      product_attribute_deleted: Product attribute deleted
+      add_product_attribute: Add attribute
+    products:
+      product_list: Product list
+      product_updated: Product updated
+      product_saved: Product saved
+      product_deleted: Product deleted
+      product_cloned: Product cloned
+      products: Products
+      clone:  Clone
+      product: Product
+      create_product: Create product
+      edit_product: Edit product
     brands: Brands
     brand_saved: Brand saved
     brand_updated: Brand updated

@@ -1,4 +1,4 @@
-%h2= t('admin.create_product')
+%h2= t('admin.products.create_product')
 = form_for @product, url: :admin_products do |f|
   = render 'layouts/validation_errors', model: @product
   = render 'product_fields', f: f

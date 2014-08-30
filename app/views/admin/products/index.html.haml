@@ -1,6 +1,6 @@
-- provide(:title, t('admin.product_list'))
+- provide(:title, t('admin.products.products.product_list'))
 %h2
-  = t('admin.product')
+  = t('admin.products.product')
   (#{@products.count})  #{link_to t('admin.common.create_new'), new_admin_product_path, class: 'btn btn-primary'}
 .panel-body
   = search_form_for @q, html: {class: 'form-inline'}, url: admin_products_path do |f|
