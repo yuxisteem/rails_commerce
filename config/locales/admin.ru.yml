@@ -14,10 +14,12 @@ ru:
       create: Create
       cancel: Cancel
       id: Id
+      upload_images: Upload images
     email: Email
-    orders_total: Orders total
-    orders_list: Orders list
-    orders: Orders
+    orders:
+      orders_total: Orders total
+      orders_list: Orders list
+      orders: Orders
     categories:
       category: Category
       categories: Categories
@@ -43,15 +45,15 @@ ru:
       product: Product
       create_product: Create product
       edit_product: Edit product
-    brands: Brands
-    brand_saved: Brand saved
-    brand_updated: Brand updated
-    brand_deleted: Brand deleted
-    brands_list: Brands list
-    brand: Brand
-    create_brand: Create brand
-    edit_brand: Edit brand
-    upload_images: Upload images
+    brands:
+      brands: Brands
+      brand_saved: Brand saved
+      brand_updated: Brand updated
+      brand_deleted: Brand deleted
+      brands_list: Brands list
+      brand: Brand
+      create_brand: Create brand
+      edit_brand: Edit brand
     users:
       users_heading: Users
       sign_in_count: Sign in count

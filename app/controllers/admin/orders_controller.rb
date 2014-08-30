@@ -1,5 +1,5 @@
 class Admin::OrdersController < Admin::AdminController
-  add_breadcrumb I18n.t('admin.orders'), :admin_orders_path
+  add_breadcrumb I18n.t('admin.orders.orders'), :admin_orders_path
   before_action :set_order, except: :index #[:show, :edit, :update, :order_event, :shipment_event, :invoice_event, :destroy]
 
   # GET /admin/orders
