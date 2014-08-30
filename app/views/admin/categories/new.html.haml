@@ -4,5 +4,5 @@
   = render 'layouts/validation_errors', model: @category
   = render 'admin/categories/category_fields', f: f
   .form-group
-    = f.submit t('admin.save'), class: 'btn btn-primary'
+    = f.submit t('admin.common.save'), class: 'btn btn-primary'
     = link_to t('admin.cancel'), admin_categories_path, class: 'btn btn-default'

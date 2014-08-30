@@ -22,7 +22,7 @@
         = link_to 'Return shipment',
           admin_order_shipment_event_path(@order, event: :return),
           method: :post,
-          data: {confirm: t('admin.confirm')},
+          data: {confirm: t('admin.common.confirm')},
           class: 'btn btn-default' if @order.shipment.may_return?
       .btn-group
         = link_to 'Mark as paid',
@@ -32,18 +32,18 @@
         = link_to 'Refund payment',
           admin_order_invoice_event_path(@order, event: :refund),
           method: :post,
-          data: {confirm: t('admin.confirm')},
+          data: {confirm: t('admin.common.confirm')},
           class: 'btn btn-default' if @order.invoice.may_refund?
     .btn-group.pull-right
       = link_to 'Cancel',
         admin_order_event_path(@order, event: :cancel),
         method: :post,
-        data: {confirm: t('admin.confirm')},
+        data: {confirm: t('admin.common.confirm')},
         class: 'btn btn-default' if @order.may_cancel?
       = link_to 'Resume',
         admin_order_event_path(@order, event: :resume),
         method: :post,
-        data: {confirm: t('admin.confirm')},
+        data: {confirm: t('admin.common.confirm')},
         class: 'btn btn-default' if @order.may_resume?
   .panel-body
     .order-items

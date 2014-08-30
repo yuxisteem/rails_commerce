@@ -1,5 +1,17 @@
 ru:
   admin:
+    common:
+      created_at: Created at
+      updated_at: Updated at
+      create_new: "Create new"
+      save: "Save"
+      destroy: "Destroy"
+      edit: "Edit"
+      remove: "Remove"
+      delete: "Delete"
+    confirm: "Are you sure?"
+    create: "Create"
+    cancel: "Cancel"
     id: Id
     email: Email
     full_name: "Full name"
@@ -8,15 +20,11 @@ ru:
     orders_list: "Orders list"
     edit_category: "Edit category"
     category_deleted: "Category deleted"
-    create_new: "Create new"
     category_updated: "Category updated"
     create_category: "Create category"
-    save: "Save"
-    destroy: "Destroy"
-    edit: "Edit"
+
     categories_list: "Categories list"
     category: "Category"
-    confirm: "Are you sure?"
     product_list: "Product list"
     category_saved: "Category saved"
     admin_panel: "Admin panel"
@@ -29,8 +37,6 @@ ru:
     product_attribute_updated: "Product attribute updated"
     product_attribute_deleted: "Product attribute deleted"
     categories: "Categories"
-    create: "Create"
-    cancel: "Cancel"
     clone:  "Clone"
     product: "Product"
     create_product: "Create product"
@@ -44,13 +50,17 @@ ru:
     create_brand: "Create brand"
     edit_brand: "Edit brand"
     upload_images: "Upload images"
-    remove: "Remove"
-    delete: "Delete"
     orders: "Orders"
     add_product_attribute: "Add attribute"
-    users: Users
-    user_updated: "User updated"
-    users_list: "Users list"
+    users:
+      users_heading: Users
+      sign_in_count: Sign in count
+      last_sign_in_at: Last sign in at
+      last_sign_in_ip: Last sign in ip
+      phone: Phone
+      user_updated: User updated
+      users_list: Users list
+      user_summary: User summary
     preferences:
       heading: My preferences
       page_title: Preferences

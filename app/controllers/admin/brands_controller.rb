@@ -10,7 +10,7 @@ class Admin::BrandsController < Admin::AdminController
 
   def show
     add_breadcrumb @brand.name, admin_brand_path(@brand)
-    add_breadcrumb t('admin.edit')
+    add_breadcrumb t('admin.common.edit')
   end
 
   def new
@@ -30,7 +30,7 @@ class Admin::BrandsController < Admin::AdminController
 
   def update
     add_breadcrumb @brand.name, admin_brand_path(@brand)
-    add_breadcrumb t('admin.edit')
+    add_breadcrumb t('admin.common.edit')
     if @brand.update(brand_params)
       redirect_to admin_brand_path(@brand)
       flash[:notice] = t('admin.brand_updated')

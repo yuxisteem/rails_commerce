@@ -1,7 +1,7 @@
 - provide(:title, t('admin.categories'))
 %h2
   = t('admin.categories')
-  (#{@categories.count})  #{link_to t('admin.create_new'), new_admin_category_path, class: 'btn btn-primary'}
+  (#{@categories.count})  #{link_to t('admin.common.create_new'), new_admin_category_path, class: 'btn btn-primary'}
 %table.table.table-hover
   %thead
     %tr

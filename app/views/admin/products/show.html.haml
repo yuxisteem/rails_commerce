@@ -21,6 +21,6 @@
         .col-md-2
           = attribute_values_form.text_field :value, class: 'form-control'
   .form-group
-    = f.submit t('admin.save'), class: 'btn btn-primary'
-    = link_to t('admin.delete'), admin_product_path(@product), class: 'btn btn-danger', method: :delete, data: {confirm: t('admin.confirm')}
+    = f.submit t('admin.common.save'), class: 'btn btn-primary'
+    = link_to t('admin.common.delete'), admin_product_path(@product), class: 'btn btn-danger', method: :delete, data: {confirm: t('admin.common.confirm')}
 = render 'product_images', product: @product

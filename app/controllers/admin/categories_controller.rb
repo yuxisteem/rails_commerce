@@ -29,7 +29,7 @@ class Admin::CategoriesController < Admin::AdminController
 
   def update
     add_breadcrumb @category.name, admin_category_path(@category)
-    add_breadcrumb t('admin.edit')
+    add_breadcrumb t('admin.common.edit')
     if @category.update(category_params)
       redirect_to admin_category_path(@category)
       flash[:notice] = t('admin.category_updated')
