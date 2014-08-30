@@ -15,30 +15,32 @@ ru:
       cancel: Cancel
       id: Id
     email: Email
-    register_date: Register date
     orders_total: Orders total
     orders_list: Orders list
-    edit_category: Edit category
-    category: Category
-    categories: Categories
-    category_deleted: Category deleted
-    category_updated: Category updated
-    create_category: Create category
-    categories_list: Categories list
-    category_saved: Category saved
+    orders: Orders
+    categories:
+      category: Category
+      categories: Categories
+      edit_category: Edit category
+      category_deleted: Category deleted
+      category_updated: Category updated
+      create_category: Create category
+      categories_list: Categories list
+      category_saved: Category saved
     product_list: Product list
     product_updated: Product updated
     product_saved: Product saved
     product_deleted: Product deleted
     product_cloned: Product cloned
     products: Products
-    product_attribute_saved: Product attribute saved
-    product_attribute_updated: Product attribute updated
-    product_attribute_deleted: Product attribute deleted
     clone:  Clone
     product: Product
     create_product: Create product
     edit_product: Edit product
+    product_attribute_saved: Product attribute saved
+    product_attribute_updated: Product attribute updated
+    product_attribute_deleted: Product attribute deleted
+    add_product_attribute: Add attribute
     brands: Brands
     brand_saved: Brand saved
     brand_updated: Brand updated
@@ -48,8 +50,6 @@ ru:
     create_brand: Create brand
     edit_brand: Edit brand
     upload_images: Upload images
-    orders: Orders
-    add_product_attribute: Add attribute
     users:
       users_heading: Users
       sign_in_count: Sign in count
@@ -60,6 +60,7 @@ ru:
       users_list: Users list
       user_summary: User summary
       full_name: Full name
+      register_date: Register date
     preferences:
       heading: My preferences
       page_title: Preferences
