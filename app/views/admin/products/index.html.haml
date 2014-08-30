@@ -29,7 +29,7 @@
     %tbody
       - @products.each do |p|
         %tr
-          %td= p.id
+          %td= link_to "##{p.id}", admin_product_path(p)
           %td= link_to truncate(p.name), admin_product_path(p)
           %td= truncate p.description
           %td= number_to_currency p.price

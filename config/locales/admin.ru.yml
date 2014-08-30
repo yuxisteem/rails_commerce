@@ -29,6 +29,7 @@ ru:
       categories_list: Categories list
       category_saved: Category saved
     product_attributes:
+      attributes: Attributes
       product_attribute_saved: Product attribute saved
       product_attribute_updated: Product attribute updated
       product_attribute_deleted: Product attribute deleted

@@ -1,37 +1,40 @@
 - provide(:title, "#{t('admin.categories.edit_category').capitalize} #{@category.name}")
-%h2
-  = t('admin.categories.edit_category')
-  = @category.name
-= form_for @category, url: admin_category_path(@category) do |f|
-  = render 'layouts/validation_errors', model: @category
-  = render 'admin/categories/category_fields', f: f
-  .form-group
-    = f.submit t('admin.common.save'), class: 'btn btn-primary'
-    = link_to t('admin.common.cancel'), admin_category_path(@category), class: 'btn btn-default'
 
-= form_for ProductAttribute.new, url: admin_category_product_attributes_path(category_id: @category.id), html: {class: 'form-inline'} do |f|
-  = f.label :attributes
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title
+      = t('admin.categories.edit_category')
+  .panel-body
+    = form_for @category, url: admin_category_path(@category) do |f|
+      = render 'layouts/validation_errors', model: @category
+      = render 'admin/categories/category_fields', f: f
+      .form-group
+        = f.submit t('admin.common.save'), class: 'btn btn-primary'
+        = link_to t('admin.common.cancel'), admin_category_path(@category), class: 'btn btn-default'
 
-  %div.row
-    %div.col-md-3
-      %ul#sortable.list-group
-        - @category.product_attributes.each do |attribute|
-          %li.list-group-item
-            = attribute.name
-            - if attribute.filterable?
-              %em (filterable)
-            = link_to admin_category_product_attribute_path(id: attribute.id, category_id: @category.id), |
-              method: :delete,                                                                            |
-              class: 'pull-right',                                                                        |
-              data: {confirm: t('admin.common.confirm')} do
-              Delete
+.row
+  .col-md-4
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title= t('admin.product_attributes.attributes')
+      .panel-body
+        = form_for ProductAttribute.new, url: admin_category_product_attributes_path(category_id: @category.id), html: {class: 'form-inline'} do |f|
+          %ul#sortable.list-group
+            - @category.product_attributes.each do |attribute|
+              %li.list-group-item
+                = attribute.name
+                - if attribute.filterable?
+                  %em (filterable)
+                .pull-right
+                  = link_to admin_category_product_attribute_path(id: attribute.id, category_id: @category.id), |
+                    method: :delete,                                                                            |
+                    class: 'btn btn-xs btn-danger',                                                             |
+                    data: {confirm: t('admin.common.confirm')} do
+                    Delete
 
-  .row
-    .col-md-6
-      .form-group
-        = f.text_field :name, class: 'form-control'
-      .form-group
-        = f.label :filterable
-        = f.check_box :filterable
-      .form-group
-        = f.submit t('admin.product_attributes.add_product_attribute'), class: 'btn btn-default'
+          .form-group
+            = f.text_field :name, class: 'form-control'
+            = f.check_box :filterable
+            = f.label :filterable
+          .pull-right
+            = f.submit t('admin.product_attributes.add_product_attribute'), class: 'btn btn-default'
