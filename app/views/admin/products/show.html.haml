@@ -8,7 +8,7 @@
   - else
     = link_to '<i class="glyphicon glyphicon-chevron-right"></i>'.html_safe, admin_product_path(@product.next), class: 'btn btn-default'
 .pull-right
-  = link_to t('admin.clone'), admin_product_clone_path(@product), method: :post, class: 'btn btn-primary'
+  = link_to t('admin.products.clone'), admin_product_clone_path(@product), method: :post, class: 'btn btn-primary'
 = form_for @product, url: admin_product_path(@product) do |f|
   = render 'layouts/validation_errors', model: @product
   = render 'product_fields', f: f
@@ -21,6 +21,6 @@
         .col-md-2
           = attribute_values_form.text_field :value, class: 'form-control'
   .form-group
-    = f.submit t('admin.save'), class: 'btn btn-primary'
-    = link_to t('admin.delete'), admin_product_path(@product), class: 'btn btn-danger', method: :delete, data: {confirm: t('admin.confirm')}
+    = f.submit t('admin.common.save'), class: 'btn btn-primary'
+    = link_to t('admin.common.delete'), admin_product_path(@product), class: 'btn btn-danger', method: :delete, data: {confirm: t('admin.common.confirm')}
 = render 'product_images', product: @product

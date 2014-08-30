@@ -1,10 +1,10 @@
-- provide(:title, "#{t('admin.edit_brand').capitalize} #{@brand.name}")
+- provide(:title, "#{t('admin.brands.edit_brand').capitalize} #{@brand.name}")
 %h2
-  = t('admin.edit_brand')
+  = t('admin.brands.edit_brand')
   = @brand.name
 = form_for @brand, url: admin_brand_path(@brand) do |f|
   = render 'layouts/validation_errors', model: @brand
   = render 'brand_fields', f: f
   .form-group
-    = f.submit t('admin.save'), class: 'btn btn-primary'
-    = link_to t('admin.cancel'), admin_brand_path(@brand), class: 'btn btn-default'
+    = f.submit t('admin.common.save'), class: 'btn btn-primary'
+    = link_to t('admin.common.cancel'), admin_brand_path(@brand), class: 'btn btn-default'

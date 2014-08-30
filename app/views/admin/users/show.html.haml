@@ -2,22 +2,28 @@
   = @user.full_name
   = label_span "Admin", type: 'success' if @user.admin?
   %small= mail_to @user.email
-%dl.dl-horizontal
-  %dt= t('user.phone')
-  %dd= number_to_phone @user.address.phone
-  %dt= t('admin.created_at')
-  %dd= time_tag @user.created_at
-  %dt= t('admin.updated_at')
-  %dd= time_tag @user.updated_at
-  %dt= t('user.sign_in_count')
-  %dd= @user.sign_in_count
-  %dt= t('user.last_sign_in_at')
-  %dd= @user.last_sign_in_at
-  %dt= t('user.last_sign_in_ip')
-  %dd
-    = @user.last_sign_in_ip
-    = link_to('whois',                                                                                       |
-      "http://www.infobyip.com/ip-#{@user.last_sign_in_ip}.html", target: "_blank") if @user.last_sign_in_ip |
+
+.row
+  .col-md-4
+    .panel.panel-default
+      .panel-heading= t('admin.users.user_summary')
+      .panel-body
+        %dl.dl-horizontal
+          %dt= t('admin.users.phone')
+          %dd= number_to_phone @user.phone
+          %dt= t('admin.common.created_at')
+          %dd= time_tag @user.created_at
+          %dt= t('admin.common.updated_at')
+          %dd= time_tag @user.updated_at
+          %dt= t('admin.users.sign_in_count')
+          %dd= @user.sign_in_count
+          %dt= t('admin.users.last_sign_in_at')
+          %dd= @user.last_sign_in_at
+          %dt= t('admin.users.last_sign_in_ip')
+          %dd
+            = @user.last_sign_in_ip
+            = link_to('whois',                                                                                       |
+              "http://www.infobyip.com/ip-#{@user.last_sign_in_ip}.html", target: "_blank") if @user.last_sign_in_ip |
 %table.table.table-hover
   %thead
     %tr

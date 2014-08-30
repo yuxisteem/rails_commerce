@@ -1,13 +1,13 @@
-- provide(:title, "#{t('admin.edit_category').capitalize} #{@category.name}")
+- provide(:title, "#{t('admin.categories.edit_category').capitalize} #{@category.name}")
 %h2
-  = t('admin.edit_category')
+  = t('admin.categories.edit_category')
   = @category.name
 = form_for @category, url: admin_category_path(@category) do |f|
   = render 'layouts/validation_errors', model: @category
   = render 'admin/categories/category_fields', f: f
   .form-group
-    = f.submit t('admin.save'), class: 'btn btn-primary'
-    = link_to t('admin.cancel'), admin_category_path(@category), class: 'btn btn-default'
+    = f.submit t('admin.common.save'), class: 'btn btn-primary'
+    = link_to t('admin.common.cancel'), admin_category_path(@category), class: 'btn btn-default'
 
 = form_for ProductAttribute.new, url: admin_category_product_attributes_path(category_id: @category.id), html: {class: 'form-inline'} do |f|
   = f.label :attributes
@@ -23,7 +23,7 @@
             = link_to admin_category_product_attribute_path(id: attribute.id, category_id: @category.id), |
               method: :delete,                                                                            |
               class: 'pull-right',                                                                        |
-              data: {confirm: t('admin.confirm')} do
+              data: {confirm: t('admin.common.confirm')} do
               Delete
 
   .row
@@ -34,4 +34,4 @@
         = f.label :filterable
         = f.check_box :filterable
       .form-group
-        = f.submit t('admin.add_product_attribute'), class: 'btn btn-default'
+        = f.submit t('admin.product_attributes.add_product_attribute'), class: 'btn btn-default'

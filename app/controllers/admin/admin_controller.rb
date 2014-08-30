@@ -3,7 +3,7 @@ class Admin::AdminController < ApplicationController
 
   layout 'admin/admin_layout'
 
-  add_breadcrumb I18n.t('admin.admin_panel'), :admin_path
+  add_breadcrumb I18n.t('admin.common.admin_panel'), :admin_path
 
   protected
   def require_admin
