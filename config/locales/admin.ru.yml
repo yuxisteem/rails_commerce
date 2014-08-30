@@ -65,6 +65,7 @@ ru:
       user_summary: User summary
       full_name: Full name
       register_date: Register date
+      no_orders_message: User doesn't have any orders
     preferences:
       heading: My preferences
       page_title: Preferences
