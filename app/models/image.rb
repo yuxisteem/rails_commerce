@@ -15,9 +15,9 @@
 
 class Image < ActiveRecord::Base
   belongs_to :imageable, polymorphic: true
-  has_attached_file :image, styles: { big: '768x1024>',
-                                      medium: '200x300#',
-                                      thumb: '100x150#' },
+  has_attached_file :image, styles: { big: 'x1024>',
+                                      medium: 'x300>',
+                                      thumb: 'x150>' },
                             default_url: '/images/:style/missing.png'
 
   validates_attachment :image, presence: true,
