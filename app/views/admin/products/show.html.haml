@@ -1,26 +1,27 @@
-.btn-group
-  - if @product.previous.blank?
-    = link_to '<i class="glyphicon glyphicon-chevron-left"></i>'.html_safe, '', class: 'btn btn-default disabled'
-  - else
-    = link_to '<i class="glyphicon glyphicon-chevron-left"></i>'.html_safe, admin_product_path(@product.previous), class: 'btn btn-default'
-  - if @product.next.blank?
-    = link_to '<i class="glyphicon glyphicon-chevron-right"></i>'.html_safe, '', class: 'btn btn-default disabled'
-  - else
-    = link_to '<i class="glyphicon glyphicon-chevron-right"></i>'.html_safe, admin_product_path(@product.next), class: 'btn btn-default'
-.pull-right
-  = link_to t('admin.products.clone'), admin_product_clone_path(@product), method: :post, class: 'btn btn-primary'
-= form_for @product, url: admin_product_path(@product) do |f|
-  = render 'layouts/validation_errors', model: @product
-  = render 'product_fields', f: f
-  - if @product.available_attributes
-    = f.fields_for :product_attribute_values, @product.available_attributes do |attribute_values_form|
-      = attribute_values_form.hidden_field :product_attribute_id, value: attribute_values_form.object.product_attribute_id.to_s
-      .form-group.row
-        .col-md-1
-          = attribute_values_form.label attribute_values_form.object.name
-        .col-md-2
-          = attribute_values_form.text_field :value, class: 'form-control'
-  .form-group
-    = f.submit t('admin.common.save'), class: 'btn btn-primary'
-    = link_to t('admin.common.delete'), admin_product_path(@product), class: 'btn btn-danger', method: :delete, data: {confirm: t('admin.common.confirm')}
-= render 'product_images', product: @product
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title
+      = t('admin.products.edit_product')
+      .pull-right
+        = link_to t('admin.products.clone'), admin_product_clone_path(@product), method: :post, class: 'btn btn-primary btn-xs'
+  .panel-body
+    = form_for @product, url: admin_product_path(@product) do |f|
+      = render 'layouts/validation_errors', model: @product
+      = render 'product_fields', f: f
+      - if @product.available_attributes
+        = f.fields_for :product_attribute_values, @product.available_attributes do |attribute_values_form|
+          = attribute_values_form.hidden_field :product_attribute_id, value: attribute_values_form.object.product_attribute_id.to_s
+          .form-group.row
+            .col-md-1
+              = attribute_values_form.label attribute_values_form.object.name
+            .col-md-2
+              = attribute_values_form.text_field :value, class: 'form-control'
+      .form-group
+        = f.submit t('admin.common.save'), class: 'btn btn-primary'
+        = link_to t('admin.common.delete'), admin_product_path(@product), class: 'btn btn-danger', method: :delete, data: {confirm: t('admin.common.confirm')}
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title
+      = t('admin.products.product_images')
+  .panel-body
+    = render 'product_images', product: @product

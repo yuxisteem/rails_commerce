@@ -2,13 +2,13 @@
   .panel-heading
     .btn-group
       - if @order.previous.blank?
-        = link_to '<i class="glyphicon glyphicon-chevron-left"></i>'.html_safe, '', class: 'btn btn-default disabled'
+        = link_to glyphicon('glyphicon-chevron-left'), '', class: 'btn btn-default disabled'
       - else
-        = link_to '<i class="glyphicon glyphicon-chevron-left"></i>'.html_safe, admin_order_path(@order.previous), class: 'btn btn-default'
+        = link_to glyphicon('glyphicon-chevron-left'), admin_order_path(@order.previous), class: 'btn btn-default'
       - if @order.next.blank?
-        = link_to '<i class="glyphicon glyphicon-chevron-right"></i>'.html_safe, '', class: 'btn btn-default disabled'
+        = link_to glyphicon('glyphicon-chevron-right'), '', class: 'btn btn-default disabled'
       - else
-        = link_to '<i class="glyphicon glyphicon-chevron-right"></i>'.html_safe, admin_order_path(@order.next), class: 'btn btn-default'
+        = link_to glyphicon('glyphicon-chevron-right').html_safe, admin_order_path(@order.next), class: 'btn btn-default'
     - unless @order.canceled?
       .btn-group
         = link_to 'Ready to ship',

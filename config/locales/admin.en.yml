@@ -45,6 +45,7 @@ ru:
       product: Product
       create_product: Create product
       edit_product: Edit product
+      product_images: Product images
     brands:
       brands: Brands
       brand_saved: Brand saved

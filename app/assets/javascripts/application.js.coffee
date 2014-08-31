@@ -17,8 +17,3 @@
 #= require bootstrap
 #= require lightbox
 #= require_tree .
-
-# Enable bootstrap tooltips on all pages
-$ ->
-  $("[data-toggle='tooltip']").tooltip()
-  return
