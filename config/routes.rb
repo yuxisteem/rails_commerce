@@ -24,12 +24,6 @@ Ecomm::Application.routes.draw do
   get '/store/index'
   get '/store/search' => 'store#search', as: :store_search
 
-  #Sitemap
-  map.sitemap "/sitemap.:format",
-     :controller => "home",
-     :action => "sitemap",
-     :conditions => { :method => :get }
-
   #Static pages
   get '/shipping' => 'static_pages#shipping'
   get '/about' => 'static_pages#about'
