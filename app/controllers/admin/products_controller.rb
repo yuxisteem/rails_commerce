@@ -74,6 +74,6 @@ class Admin::ProductsController < Admin::AdminController
   end
 
   def set_product
-    @product = Product.find(params[:id]).decorate
+    @product = Product.find(params[:id])
   end
 end
