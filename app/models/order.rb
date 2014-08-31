@@ -11,6 +11,7 @@
 #  updated_at :datetime
 #
 
+
 class Order < ActiveRecord::Base
   include AASM
 
