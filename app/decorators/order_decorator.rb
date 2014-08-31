@@ -1,11 +1,11 @@
 class OrderDecorator < Draper::Decorator
   delegate_all
 
-  def previous
-    Order.find_by_id(id - 1)
+  def next
+    Order.where('id > ?', id).first
   end
 
-  def next
-    Order.find_by_id(id + 1)
+  def previous
+    Order.where('id < ?', id).last
   end
 end
