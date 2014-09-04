@@ -21,43 +21,45 @@
 
 en:
   common:
-    toggle_menu: "Show menu"
-    toggle_categories: "Show categories"
-    name: "Name"
-    price: "Price"
-    quantity: "Quantity"
-    total: "Total"
-    phone: "Phone"
-    email: "Email"
-    address: "Address"
-    breadcrumb_home_name: "Home"
-    about_shop: "About"
-    sign_in: "Sign in"
-    sign_out: "Sign out"
-    shipping_and_payment: "Shipping and payment"
-    store_name: "Rails Commerce"
-    profile: "Profile"
-    form_validation_error_message: "There was an error with your submission:"
-    submit: "Submit"
+    toggle_menu: Show menu
+    toggle_categories: Show categories
+    name: Name
+    price: Price
+    quantity: Quantity
+    total: Total
+    phone: Phone
+    email: Email
+    address: Address
+    breadcrumb_home_name: Home
+    about_shop: About
+    sign_in: Sign in
+    sign_out: Sign out
+    shipping_and_payment: Shipping and payment
+    store_name: Cool Case
+    profile: Profile
+    form_validation_error_message: 'There was an error with your submission:'
+    submit: Submit
     not_found_message: 'Sorry, but you are looking for something that isn`t here'
     internal_server_error_message: 'Ooops... something went wrong'
   uploader:
-    upload_file: "Upload file"
+    upload_file: Upload file
   store:
-    brand: "Brand"
-    checkout: "Checkout"
-    search_input_placeholder: "Search..."
-    add_to_cart_button_text: "Add to cart"
-    my_cart_link_text: "My cart"
-    your_cart_label: "Your cart"
-    thanks_for_your_order_message: "Thanks for your order!"
-    we_have_received_your_order_text: "we have received your order, our manager will contact you soon."
-    order_details: "Order details"
-    submit_order_button_text: "Submit order"
-    search: "Search"
-    cart_empty_message: "Your cart is empty"
-    description: "Description"
-    specifications: "Specifications"
-    product_code: "Product code"
+    brand: Brand
+    checkout: Checkout
+    search_input_placeholder: Search...
+    add_to_cart_button_text: Add to cart
+    my_cart_link_text: My cart
+    your_cart_label: Your cart
+    thanks_for_your_order_message: Thanks for your order!
+    we_have_received_your_order_text: 'we have received your order, our manager will contact you soon.'
+    order_details: Order details
+    submit_order_button_text: Submit order
+    search: Search
+    cart_empty_message: Your cart is empty
+    description: Description
+    specifications: Specifications
+    product_code: Product code
+    out_of_stock: Item sold out
+    more_info: Details
   checkout:
-    order_successful_submit: "Your order was submitted successfully"
+    order_successful_submit: Your order was submitted successfully
