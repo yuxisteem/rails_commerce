@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'bootstrap-sass', '~> 3.1.1.1'
 
-#Pagination
+# Pagination
 gem 'will_paginate', '~> 3.0.5'
 gem 'will_paginate-bootstrap', '~> 1.0.0'
 
@@ -10,10 +10,10 @@ gem 'breadcrumbs_on_rails', '~> 2.3.0'
 
 gem 'paperclip', '~> 4.2.0'
 
-#Search forms against your application's models
+# Search forms against your application's models
 gem 'ransack', '~> 1.2.3'
 
-#Authentication
+# Authentication
 gem 'devise', '~> 3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -27,6 +27,7 @@ gem 'sass-rails', '~> 4.0.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
@@ -70,7 +71,7 @@ group :production do
   gem 'unicorn', '~> 4.8.3'
   gem 'newrelic_rpm'
 end
-  
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
