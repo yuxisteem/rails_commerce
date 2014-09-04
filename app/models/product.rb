@@ -43,7 +43,7 @@ class Product < ActiveRecord::Base
 
   def withdraw(q)
     transaction do
-      result = (quantity - q >= 0) ? update(quantity: quantity - q) : false
+      (quantity - q >= 0) ? update(quantity: quantity - q) : false
     end
   end
 
