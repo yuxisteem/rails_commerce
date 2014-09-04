@@ -37,9 +37,11 @@ namespace :db do
                 email: 'paul@live.ru',
                 admin: true,
                 password: '12345',
-                password_confirmation: '12345').save
+                password_confirmation: '12345',
+                phone: '+380666018206').save
+
     User.transaction do
-      99.times do
+      50.times do
         User.create(first_name: Faker::Name.first_name,
                     last_name: Faker::Name.last_name,
                     email: Faker::Internet.email,
