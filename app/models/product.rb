@@ -2,15 +2,17 @@
 #
 # Table name: products
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  description :text
-#  price       :decimal(, )
-#  active      :boolean
-#  category_id :integer
-#  brand_id    :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  description     :text
+#  price           :decimal(, )
+#  active          :boolean
+#  category_id     :integer
+#  brand_id        :integer
+#  created_at      :datetime
+#  updated_at      :datetime
+#  track_inventory :boolean
+#  quantity        :integer
 #
 
 require 'transliteration'
@@ -33,6 +35,20 @@ class Product < ActiveRecord::Base
 
   before_update :clear_attributes
 
+  scope :active, -> { where(active: true) }
+
+  def in_stock?
+    track_inventory? ? quantity > 0 : true
+  end
+
+  def withdraw(q)
+    transaction do
+      result = ( quantity - q >= 0 ) &&  ? update(quantity: quantity - q) : false
+    end
+
+    result
+  end
+
   def available_attributes
     @available_attributes ||=
     transaction do
@@ -44,13 +60,6 @@ class Product < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def clone
-    product = dup
-    product.active = false # Product should be inactive by default
-    product.product_attribute_values = product_attribute_values.map(&:dup)
-    product
   end
 
   private

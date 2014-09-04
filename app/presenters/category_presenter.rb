@@ -18,7 +18,8 @@ class CategoryPresenter
   end
 
   def products
-    products = Product.by_attributes(@product_attributes_query)
+    products = Product.active
+                      .by_attributes(@product_attributes_query)
                       .where(category_id: @category.id)
                       .includes(:images)
                       .paginate(page: @params[:page])

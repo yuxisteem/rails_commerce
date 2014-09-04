@@ -5,7 +5,7 @@ class StoreController < ApplicationController
 
   def index
     @products = Product
-                  .where(active: true)
+                  .active
                   .includes(:images)
                   .paginate(page: params[:page], per_page: ITEMS_PER_PAGE)
   end
