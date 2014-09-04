@@ -12,4 +12,4 @@ $ ->
     else
       inventoryFields.fadeOut()
 
-  inventoryFields.hide() unless inventoryCheckbox[0].checked
+  inventoryFields.hide() if inventoryCheckbox[0] && !inventoryCheckbox[0].checked

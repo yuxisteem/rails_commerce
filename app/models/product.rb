@@ -43,6 +43,7 @@ class Product < ActiveRecord::Base
 
   def withdraw(q)
     transaction do
+      return true unless track_inventory
       (quantity - q >= 0) ? update(quantity: quantity - q) : false
     end
   end
