@@ -8,9 +8,5 @@
       = link_to t('common.store_name'), root_path, class: 'navbar-brand'
     #main-navbar-collapse.collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li{class: current_page?(shipping_path) && 'active'}
-          =link_to t('common.shipping_and_payment'), shipping_path
-        %li{class: current_page?(about_path) && 'active'}
-          =link_to t('common.about_shop'), about_path
       %ul.nav.navbar-nav.navbar-right
         %li= render 'layouts/user_widget'
