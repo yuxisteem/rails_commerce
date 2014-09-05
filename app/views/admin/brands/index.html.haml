@@ -11,13 +11,16 @@
       %th Products count
       %th Created
       %th Updated
-  %tbody
+  %tbody#sortable{ data: { 'sort-url' => admin_brands_order_path } }
     - @brands.each do |b|
-      %tr
-        %td= link_to "##{b.id}", admin_brand_path(b)
+      %tr{ data: { id: b.id } }
+        %td
+          = glyphicon('glyphicon-resize-vertical')
+          = link_to "##{b.id}", admin_brand_path(b)
         %td= link_to truncate(b.name), admin_brand_path(b)
         %td= truncate b.description
         %td= b.products.count
         %td= b.created_at.to_formatted_s(:short)
         %td= b.updated_at.to_formatted_s(:short)
+
 = will_paginate @brands, renderer: BootstrapPagination::Rails

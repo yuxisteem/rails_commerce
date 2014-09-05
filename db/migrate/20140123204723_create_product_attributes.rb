@@ -7,7 +7,7 @@ class CreateProductAttributes < ActiveRecord::Migration
 
       t.timestamps
 
-      t.index :name      
+      t.index :name
     end
   end
 end

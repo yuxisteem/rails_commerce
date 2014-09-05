@@ -35,6 +35,7 @@ Ecomm::Application.routes.draw do
     get '/' => 'dashboard#index'
 
     resources :pages
+    post '/pages/order' => 'pages#order', as: :pages_order
 
     resources :orders do
       resources :order_histories
@@ -45,10 +46,14 @@ Ecomm::Application.routes.draw do
     post '/orders/:id/order_event/:event' => 'orders#order_event', as: :order_event
 
     resources :images, except: :update
+
     resources :brands
+    post '/brands/order' => 'brands#order', as: :brands_order
+
     resources :categories do
       resources :product_attributes, only: [:create, :update, :destroy]
     end
+    post '/categories/order' => 'categories#order', as: :categories_order
 
     resources :products do
       resources :images, only: [:create, :destroy, :show]

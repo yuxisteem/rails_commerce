@@ -17,8 +17,6 @@ class OrderHistory < ActiveRecord::Base
   belongs_to :order
   belongs_to :user
 
-  default_scope { order('created_at ASC') }
-
   def self.log_transition(order_id, name, from_state, to_state, user)
     OrderHistory.create(order_id: order_id,
                         attribute_name: name,

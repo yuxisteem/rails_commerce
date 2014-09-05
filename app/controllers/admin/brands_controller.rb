@@ -1,8 +1,7 @@
 class Admin::BrandsController < Admin::AdminController
-
   add_breadcrumb I18n.t('admin.brands.brands'), :admin_brands_path
 
-  before_action :set_brand, except: [:index, :create, :new]
+  before_action :set_brand, only: [:show, :destroy, :update]
 
   def index
     @brands = Brand.all.reverse_order.paginate(page: params[:page])
@@ -37,6 +36,17 @@ class Admin::BrandsController < Admin::AdminController
     else
       render 'edit'
     end
+  end
+
+  def order
+    ids = params[:ids]
+
+    Brand.transaction do
+      ids.each_with_index do |id, index|
+        Brand.find(id).update_attribute(:weight, index)
+      end
+    end
+    render nothing: true
   end
 
   def destroy

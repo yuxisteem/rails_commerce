@@ -1,5 +1,5 @@
 class Admin::PagesController < Admin::AdminController
-  before_action :set_page, except: [:index, :new, :create]
+  before_action :set_page, only: [:show, :destroy, :update]
 
   add_breadcrumb I18n.t('admin.pages.pages'), :admin_pages_path
 
@@ -37,6 +37,17 @@ class Admin::PagesController < Admin::AdminController
     else
       render 'show'
     end
+  end
+
+  def order
+    ids = params[:ids]
+
+    Page.transaction do
+      ids.each_with_index do |id, index|
+        Page.find(id).update_attribute(:weight, index)
+      end
+    end
+    render nothing: true
   end
 
   def destroy
