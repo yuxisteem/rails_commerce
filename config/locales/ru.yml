@@ -1,51 +1,53 @@
 ru:
   common:
-    toggle_menu: "Показать меню"
-    toggle_categories: "Показать категории"
-    name: "Имя"
-    price: "Цена"
-    quantity: "Количество"
-    total: "Итого"
-    phone: "Телефон"
-    email: "Email"
-    address: "Адрес"
-    breadcrumb_home_name: "Главная"
-    about_shop: "О нас"
-    sign_in: "Войти"
-    sign_out: "Выйти"
-    shipping_and_payment: "Доставка и оплата"
-    store_name: "Rails Commerce"
-    profile: "Профиль"
-    form_validation_error_message: "Возникли ошибки:"
-    submit: "Отправить"
+    toggle_menu: Показать меню
+    toggle_categories: Показать категории
+    name: Имя
+    price: Цена
+    quantity: Количество
+    total: Итого
+    phone: Телефон
+    email: Email
+    address: Адрес
+    breadcrumb_home_name: Главная
+    about_shop: О нас
+    sign_in: Войти
+    sign_out: Выйти
+    shipping_and_payment: Доставка и оплата
+    store_name: Cool Case
+    profile: Профиль
+    form_validation_error_message: 'Возникли ошибки:'
+    submit: Отправить
     not_found_message: 'Sorry, but you are looking for something that isn`t here'
     internal_server_error_message: 'Ooops... something went wrong'
   uploader:
-    upload_file: "Upload file"
+    upload_file: Upload file
   store:
-    brand: "Производитель"
-    checkout_button: "Оформить заказ"
-    continue_shopping_button: "Продолжить покупки"
-    search_input_placeholder: "Поиск..."
-    add_to_cart_button_text: "Купить"
-    my_cart_link_text: "Моя корзина"
-    your_cart_label: "Ваша корзина"
+    brand: Производитель
+    checkout_button: Оформить заказ
+    continue_shopping_button: Продолжить покупки
+    search_input_placeholder: Поиск...
+    add_to_cart_button_text: Купить
+    my_cart_link_text: Моя корзина
+    your_cart_label: Ваша корзина
     remove_from_cart_button: Удалить
-    thanks_for_your_order_message: "Спасибо за заказ!"
-    we_have_received_your_order_text: "мы получили ваш заказ, наш менеджер скоро свяжется с вами."
-    order_details: "Детали заказа"
-    submit_order_button_text: "Отправить заказ"
-    search: "Поиск"
-    cart_empty_message: "Корзина пуста"
-    description: "Описание"
-    specifications: "Характеристики"
-    product_code: "Код товара"
+    thanks_for_your_order_message: Спасибо за заказ!
+    we_have_received_your_order_text: 'мы получили ваш заказ, наш менеджер скоро свяжется с вами.'
+    order_details: Детали заказа
+    submit_order_button_text: Отправить заказ
+    search: Поиск
+    cart_empty_message: Корзина пуста
+    description: Описание
+    specifications: Характеристики
+    product_code: Код товара
+    out_of_stock: Нет в наличии
+    more_info: Подробнее
   checkout:
-    order_successful_submit: "Ваш заказ поступил в обработку"
+    order_successful_submit: Ваш заказ поступил в обработку
   will_paginate:
-    previous_label: "&#8592; Сюда"
-    next_label: "Туда &#8594;"
-    page_gap: "&hellip;"
+    previous_label: '&#8592; Сюда'
+    next_label: 'Туда &#8594;'
+    page_gap: '&hellip;'
   date:
     abbr_day_names:
     - Вс

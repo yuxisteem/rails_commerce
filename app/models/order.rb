@@ -11,7 +11,6 @@
 #  updated_at :datetime
 #
 
-
 class Order < ActiveRecord::Base
   include AASM
 
@@ -26,7 +25,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :user
 
-  before_create :generate_shippment, :generate_invoice, :generate_code
+  before_create :build_assotiations, :generate_code, :withdraw_inventory
   after_create :notify_customer, :notify_admins
   after_touch :update_state
 
@@ -81,12 +80,13 @@ class Order < ActiveRecord::Base
     put_in_progress! if (!invoice.paid? || !shipment.shipped?) && completed?
   end
 
-  def generate_shippment
+  def build_assotiations
     build_shipment(address: address)
+    build_invoice(amount: total_price)
   end
 
-  def generate_invoice
-    build_invoice(amount: total_price)
+  def withdraw_inventory
+    order_items.each { |item| item.product.withdraw item.quantity }
   end
 
   def generate_code

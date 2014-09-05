@@ -4,6 +4,23 @@
 .form-group
   = f.label :description
   = f.text_area :description, class: 'form-control', rows: 12
+
+%hr
+.row
+  .col-md-2
+    .form-group
+      = f.label :price
+      = f.text_field :price, class: 'form-control'
+.row
+  .col-md-2
+    .form-group
+      = f.check_box :track_inventory
+      = f.label :track_inventory
+    #inventory-fields.form-group
+      = f.label :quantity
+      = f.text_field :quantity, class: 'form-control'
+
+%hr
 .form-group
   .row
     .col-md-3
@@ -12,9 +29,7 @@
     .col-md-3
       = f.label :brand
       = select :product, :brand_id, @brands.map { |x| [x.name, x.id] }, {}, { class: 'form-control' }
-    .col-md-2
-      = f.label :price
-      = f.text_field :price, class: 'form-control'
+%hr
 .form-group
   = f.check_box :active, data: { toggle: 'tooltip', placement: 'right'}, title: "Control if this product can be viewed in your store"
   = f.label :active

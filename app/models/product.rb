@@ -33,6 +33,19 @@ class Product < ActiveRecord::Base
 
   before_update :clear_attributes
 
+  scope :active, -> { where(active: true) }
+
+  def in_stock?
+    track_inventory? ? quantity > 0 : true
+  end
+
+  def withdraw(q)
+    transaction do
+      return true unless track_inventory
+      (quantity - q >= 0) ? update(quantity: quantity - q) : false
+    end
+  end
+
   def available_attributes
     @available_attributes ||=
     transaction do
@@ -44,13 +57,6 @@ class Product < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def clone
-    product = dup
-    product.active = false # Product should be inactive by default
-    product.product_attribute_values = product_attribute_values.map(&:dup)
-    product
   end
 
   private

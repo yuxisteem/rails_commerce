@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_breadcrumb
 
   def show
-    @product = Product.where(active: true).includes(:category).find(params[:id])
+    @product = Product.active.includes(:category).find(params[:id])
 
     if params[:seo_name].nil?
       redirect_to category_seo_path(@product, @product.seo_name)
