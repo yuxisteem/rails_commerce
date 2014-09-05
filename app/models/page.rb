@@ -12,9 +12,10 @@
 #
 
 class Page < ActiveRecord::Base
+  include Orderable
   validates :title, presence: true
   validates :text, presence: true
-  validates :seo_url, presence: true
+  validates :seo_url, presence: true, uniqueness: true
 
   scope :visible, -> { where(visible: true) }
 end
