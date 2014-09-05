@@ -1,9 +1,7 @@
 class Admin::CategoriesController < Admin::AdminController
-
   add_breadcrumb I18n.t('admin.categories.categories'), :admin_categories_path
 
-  before_action :set_category, except: [:index, :new, :create]
-
+  before_action :set_category, only: [:show, :destroy, :update]
   def index
     @categories = Category.all.reverse_order.paginate(page: params[:page])
   end
@@ -38,6 +36,17 @@ class Admin::CategoriesController < Admin::AdminController
     end
   end
 
+  def order
+    ids = params[:ids]
+
+    Category.transaction do
+      ids.each_with_index do |id, index|
+        Category.find(id).update_attribute(:weight, index)
+      end
+    end
+    render nothing: true
+  end
+
   def destroy
     @category.destroy
     flash[:notice] = t('admin.categories.category_deleted')
@@ -55,5 +64,4 @@ class Admin::CategoriesController < Admin::AdminController
   def set_category
     @category = Category.find(params[:id])
   end
-
 end

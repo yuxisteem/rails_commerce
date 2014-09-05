@@ -9,6 +9,7 @@
 #  visible    :boolean
 #  created_at :datetime
 #  updated_at :datetime
+#  weight     :integer
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

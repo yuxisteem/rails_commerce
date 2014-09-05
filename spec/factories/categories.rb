@@ -9,6 +9,7 @@
 #  updated_at               :datetime
 #  attribute_filter_enabled :boolean          default(TRUE)
 #  brand_filter_enabled     :boolean          default(TRUE)
+#  weight                   :integer
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

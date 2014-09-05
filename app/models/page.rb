@@ -9,6 +9,7 @@
 #  visible    :boolean
 #  created_at :datetime
 #  updated_at :datetime
+#  weight     :integer
 #
 
 class Page < ActiveRecord::Base

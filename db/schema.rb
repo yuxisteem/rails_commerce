@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140904233418) do
+ActiveRecord::Schema.define(version: 20140905161704) do
 
   create_table "addresses", force: true do |t|
     t.string   "city"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140904233418) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "weight"
   end
 
   create_table "cart_items", force: true do |t|
@@ -54,6 +55,7 @@ ActiveRecord::Schema.define(version: 20140904233418) do
     t.datetime "updated_at"
     t.boolean  "attribute_filter_enabled", default: true
     t.boolean  "brand_filter_enabled",     default: true
+    t.integer  "weight"
   end
 
   create_table "images", force: true do |t|
@@ -127,6 +129,7 @@ ActiveRecord::Schema.define(version: 20140904233418) do
     t.boolean  "visible"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "weight"
   end
 
   create_table "payment_methods", force: true do |t|

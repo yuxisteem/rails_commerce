@@ -9,10 +9,12 @@
 #  updated_at               :datetime
 #  attribute_filter_enabled :boolean          default(TRUE)
 #  brand_filter_enabled     :boolean          default(TRUE)
+#  weight                   :integer
 #
 
 class Category < ActiveRecord::Base
   include SeoNames
+  include Orderable
 
   has_many :products
   has_many :product_attributes, dependent: :destroy

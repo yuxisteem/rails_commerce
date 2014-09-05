@@ -11,10 +11,12 @@
       %th Visibility
       %th Created
       %th Updated
-  %tbody
+  %tbody#sortable{ data: { 'sort-url' => admin_pages_order_path } }
     - @pages.each do |page|
-      %tr
-        %td= link_to "##{page.id}", admin_page_path(page)
+      %tr{ data: { id: page.id } }
+        %td
+          = glyphicon('glyphicon-resize-vertical')
+          = link_to "##{page.id}", admin_page_path(page)
         %td= link_to truncate(page.title), admin_page_path(page)
         %td= link_to truncate(page.text), admin_page_path(page)
         %td
@@ -24,4 +26,5 @@
             = t('admin.pages.hidden')
         %td= page.created_at.to_formatted_s(:short)
         %td= page.updated_at.to_formatted_s(:short)
+
 = will_paginate @pages, renderer: BootstrapPagination::Rails
