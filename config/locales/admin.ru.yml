@@ -46,6 +46,14 @@ ru:
       create_product: Create product
       edit_product: Edit product
       product_images: Product images
+    pages:
+      pages: Pages
+      create_page: Create page
+      page_saved: Page saved
+      page_updated: Page updated
+      page_deleted: Page deleted
+      page_delete_error: Error deleting page
+      edit_page: Edit page
     brands:
       brands: Brands
       brand_saved: Brand saved

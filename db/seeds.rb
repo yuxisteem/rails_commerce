@@ -6,12 +6,13 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
 # Store initial data
 
 Category.create(name: 'Default', description: 'Default category')
 
 Brand.create(name: 'Default', description: 'Default category')
+
+Page.create(title: 'About', text: 'Default page', seo_url: 'about')
 
 User.create(email: 'paul@live.ru',
             first_name: 'Pavel',

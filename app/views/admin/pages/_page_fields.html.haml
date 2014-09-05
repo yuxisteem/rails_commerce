@@ -1,0 +1,14 @@
+.form-group
+  = f.label :title
+  = f.text_field :title, class: 'form-control'
+.form-group
+  = f.label :text
+  = f.text_area :text, class: 'form-control', rows: 14
+.form-group
+  = f.label :seo_url
+  .input-group
+    .input-group-addon= "#{root_url}pages/"
+    = f.text_field :seo_url, class: 'form-control'
+.form-group
+  = f.check_box :visible
+  = f.label :visible

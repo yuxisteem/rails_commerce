@@ -2,15 +2,17 @@
 #
 # Table name: products
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  description :text
-#  price       :decimal(, )
-#  active      :boolean
-#  category_id :integer
-#  brand_id    :integer
-#  created_at  :datetime
-#  updated_at  :datetime
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  description     :text
+#  price           :decimal(, )
+#  active          :boolean
+#  category_id     :integer
+#  brand_id        :integer
+#  created_at      :datetime
+#  updated_at      :datetime
+#  track_inventory :boolean          default(FALSE)
+#  quantity        :integer          default(0)
 #
 
 require 'spec_helper'

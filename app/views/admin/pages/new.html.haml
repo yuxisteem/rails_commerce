@@ -1,0 +1,8 @@
+- provide(:title, t('admin.pages.create_page').capitalize)
+%h2= t('admin.pages.create_page')
+= form_for @page, url: admin_pages_path do |f|
+  = render 'layouts/validation_errors', model: @page
+  = render 'page_fields', f: f
+  .form-group
+    = f.submit t('admin.common.save'), class: 'btn btn-primary'
+    = link_to t('admin.common.cancel'), admin_pages_path, class: 'btn btn-default'
