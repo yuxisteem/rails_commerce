@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140830213225) do
+ActiveRecord::Schema.define(version: 20140904233418) do
 
   create_table "addresses", force: true do |t|
     t.string   "city"
@@ -120,6 +120,16 @@ ActiveRecord::Schema.define(version: 20140830213225) do
   add_index "orders", ["code"], name: "index_orders_on_code"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
+  create_table "pages", force: true do |t|
+    t.string   "title"
+    t.text     "text"
+    t.string   "seo_title"
+    t.text     "seo_meta"
+    t.boolean  "visibility"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "payment_methods", force: true do |t|
     t.string   "name"
     t.string   "description"
@@ -159,6 +169,8 @@ ActiveRecord::Schema.define(version: 20140830213225) do
     t.integer  "brand_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "track_inventory", default: false
+    t.integer  "quantity",        default: 0
   end
 
   add_index "products", ["active"], name: "index_products_on_active"

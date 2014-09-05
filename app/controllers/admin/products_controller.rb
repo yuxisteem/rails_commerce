@@ -1,5 +1,4 @@
 class Admin::ProductsController < Admin::AdminController
-
   before_action :set_product, except: [:index, :new, :create]
   before_action :set_brands, except: [:index, :clone, :destroy]
   before_action :set_categories, except: [:index, :clone, :destroy]
