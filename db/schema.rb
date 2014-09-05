@@ -123,8 +123,7 @@ ActiveRecord::Schema.define(version: 20140904233418) do
   create_table "pages", force: true do |t|
     t.string   "title"
     t.text     "text"
-    t.string   "seo_title"
-    t.text     "seo_meta"
+    t.string   "seo_url"
     t.boolean  "visible"
     t.datetime "created_at"
     t.datetime "updated_at"

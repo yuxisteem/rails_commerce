@@ -5,8 +5,7 @@
 #  id         :integer          not null, primary key
 #  title      :string(255)
 #  text       :text
-#  seo_title  :string(255)
-#  seo_meta   :text
+#  seo_url    :string(255)
 #  visible    :boolean
 #  created_at :datetime
 #  updated_at :datetime

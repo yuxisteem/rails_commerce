@@ -53,7 +53,7 @@ class Admin::PagesController < Admin::AdminController
 
   def page_params
     params.require(:page)
-          .permit(:title, :text, :seo_title, :seo_meta, :visible)
+          .permit(:title, :text, :seo_url, :visible)
   end
 
   def set_page

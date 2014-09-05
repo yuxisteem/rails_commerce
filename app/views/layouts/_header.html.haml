@@ -9,7 +9,7 @@
     #main-navbar-collapse.collapse.navbar-collapse
       %ul.nav.navbar-nav
         - visible_pages.each do |page|
-          %li{ class: current_page?(page_path(id: page.seo_title)) && 'active'}
-            = link_to page.title, page_path(id: page.seo_title)
+          %li{ class: current_page?(page_path(id: page.seo_url)) && 'active'}
+            = link_to page.title, page_path(id: page.seo_url)
       %ul.nav.navbar-nav.navbar-right
         %li= render 'layouts/user_widget'
