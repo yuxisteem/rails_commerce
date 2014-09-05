@@ -8,12 +8,12 @@ class Admin::PagesController < Admin::AdminController
   end
 
   def show
-    add_breadcrumb @page.name
+    add_breadcrumb @page.title
   end
 
   def new
     @page = Page.new
-    add_breadcrumb t('admin.common.new')
+    add_breadcrumb t('admin.common.create')
   end
 
   def create
@@ -28,7 +28,7 @@ class Admin::PagesController < Admin::AdminController
   end
 
   def update
-    add_breadcrumb @page.name, admin_page_path(@page)
+    add_breadcrumb @page.title, admin_page_path(@page)
     add_breadcrumb 'Edit'
 
     if @page.update(page_params)
@@ -53,7 +53,7 @@ class Admin::PagesController < Admin::AdminController
 
   def page_params
     params.require(:page)
-          .permit(:title, :text, :seo_title, :seo_meta, :visibility)
+          .permit(:title, :text, :seo_title, :seo_meta, :visible)
   end
 
   def set_page

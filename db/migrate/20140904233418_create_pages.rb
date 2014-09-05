@@ -5,7 +5,7 @@ class CreatePages < ActiveRecord::Migration
       t.text :text
       t.string :seo_title
       t.text :seo_meta
-      t.boolean :visibility
+      t.boolean :visible
 
       t.timestamps
     end

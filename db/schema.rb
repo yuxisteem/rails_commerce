@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 20140904233418) do
     t.text     "text"
     t.string   "seo_title"
     t.text     "seo_meta"
-    t.boolean  "visibility"
+    t.boolean  "visible"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

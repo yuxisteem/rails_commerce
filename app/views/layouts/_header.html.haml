@@ -8,5 +8,8 @@
       = link_to t('common.store_name'), root_path, class: 'navbar-brand'
     #main-navbar-collapse.collapse.navbar-collapse
       %ul.nav.navbar-nav
+        - visible_pages.each do |page|
+          %li{ class: current_page?(page_path(id: page.seo_title)) && 'active'}
+            = link_to page.title, page_path(id: page.seo_title)
       %ul.nav.navbar-nav.navbar-right
         %li= render 'layouts/user_widget'

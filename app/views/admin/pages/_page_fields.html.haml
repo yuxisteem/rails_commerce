@@ -1,15 +1,15 @@
 .form-group
   = f.label :title
-  = f.text_field :title
+  = f.text_field :title, class: 'form-control'
 .form-group
   = f.label :text
-  = f.text_area :text
+  = f.text_area :text, class: 'form-control', rows: 14
 .form-group
   = f.label :seo_title
-  = f.text_field :seo_title
+  = f.text_field :seo_title, class: 'form-control'
 .form-group
   = f.label :seo_meta
-  = f.text_field :seo_meta
+  = f.text_field :seo_meta, class: 'form-control'
 .form-group
-  = f.checkbox :visibility
-  = f.label :visibility
+  = f.check_box :visible
+  = f.label :visible

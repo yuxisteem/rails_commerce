@@ -7,13 +7,15 @@
 #  text       :text
 #  seo_title  :string(255)
 #  seo_meta   :text
-#  visibility :boolean
+#  visible    :boolean
 #  created_at :datetime
 #  updated_at :datetime
 #
 
 class Page < ActiveRecord::Base
-  include SeoNames
+  validates :title, presence: true
+  validates :text, presence: true
+  validates :seo_title, presence: true
 
-  scope :visible, -> { where(visibility: true) }
+  scope :visible, -> { where(visible: true) }
 end

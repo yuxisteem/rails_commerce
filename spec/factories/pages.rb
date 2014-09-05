@@ -7,7 +7,7 @@
 #  text       :text
 #  seo_title  :string(255)
 #  seo_meta   :text
-#  visibility :boolean
+#  visible    :boolean
 #  created_at :datetime
 #  updated_at :datetime
 #
