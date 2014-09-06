@@ -35,7 +35,11 @@
           %td= number_to_currency p.price
           %td= link_to p.category.try(:name), admin_category_path(p.category) unless p.category.nil?
           %td= link_to p.brand.try(:name), admin_brand_path(p.brand) unless p.brand.nil?
-          %td= p.active
+          %td
+            - if p.active?
+              = label_span t('admin.products.active'), type: 'success'
+            - else
+              = label_span t('admin.products.active')
           %td= p.created_at.to_formatted_s(:short)
           %td= p.updated_at.to_formatted_s(:short)
   = will_paginate @products, renderer: BootstrapPagination::Rails

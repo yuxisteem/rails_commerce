@@ -4,7 +4,7 @@ class Admin::BrandsController < Admin::AdminController
   before_action :set_brand, only: [:show, :destroy, :update]
 
   def index
-    @brands = Brand.all.reverse_order.paginate(page: params[:page])
+    @brands = Brand.all.paginate(page: params[:page])
   end
 
   def show

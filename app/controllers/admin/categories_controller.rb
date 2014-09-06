@@ -3,7 +3,7 @@ class Admin::CategoriesController < Admin::AdminController
 
   before_action :set_category, only: [:show, :destroy, :update]
   def index
-    @categories = Category.all.reverse_order.paginate(page: params[:page])
+    @categories = Category.all.paginate(page: params[:page])
   end
 
   def show
@@ -57,7 +57,7 @@ class Admin::CategoriesController < Admin::AdminController
 
   def category_params
     params.require(:category)
-      .permit(:name, :description, :attribute_filter_enabled,
+      .permit(:name, :description, :active, :attribute_filter_enabled,
               :brand_filter_enabled)
   end
 

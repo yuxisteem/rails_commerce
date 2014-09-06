@@ -9,6 +9,7 @@
       %th Name
       %th Description
       %th Products count
+      %th Active
       %th Created
       %th Updated
   %tbody#sortable{ data: { 'sort-url' => admin_categories_order_path } }
@@ -20,6 +21,11 @@
         %td= link_to truncate(c.name), admin_category_path(c)
         %td= truncate c.description
         %td= c.products.count
+        %td
+          - if c.active?
+            = label_span t('admin.categories.active'), type: 'success'
+          - else
+            = label_span t('admin.categories.active')
         %td= c.created_at.to_formatted_s(:short)
         %td= c.updated_at.to_formatted_s(:short)
 

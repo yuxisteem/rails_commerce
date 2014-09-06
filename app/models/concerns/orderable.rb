@@ -3,7 +3,7 @@ module Orderable
 
   included do
     before_create :set_weight
-    default_scope { order(:weight) }
+    default_scope { order('weight ASC') }
   end
 
   private

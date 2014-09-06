@@ -2,8 +2,8 @@ module CategoriesHelper
   ATTRIBUTES_FILTER_KEY = :q
   BRANDS_FILTER_KEY = :brands
 
-  def available_categories
-    @available_categories ||= Category.all
+  def active_categories
+    @active_categories ||= Category.active
   end
 
   def attribute_filter_link(attribute_value, options = {})

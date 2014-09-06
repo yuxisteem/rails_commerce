@@ -10,6 +10,7 @@
 #  attribute_filter_enabled :boolean          default(TRUE)
 #  brand_filter_enabled     :boolean          default(TRUE)
 #  weight                   :integer
+#  active                   :boolean
 #
 
 class Category < ActiveRecord::Base
@@ -20,6 +21,8 @@ class Category < ActiveRecord::Base
   has_many :product_attributes, dependent: :destroy
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 255 }
+
+  scope :active, -> { where(active: true) }
 
   def filters_enabled?
     attribute_filter_enabled || brand_filter_enabled

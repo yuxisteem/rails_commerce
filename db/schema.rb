@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140905161704) do
+ActiveRecord::Schema.define(version: 20140905203314) do
 
   create_table "addresses", force: true do |t|
     t.string   "city"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20140905161704) do
     t.boolean  "attribute_filter_enabled", default: true
     t.boolean  "brand_filter_enabled",     default: true
     t.integer  "weight"
+    t.boolean  "active"
   end
 
   create_table "images", force: true do |t|
