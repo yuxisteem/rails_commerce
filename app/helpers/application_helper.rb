@@ -34,6 +34,6 @@ module ApplicationHelper
   end
 
   def glyphicon(name, text: nil, before_text: nil)
-    "#{before_text} <i class=\"glyphicon #{name}\"></i> #{text}".html_safe
+    "#{before_text} <span class=\"glyphicon #{name}\"></span> #{text}".html_safe
   end
 end

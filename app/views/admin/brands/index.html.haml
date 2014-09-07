@@ -11,7 +11,7 @@
       %th Products count
       %th Created
       %th Updated
-  %tbody#sortable{ data: { 'sort-url' => order_admin_brands } }
+  %tbody#sortable{ data: { 'sort-url' => order_admin_brands_path } }
     - @brands.each do |b|
       %tr{ data: { id: b.id } }
         %td
