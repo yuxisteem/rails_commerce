@@ -39,13 +39,7 @@ class Admin::BrandsController < Admin::AdminController
   end
 
   def order
-    ids = params[:ids]
-
-    Brand.transaction do
-      ids.each_with_index do |id, index|
-        Brand.find(id).update_attribute(:weight, index)
-      end
-    end
+    Brand.reorder! params[:ids]
     render nothing: true
   end
 

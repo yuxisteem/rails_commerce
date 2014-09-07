@@ -22,6 +22,11 @@ class Admin::ProductAttributesController < Admin::AdminController
     redirect_to admin_category_path(id: params[:category_id])
   end
 
+  def order
+    ProductAttribute.reorder! params[:ids]
+    render nothing: true
+  end
+
   private
   def product_attributes_params
     params.require(:product_attribute).permit(:name, :filterable).merge({category_id: params[:category_id]})

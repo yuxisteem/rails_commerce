@@ -12,7 +12,7 @@
       %th Active
       %th Created
       %th Updated
-  %tbody#sortable{ data: { 'sort-url' => admin_categories_order_path } }
+  %tbody#sortable{ data: { 'sort-url' => order_admin_categories } }
     - @categories.each do |c|
       %tr{ data: { id: c.id } }
         %td

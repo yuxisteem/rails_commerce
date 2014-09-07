@@ -19,18 +19,18 @@
         %h3.panel-title= t('admin.product_attributes.attributes')
       .panel-body
         = form_for ProductAttribute.new, url: admin_category_product_attributes_path(category_id: @category.id), html: {class: 'form-inline'} do |f|
-          %ul#sortable.list-group
+          %ul#sortable.list-group{ data: { 'sort-url' => order_admin_category_product_attributes_path(category_id: @category.id) } }
             - @category.product_attributes.each do |attribute|
-              %li.list-group-item
+              %li.list-group-item{ data: { id: attribute.id } }
+                = glyphicon('glyphicon-resize-vertical')
                 = attribute.name
                 - if attribute.filterable?
                   %em (filterable)
                 .pull-right
-                  = link_to admin_category_product_attribute_path(id: attribute.id, category_id: @category.id), |
-                    method: :delete,                                                                            |
-                    class: 'btn btn-xs btn-danger',                                                             |
-                    data: {confirm: t('admin.common.confirm')} do
-                    Delete
+                  = link_to 'Delete', admin_category_product_attribute_path(id: attribute.id, category_id: @category.id), |
+                    method: :delete,                                                                                      |
+                    class: 'btn btn-xs btn-danger',                                                                       |
+                    data: {confirm: t('admin.common.confirm')}
 
           .form-group
             = f.text_field :name, class: 'form-control'

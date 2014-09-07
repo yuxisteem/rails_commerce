@@ -40,13 +40,7 @@ class Admin::PagesController < Admin::AdminController
   end
 
   def order
-    ids = params[:ids]
-
-    Page.transaction do
-      ids.each_with_index do |id, index|
-        Page.find(id).update_attribute(:weight, index)
-      end
-    end
+    Page.reorder! params[:ids]
     render nothing: true
   end
 

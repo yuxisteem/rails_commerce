@@ -1,5 +1,4 @@
 Ecomm::Application.routes.draw do
-
   default_url_options host: AppConfig.mailer.host
 
   get '/404' => 'errors#not_found'
@@ -34,31 +33,46 @@ Ecomm::Application.routes.draw do
   namespace :admin do
     get '/' => 'dashboard#index'
 
-    resources :pages
-    post '/pages/order' => 'pages#order', as: :pages_order
-
-    resources :orders do
-      resources :order_histories
+    resources :pages do
+      post 'order', on: :collection
     end
 
-    post '/orders/:id/shipment_event/:event' => 'orders#shipment_event', as: :order_shipment_event
-    post '/orders/:id/invoice_event/:event' => 'orders#invoice_event', as: :order_invoice_event
-    post '/orders/:id/order_event/:event' => 'orders#order_event', as: :order_event
+    resources :orders do
+      resources :order_histories, only: [:create]
+
+      resource :shipment, only: [] do
+        post 'event', on: :member
+      end
+
+      resource :invoice, only: [] do
+        post 'event', on: :member
+      end
+
+      post 'event', on: :member
+    end
+
 
     resources :images, except: :update
 
-    resources :brands
-    post '/brands/order' => 'brands#order', as: :brands_order
+    resources :brands do
+      post 'order', on: :collection
+    end
 
     resources :categories do
-      resources :product_attributes, only: [:create, :update, :destroy]
+      post 'order', on: :collection
+
+      resources :product_attributes, only: [:create, :update, :destroy] do
+        post 'order', on: :collection
+      end
     end
-    post '/categories/order' => 'categories#order', as: :categories_order
 
     resources :products do
+      member do
+        post 'clone'
+      end
+
       resources :images, only: [:create, :destroy, :show]
     end
-    post '/products/clone/:id' => 'products#clone', as: :product_clone
 
     resources :users
 

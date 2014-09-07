@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140905203314) do
+ActiveRecord::Schema.define(version: 20140907141915) do
 
   create_table "addresses", force: true do |t|
     t.string   "city"
@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 20140905203314) do
     t.boolean  "filterable"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "weight"
   end
 
   add_index "product_attributes", ["category_id"], name: "index_product_attributes_on_category_id"

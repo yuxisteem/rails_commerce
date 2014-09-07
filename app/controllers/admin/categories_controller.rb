@@ -37,13 +37,7 @@ class Admin::CategoriesController < Admin::AdminController
   end
 
   def order
-    ids = params[:ids]
-
-    Category.transaction do
-      ids.each_with_index do |id, index|
-        Category.find(id).update_attribute(:weight, index)
-      end
-    end
+    Category.reorder! params[:ids]
     render nothing: true
   end
 

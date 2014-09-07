@@ -8,9 +8,12 @@
 #  filterable  :boolean
 #  created_at  :datetime
 #  updated_at  :datetime
+#  weight      :integer
 #
 
 class ProductAttribute < ActiveRecord::Base
+  include Orderable
+
   belongs_to :category
   has_many :product_attribute_values, dependent: :destroy
 end

@@ -1,6 +1,6 @@
 class Admin::OrdersController < Admin::AdminController
   add_breadcrumb I18n.t('admin.orders.orders'), :admin_orders_path
-  before_action :set_order, except: :index #[:show, :edit, :update, :order_event, :shipment_event, :invoice_event, :destroy]
+  before_action :set_order, except: :index
 
   # GET /admin/orders
   def index
@@ -23,35 +23,13 @@ class Admin::OrdersController < Admin::AdminController
     end
   end
 
-  # POST /admin/orders/:id/shipment_event/:event
-  def shipment_event
-    fire_event @order.shipment, params[:event]
-  end
-
-  # POST /admin/orders/:id/invoice_event/:event
-  def invoice_event
-    fire_event @order.invoice, params[:event]
-  end
-
-  # POST /admin/orders/:id/order_event/:event
-  def order_event
-    fire_event @order, params[:event]
+  def event
+    @order.send(params[:name].to_sym, nil, current_user)
+    @order.save
+    redirect_to admin_order_path(@order)
   end
 
   private
-
-  def fire_event(object, event_name)
-    event_name = event_name.to_sym
-    if object.aasm.may_fire_event?(event_name)
-      # Pass current current_user, it will be logged in order history changes
-      object.send(event_name, nil, current_user)
-      object.save
-      flash[:notice] = "Order update succesfully"
-    else
-      flash[:error] = "Error updating order"
-    end
-    redirect_to admin_order_path(@order)
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_order
