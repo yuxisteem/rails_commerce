@@ -9,9 +9,9 @@ describe CategoriesHelper do
     controller.params[:seo_name] = 'mock_seo_name'
   end
 
-  describe '#available_categories' do
+  describe '#active_categories' do
     it 'should provide all categories list' do
-      expect(helper.available_categories).to eq(Category.all)
+      expect(helper.active_categories).to eq(Category.active)
     end
   end
 
