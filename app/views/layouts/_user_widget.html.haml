@@ -1,6 +1,7 @@
 %li
   - if cart_widget_visible?
-    = link_to "<i class=\"glyphicon glyphicon-shopping-cart\"></i> #{t('store.my_cart_link_text')} <span id=\"cart-items-count\" class=\"badge\">#{current_cart.cart_items.count}</span>".html_safe, cart_items_path, remote: true
+    = link_to cart_items_path, remote: true do
+      = glyphicon('glyphicon-shopping-cart', text: t('store.my_cart_link_text') + ' ' + badge_span(current_cart.cart_items.count, id: 'cart-items-count'))
 - if user_signed_in?
   - if current_user.try(:admin)
     %li

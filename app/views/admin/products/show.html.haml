@@ -3,7 +3,7 @@
     %h3.panel-title
       = t('admin.products.edit_product')
       .pull-right
-        = link_to t('admin.products.clone'), clone_admin_product(@product), method: :post, class: 'btn btn-primary btn-xs'
+        = link_to t('admin.products.clone'), clone_admin_product_path(@product), method: :post, class: 'btn btn-primary btn-xs'
   .panel-body
     = form_for @product, url: admin_product_path(@product) do |f|
       = render 'layouts/validation_errors', model: @product

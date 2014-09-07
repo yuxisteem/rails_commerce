@@ -12,7 +12,7 @@ module CategoriesHelper
     link_text = attribute_value_text
     link_text += "<span class=\"badge pull-right\">#{options[:count]}</span>" if options[:count]
 
-    link_to link_text.html_safe, category_seo_path(attributes_link_params(attribute_value)), options
+    link_to link_text.html_safe, seo_category_path(attributes_link_params(attribute_value)), options
   end
 
   def attribute_filter_active?(attribute_value)
@@ -50,7 +50,7 @@ module CategoriesHelper
     link_text = brand.name
     link_text += "<span class=\"badge pull-right\">#{options[:count].to_s}</span>" if options[:count]
 
-    link_to link_text.html_safe, category_seo_path(link_params), options
+    link_to link_text.html_safe, seo_category_path(link_params), options
   end
 
   def brand_filter_active?(brand)

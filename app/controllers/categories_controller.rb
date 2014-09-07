@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
     @category = CategoryPresenter.new(Category.find(params[:id]), params: params)
 
     if params[:seo_name].nil?
-      redirect_to category_seo_path(@category, @category.seo_name)
+      redirect_to seo_category(@category, @category.seo_name)
     elsif params[:seo_name] != @category.seo_name
       fail ActiveRecord::RecordNotFound
     end

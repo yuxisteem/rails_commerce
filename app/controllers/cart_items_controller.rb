@@ -25,11 +25,14 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    if params[:id].blank?
-      @cart.cart_items.clear
-    else
-      @cart.cart_items.find(params[:id]).destroy
+    @cart.cart_items.find(params[:id]).destroy
+    respond_to do |format|
+      format.js {}
     end
+  end
+
+  def delete_all
+    @cart.cart_items.clear
     respond_to do |format|
       format.js {}
     end

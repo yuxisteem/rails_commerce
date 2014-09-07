@@ -21,14 +21,14 @@
               %td= item.product.name
               %td= number_to_currency item.product.price
               %td
-                = link_to '<i class="glyphicon glyphicon-minus"></i>'.html_safe, |
-                  cart_item_decrease_path(item),                                 |
+                = link_to glyphicon('glyphicon-minus'), |
+                  decrease_cart_item_path(item),                                 |
                   method: :post,                                                 |
                   remote: true,                                                  |
                   class: 'btn btn-xs btn-default'                                |
                 = item.quantity
-                = link_to '<i class="glyphicon glyphicon-plus"></i>'.html_safe, |
-                  cart_item_increase_path(item),                                |
+                = link_to glyphicon('glyphicon-plus'), |
+                  increase_cart_item_path(item),                                |
                   method: :post,                                                |
                   remote: true,                                                 |
                   class: 'btn btn-xs btn-default'                               |

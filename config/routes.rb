@@ -1,33 +1,36 @@
 Ecomm::Application.routes.draw do
   default_url_options host: AppConfig.mailer.host
 
+  devise_for :users
+
   get '/404' => 'errors#not_found'
   get '/500' => 'errors#internal_server_error'
 
-  resources :pages, only: [:show]
-
-  get '/products/:id/:seo_name' => 'products#show', as: :product_seo
-  resources :products, only: [:show]
-
-  get '/categories/:id/:seo_name' => 'categories#show', as: :category_seo
-  resources :categories, only: [:show]
-
-  # Checkout controller
-  resources :orders, only: [:new, :create, :show, :update, :destroy]
-
-  # Cart controller
-  resources :cart_items, only: [:index, :create, :update, :destroy]
-  delete '/cart_items' => 'cart_items#destroy'
-  post '/cart_items/:id/increase' => 'cart_items#increase', as: :cart_item_increase
-  post '/cart_items/:id/decrease' => 'cart_items#decrease', as: :cart_item_decrease
+  root to: 'store#index'
 
   # Main namespace
   get '/store/index'
   get '/store/search' => 'store#search', as: :store_search
 
-  root to: 'store#index'
+  resources :pages, only: [:show]
 
-  devise_for :users
+  resources :products, only: [:show] do
+    get ':seo_name', action: :show, as: :seo, on: :member
+  end
+
+  resources :categories, only: [:show] do
+    get ':seo_name', action: :show, as: :seo, on: :member
+  end
+
+  resources :orders, only: [:new, :create, :show, :update, :destroy]
+
+  resources :cart_items, only: [:index, :create, :update, :destroy] do
+    delete :index, on: :collection, action: :delete_all
+    member do
+      post 'increase'
+      post 'decrease'
+    end
+  end
 
   # Admin panel
   namespace :admin do

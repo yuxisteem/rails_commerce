@@ -5,12 +5,12 @@ class ProductsController < ApplicationController
     @product = Product.active.includes(:category).find(params[:id])
 
     if params[:seo_name].nil?
-      redirect_to category_seo_path(@product, @product.seo_name)
+      redirect_to seo_category_path(@product, @product.seo_name)
     elsif params[:seo_name] != @product.seo_name
       fail ActiveRecord::RecordNotFound
     end
 
-    add_breadcrumb @product.category.name, category_seo_path(@product.category, @product.category.seo_name)
+    add_breadcrumb @product.category.name, seo_category_path(@product.category, @product.category.seo_name)
     add_breadcrumb @product.name
   end
 
