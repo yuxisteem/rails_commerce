@@ -24,10 +24,10 @@ describe Product do
     it 'should clone product' do
 
       clone = product.clone
-      product.name.should match(clone.name)
-      product.description.should match(clone.description)
-      product.product_attribute_values
-             .should match_array(clone.product_attribute_values)
+      expect(product.name).to match(clone.name)
+      expect(product.description).to match(clone.description)
+      expect(product.product_attribute_values)
+             .to match_array(clone.product_attribute_values)
     end
   end
 
@@ -38,14 +38,14 @@ describe Product do
           product.track_inventory = true
           product.quantity = 10
 
-          expect(product.in_stock?).to be_true
+          expect(product.in_stock?).to be_truthy
         end
 
         it 'should return false if quantity = 0' do
           product.track_inventory = true
           product.quantity = 0
 
-          expect(product.in_stock?).to be_false
+          expect(product.in_stock?).to be_falsey
         end
       end
 
@@ -54,7 +54,7 @@ describe Product do
           product.track_inventory = false
           product.quantity = 0
 
-          expect(product.in_stock?).to be_true
+          expect(product.in_stock?).to be_truthy
         end
       end
     end
@@ -64,7 +64,7 @@ describe Product do
         product.track_inventory = true
         product.quantity = 10
 
-        expect(product.withdraw 1).to be_true
+        expect(product.withdraw 1).to be_truthy
         expect(product.quantity).to eq 9
       end
 
@@ -72,7 +72,7 @@ describe Product do
         product.track_inventory = true
         product.quantity = 0
 
-        expect(product.withdraw 1).to be_false
+        expect(product.withdraw 1).to be_falsey
       end
     end
   end

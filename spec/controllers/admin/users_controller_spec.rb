@@ -5,15 +5,15 @@ describe Admin::UsersController do
 	    sign_in(create(:admin))
 	end
 
-	describe "GET index" do 
+	describe "GET index" do
 		it "should load users list" do
 			get :index
 			expect(response).to be_success
-			expect(assigns(:users).count).to be_true
+			expect(assigns(:users).count).to be_truthy
 		end
 	end
 
-	describe "GET show" do 
+	describe "GET show" do
 		it "should load user by id" do
 			get :show, {id: User.first.id}
 			expect(response).to be_success
@@ -21,7 +21,7 @@ describe Admin::UsersController do
 		end
 	end
 
-	describe "PATCH update" do 
+	describe "PATCH update" do
 		it "should update user attributes" do
 			user_id = create(:user).id
 			params = {admin: true, first_name: 'New name', last_name: 'New last name', phone: '+123654789'}

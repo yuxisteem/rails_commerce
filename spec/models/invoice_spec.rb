@@ -20,12 +20,12 @@ describe Invoice do
 
   describe "state machine" do
     it "should have initial In Progress state" do
-      Invoice.new.aasm.current_state.should eq(:pending)
+      expect(Invoice.new.aasm.current_state).to eq(:pending)
     end
 
     it "should log state transitions" do
       invoice.pay!(nil, user)
-      invoice.order.order_histories.last.to_name.should eq('paid')
+      expect(invoice.order.order_histories.last.to_name).to eq('paid')
     end
   end
 end

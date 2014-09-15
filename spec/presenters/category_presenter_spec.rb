@@ -8,29 +8,29 @@ describe CategoryPresenter do
   describe '#products' do
     it 'should have products within category' do
       presenter.products.each do |p|
-        p.category.should eq(category)
+        expect(p.category).to eq(category)
       end
     end
     it 'should show only active products' do
       presenter.products.each do |p|
-        p.active.should be_true
+        expect(p.active).to be_truthy
       end
     end
   end
 
   describe '#category' do
     it 'should equal category passed in constructor' do
-      presenter.id.should eq(category.id)
+      expect(presenter.id).to eq(category.id)
     end
   end
   describe '#product_attributes' do
     it 'should provide all avaliable attributes for current category' do
-      presenter.product_attributes.should match_array([product_attribute])
+      expect(presenter.product_attributes).to match_array([product_attribute])
     end
   end
   describe '#brands' do
     it 'should provide all avaliable brands for current category' do
-      presenter.brands.should match_array(brands)
+      expect(presenter.brands).to match_array(brands)
     end
   end
 end

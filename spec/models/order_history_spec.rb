@@ -20,8 +20,8 @@ describe OrderHistory do
   it '#log_transition should log log order state transitions' do
     OrderHistory.log_transition(order.id, 'transition name', 'from state', 'to state', order.user)
     order_history = OrderHistory.last
-    order_history.order_id.should eq(order.id)
-    order_history.from_name.should eq('from state')
-    order_history.to_name.should eq('to state')
+    expect(order_history.order_id).to eq(order.id)
+    expect(order_history.from_name).to eq('from state')
+    expect(order_history.to_name).to eq('to state')
   end
 end

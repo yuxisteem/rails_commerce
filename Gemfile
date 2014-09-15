@@ -55,7 +55,7 @@ group :development, :test do
   gem 'spring', '~> 1.1.3'
   gem 'capybara', '~> 2.2.1'
   gem 'factory_girl_rails', '~> 4.3.0'
-  gem 'rspec-rails', '~> 2.14.1'
+  gem 'rspec-rails', '~> 3.1.0'
   gem 'faker', '~> 1.3.0'
 end
 

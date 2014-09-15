@@ -10,7 +10,7 @@ describe Admin::OrdersController do
     it "should show all orders" do
       get :index
       expect(response).to be_success
-      expect(assigns(:orders).count).to be_true
+      expect(assigns(:orders).count).to be_truthy
     end
   end
 
