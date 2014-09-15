@@ -1,0 +1,66 @@
+# Put config in this section valid for all environments
+# Environment specific configs will override this section
+all:
+  # If disabled set to true, links to Login/Register pages will be hidden,
+  # but pages will still be available by direct link
+  authentication_disabled: true
+
+# Development env specific configs
+development:
+  secret_key_base:   xg751p8ngbyKBxVxZ21wXp8098HjQZrM
+  devise_secret_key: 8278n3qghIRus1M5quC2Ya54bH99mOgg
+
+  sms_notifier:
+    enabled: false
+    login: 380503923223
+    password: password
+    from: RailsCommerce
+
+  mailer:
+    default_from: info@domain.com
+    host: domain.com
+    smtp:
+      address: smtp.mandrillapp.com
+      user: username
+      port: 587
+      password: password
+
+# Configs for unit tests
+test:
+  secret_key_base: xg751p8ngbyKBxVxZ21wXp8098HjQZrM
+  devise_secret_key: xg751p8ngbyKBxVxZ21wXp8098HjQZrM
+
+  sms_notifier:
+    enabled: false
+    login: 380503923223
+    password: password
+    from: RailsCommerce
+
+  mailer:
+    default_from: info@domain.com
+    host: localhost:3000
+    smtp:
+      address: smtp.mandrillapp.com
+      user: username
+      port: 587
+      password: password
+
+# Production configs
+production:
+  secret_key_base: <%= ENV['SECRET_KEY_BASE'] %>
+  devise_secret_key: <%= ENV['DEVISE_KEY'] %>
+
+  sms_notifier:
+    enabled: false
+    login: 380503923223
+    password: password
+    from: RailsCommerce
+
+  mailer:
+    default_from: info@domain.com
+    host: domain.com
+    smtp:
+      address: smtp.mandrillapp.com
+      user: username
+      port: 587
+      password: password
