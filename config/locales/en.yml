@@ -35,7 +35,7 @@ en:
     sign_in: Sign in
     sign_out: Sign out
     shipping_and_payment: Shipping and payment
-    store_name: Cool Case
+    store_name: RailsCommerce
     profile: Profile
     form_validation_error_message: 'There was an error with your submission:'
     submit: Submit

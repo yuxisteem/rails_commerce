@@ -14,7 +14,7 @@ ru:
     sign_in: Войти
     sign_out: Выйти
     shipping_and_payment: Доставка и оплата
-    store_name: Cool Case
+    store_name: RailsCommerce
     profile: Профиль
     form_validation_error_message: 'Возникли ошибки:'
     submit: Отправить
