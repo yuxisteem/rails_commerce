@@ -24,6 +24,7 @@ RailsCommerce has following features:
   - **Simple** checkout for signed in/ not signed in
   - **Account creation** for new customers during checkout
   - **Email notifications**
+  - **SMS notifications (via smsclub.mobi)**
 - **Static pages**
 
 Comes with clean `Bootstrap` based design
