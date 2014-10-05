@@ -64,6 +64,7 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-rails', '~> 1.1.1'
   gem 'annotate', '~> 2.6'
+  gem 'rack-mini-profiler'
 end
 
 group :production do
