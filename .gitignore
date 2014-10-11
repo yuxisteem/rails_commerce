@@ -9,7 +9,7 @@
 
 # Ignore configs
 config/newrelic.yml
-config/config.yml
+# config/config.yml
 
 # Ignore the default SQLite database.
 db/*.sqlite3
