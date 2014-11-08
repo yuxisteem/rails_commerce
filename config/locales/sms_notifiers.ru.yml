@@ -1,0 +1,5 @@
+ru:
+  sms_notifiers:
+    order:
+      order_received: "#{name}, cпасибо за ваш заказ №#{order_id}. Мы свяжемся с вами в ближайшее время. :)"
+      order_placed_admin: "Новый заказ №#{order_id}! От #{name}"

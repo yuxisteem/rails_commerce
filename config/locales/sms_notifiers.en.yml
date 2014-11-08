@@ -1,0 +1,5 @@
+en:
+  sms_notifiers:
+    order:
+      order_received: "#{name}, thanks you for your order ##{order_id}. We'll contact you soon. :)"
+      order_placed_admin: "New order ##{order_id}! From #{name}"

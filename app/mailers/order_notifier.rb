@@ -6,7 +6,7 @@ class OrderNotifier < AsyncMailer
   end
 
   # Notify Admin that we've received new order
-  def order_received_admin(order_id)
+  def order_placed_admin(order_id)
     @order = Order.find(order_id)
     admin_emails = User.admins.where(receive_email: true).pluck(:email)
     mail to: admin_emails if admin_emails.any?

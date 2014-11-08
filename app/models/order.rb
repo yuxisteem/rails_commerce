@@ -99,7 +99,7 @@ class Order < ActiveRecord::Base
   end
 
   def notify_admins
-    OrderNotifier.order_received_admin(id).deliver
-    OrderSMSNotifier.order_received_admin(id)
+    OrderNotifier.order_placed_admin(id).deliver
+    OrderSMSNotifier.order_placed_admin(id)
   end
 end
