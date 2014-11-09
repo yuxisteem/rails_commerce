@@ -27,7 +27,7 @@ describe Admin::UsersController do
 			params = {admin: true, first_name: 'New name', last_name: 'New last name', phone: '+123654789'}
 
 			patch :update, {id: user_id, user: params}
-			expect(response).to be_redirect
+			expect(response).to be_ok
 
 			user = User.find(user_id)
 			params.each {|key, value| expect(user.send(key)).to eq(value) }
