@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe CategoryPresenter do
-  let(:product_attribute) { create(:product_attribute) }
-  let(:category) { product_attribute.category }
+  let(:product_attribute_name) { create(:product_attribute_name) }
+  let(:category) { product_attribute_name.category }
   let(:presenter) { CategoryPresenter.new(category, params: {}) }
   let(:brands) { Brand.joins("INNER JOIN products ON products.brand_id = brands.id AND products.category_id = #{category.id}") }
   describe '#products' do
@@ -25,7 +25,7 @@ describe CategoryPresenter do
   end
   describe '#product_attributes' do
     it 'should provide all avaliable attributes for current category' do
-      expect(presenter.product_attributes).to match_array([product_attribute])
+      expect(presenter.product_attribute_names).to match_array([product_attribute_name])
     end
   end
   describe '#brands' do

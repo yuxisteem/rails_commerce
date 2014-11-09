@@ -8,7 +8,7 @@
 
 # Store initial data
 
-Category.create(name: 'Default', description: 'Default category')
+Category.create(name: 'Default', description: 'Default category', active: true)
 
 Brand.create(name: 'Default', description: 'Default category')
 

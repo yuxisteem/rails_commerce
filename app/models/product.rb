@@ -49,11 +49,11 @@ class Product < ActiveRecord::Base
   def available_attributes
     @available_attributes ||=
     transaction do
-      if category.product_attributes.any?
-        category.product_attributes.map do |x|
+      if category.product_attribute_names.any?
+        category.product_attribute_names.map do |x|
           ProductAttributeValue
             .find_or_initialize_by(product_id: id,
-                                   product_attribute_id: x.id)
+                                   product_attribute_name_id: x.id)
         end
       end
     end

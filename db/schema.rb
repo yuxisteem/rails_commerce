@@ -143,19 +143,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.datetime "updated_at"
   end
 
-  create_table "product_attribute_values", force: true do |t|
-    t.string   "value"
-    t.integer  "product_id"
-    t.integer  "product_attribute_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "product_attribute_values", ["product_attribute_id"], name: "index_product_attribute_values_on_product_attribute_id", using: :btree
-  add_index "product_attribute_values", ["product_id"], name: "index_product_attribute_values_on_product_id", using: :btree
-  add_index "product_attribute_values", ["value"], name: "index_product_attribute_values_on_value", using: :btree
-
-  create_table "product_attributes", force: true do |t|
+  create_table "product_attribute_names", force: true do |t|
     t.string   "name"
     t.integer  "category_id"
     t.boolean  "filterable"
@@ -164,8 +152,20 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.integer  "weight"
   end
 
-  add_index "product_attributes", ["category_id"], name: "index_product_attributes_on_category_id", using: :btree
-  add_index "product_attributes", ["name"], name: "index_product_attributes_on_name", using: :btree
+  add_index "product_attribute_names", ["category_id"], name: "index_product_attribute_names_on_category_id", using: :btree
+  add_index "product_attribute_names", ["name"], name: "index_product_attribute_names_on_name", using: :btree
+
+  create_table "product_attribute_values", force: true do |t|
+    t.string   "value"
+    t.integer  "product_id"
+    t.integer  "product_attribute_name_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "product_attribute_values", ["product_attribute_name_id"], name: "index_product_attribute_values_on_product_attribute_name_id", using: :btree
+  add_index "product_attribute_values", ["product_id"], name: "index_product_attribute_values_on_product_id", using: :btree
+  add_index "product_attribute_values", ["value"], name: "index_product_attribute_values_on_value", using: :btree
 
   create_table "products", force: true do |t|
     t.string   "name"

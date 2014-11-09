@@ -28,6 +28,8 @@
                   - else
                     = attribute_filter_link attribute_value_group[0], category_id: @category.id
     .col-md-9
-      = render 'products_grid', products: @category.products
+      = cache @category.products do
+        = render 'products_grid', products: @category.products
   - else
-    = render 'products_grid', products: @category.products
+    = cache @category.products do
+      = render 'products_grid', products: @category.products

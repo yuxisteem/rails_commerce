@@ -25,7 +25,6 @@ module Filterable
 
     def by_attributes(attributes)
       entities = klass.all
-      p attributes
       if attributes
         join_sql = attributes.map do |attr_id, values|
 
@@ -38,7 +37,7 @@ module Filterable
           %(
             INNER JOIN #{attr_vals_table_name} #{attr_alias}
             ON #{attr_alias}.#{foreign_key} = #{table_name}.id
-            AND  #{attr_alias}.#{klass.name.downcase}_attribute_id = #{attr_id.to_i}
+            AND  #{attr_alias}.#{klass.name.downcase}_attribute_name_id = #{attr_id.to_i}
             AND ( #{attr_values_sql} )
           )
         end

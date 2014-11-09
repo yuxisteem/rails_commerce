@@ -1,52 +1,55 @@
-%h3
-  = @user.full_name
-  = label_span "Admin", type: 'success' if @user.admin?
-  %small= mail_to @user.email
+= cache @user do
+  %h3
+    = @user.full_name
+    = label_span "Admin", type: 'success' if @user.admin?
+    %small= mail_to @user.email
 
-.row
-  .col-md-4
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title= t('admin.users.user_summary')
-      .panel-body
-        %dl.dl-horizontal
-          %dt= t('admin.users.phone')
-          %dd= number_to_phone @user.phone
-          %dt= t('admin.common.created_at')
-          %dd= time_tag @user.created_at
-          %dt= t('admin.common.updated_at')
-          %dd= time_tag @user.updated_at
-          %dt= t('admin.users.sign_in_count')
-          %dd= @user.sign_in_count
-          %dt= t('admin.users.last_sign_in_at')
-          %dd= @user.last_sign_in_at
-          %dt= t('admin.users.last_sign_in_ip')
-          %dd
-            = @user.last_sign_in_ip
-            = link_to('whois',                                                                                       |
-              "http://www.infobyip.com/ip-#{@user.last_sign_in_ip}.html", target: "_blank") if @user.last_sign_in_ip |
+  .row
+    .col-md-4
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title= t('admin.users.user_summary')
+        .panel-body
+          %dl.dl-horizontal
+            %dt= t('admin.users.phone')
+            %dd= number_to_phone @user.phone
+            %dt= t('admin.common.created_at')
+            %dd= time_tag @user.created_at
+            %dt= t('admin.common.updated_at')
+            %dd= time_tag @user.updated_at
+            %dt= t('admin.users.sign_in_count')
+            %dd= @user.sign_in_count
+            %dt= t('admin.users.last_sign_in_at')
+            %dd= @user.last_sign_in_at
+            %dt= t('admin.users.last_sign_in_ip')
+            %dd
+              = @user.last_sign_in_ip
+              = link_to('whois',                                                                                       |
+                "http://www.infobyip.com/ip-#{@user.last_sign_in_ip}.html", target: "_blank") if @user.last_sign_in_ip |
 .panel.panel-default
   .panel-heading
     %h3.panel-title= t('admin.orders.orders')
   .panel-body
     - if @user.orders.any?
-      %table.table.table-hover
-        %thead
-          %tr
-            %th Order
-            %th Placed at
-            %th Payment status
-            %th Fulfillment status
-            %th Total
-        %tbody
-          - @user.orders.each do |order|
-            %tr{:class => "order-#{order.aasm.current_state.to_s.dasherize}"}
-              %td= link_to "##{order.id}", admin_order_path(order)
-              %td= time_tag order.created_at
-              %td
-                = label_span order.invoice.aasm.human_state, type: order.invoice.paid? ? 'default' : 'warning'
-              %td
-                = label_span order.shipment.aasm.human_state, type: order.shipment.shipped? ? 'default' : 'warning'
-              %td= number_to_currency order.total_price
+      = cache @user.orders do
+        %table.table.table-hover
+          %thead
+            %tr
+              %th Order
+              %th Placed at
+              %th Payment status
+              %th Fulfillment status
+              %th Total
+          %tbody
+            - @user.orders.each do |order|
+              = cache order do
+                %tr{:class => "order-#{order.aasm.current_state.to_s.dasherize}"}
+                  %td= link_to "##{order.id}", admin_order_path(order)
+                  %td= time_tag order.created_at
+                  %td
+                    = label_span order.invoice.aasm.human_state, type: order.invoice.paid? ? 'default' : 'warning'
+                  %td
+                    = label_span order.shipment.aasm.human_state, type: order.shipment.shipped? ? 'default' : 'warning'
+                  %td= number_to_currency order.total_price
     - else
       %h4=t('admin.users.no_orders_message')

@@ -16,18 +16,18 @@
   .col-md-4
     .panel.panel-default
       .panel-heading
-        %h3.panel-title= t('admin.product_attributes.attributes')
+        %h3.panel-title= t('admin.product_attribute_names.attributes')
       .panel-body
-        = form_for ProductAttribute.new, url: admin_category_product_attributes_path(category_id: @category.id), html: {class: 'form-inline'} do |f|
-          %ul#sortable.list-group{ data: { 'sort-url' => order_admin_category_product_attributes_path(category_id: @category.id) } }
-            - @category.product_attributes.each do |attribute|
+        = form_for ProductAttributeName.new, url: admin_category_product_attribute_names_path(category_id: @category.id), html: {class: 'form-inline'} do |f|
+          %ul#sortable.list-group{ data: { 'sort-url' => order_admin_category_product_attribute_names_path(category_id: @category.id) } }
+            - @category.product_attribute_names.each do |attribute|
               %li.list-group-item{ data: { id: attribute.id } }
                 = glyphicon('glyphicon-resize-vertical')
                 = attribute.name
                 - if attribute.filterable?
                   %em (filterable)
                 .pull-right
-                  = link_to 'Delete', admin_category_product_attribute_path(id: attribute.id, category_id: @category.id), |
+                  = link_to 'Delete', admin_category_product_attribute_name_path(id: attribute.id, category_id: @category.id), |
                     method: :delete,                                                                                      |
                     class: 'btn btn-xs btn-danger',                                                                       |
                     data: {confirm: t('admin.common.confirm')}
@@ -37,4 +37,4 @@
             = f.check_box :filterable
             = f.label :filterable
           .pull-right
-            = f.submit t('admin.product_attributes.add_product_attribute'), class: 'btn btn-default'
+            = f.submit t('admin.product_attribute_names.add_product_attribute'), class: 'btn btn-default'

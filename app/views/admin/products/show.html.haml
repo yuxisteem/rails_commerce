@@ -10,7 +10,7 @@
       = render 'product_fields', f: f
       - if @product.available_attributes
         = f.fields_for :product_attribute_values, @product.available_attributes do |attribute_values_form|
-          = attribute_values_form.hidden_field :product_attribute_id, value: attribute_values_form.object.product_attribute_id.to_s
+          = attribute_values_form.hidden_field :product_attribute_names_id, value: attribute_values_form.object.product_attribute_name_id.to_s
           .form-group.row
             .col-md-1
               = attribute_values_form.label attribute_values_form.object.name

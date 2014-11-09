@@ -1,0 +1,2 @@
+module Admin::ProductAttributeNamesHelper
+end

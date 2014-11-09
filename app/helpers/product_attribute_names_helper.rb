@@ -1,0 +1,2 @@
+module ProductAttributeNamesHelper
+end

@@ -14,23 +14,24 @@ namespace :db do
       Faker::Lorem.sentence(words_count).to_s
     end
 
-    def create_random_address
-      Address.create(city: Faker::Address.city,
-                     street: Faker::Address.street_address,
-                     phone:  Faker::PhoneNumber.cell_phone)
+    def build_random_address
+      Address.new(city: Faker::Address.city,
+                  street: Faker::Address.street_address,
+                  phone:  Faker::PhoneNumber.cell_phone)
     end
 
-    def create_order_items
-      items = []
-      OrderItem.transaction do
-        5.times do
-          items << OrderItem.new(product_id: rand(Product.all.count-1)+1,
-                                 price: random_number,
-                                 quantity: rand(5))
-        end
+    def build_order_items
+      @products_count ||= Product.all.count
+      items = 5.times.map do
+        OrderItem.new(product_id: rand(@products_count-1)+1,
+                      price: random_number,
+                      quantity: rand(5))
       end
       items
     end
+
+
+    puts "Creating users..."
 
     User.create(first_name: 'Paul',
                 last_name: 'D',
@@ -50,41 +51,60 @@ namespace :db do
       end
     end
 
+    puts "Creating categories..."
+
     categories = []
+    Category.transaction do
+      %w(Mobile Photo Accessories Tablets Other).each do |category_name|
+        categories.append(Category.create(name: category_name, description: random_desc, active: true))
+      end
+    end
+
+    # Add attributes to categories
+    Category.transaction do
+      categories.each do |category|
+        5.times do
+          category
+            .product_attribute_names << ProductAttributeName.new(name: random_name, filterable: true)
+        end
+      end
+    end
+
+    puts "Creating brands..."
+
     brands = []
-
-    # 10.times do
-    #    categories.append(Category.create(name: random_name, description: random_desc))
-    # end
-
-    categories.append(Category.create(name: 'Mobile', description: random_desc))
-    categories.append(Category.create(name: 'Photo', description: random_desc))
-    categories.append(Category.create(name: 'Accessories', description: random_desc))
-    categories.append(Category.create(name: 'Tablets', description: random_desc))
-
     Brand.transaction do
       10.times do
         brands.append(Brand.create(name: random_name, description: random_desc))
       end
     end
 
+    puts "Creating products..."
+    random_attr_vals = 10.times.map { random_name }
     Product.transaction do
-      99.times do
-        Product.create(name: random_name,
+      500.times do
+        product = Product.new(name: random_name,
                        description: random_desc(11),
                        price: random_number,
                        category: categories.at(rand(categories.count)),
                        brand: brands.at(rand(brands.count)),
-                       active: true).save
+                       active: true)
+        product.product_attribute_values = product
+                                              .available_attributes
+                                              .map { |val| val.update(value: random_attr_vals.sample); val }
+        product.save
       end
     end
 
+    puts "Creating orders..."
 
     Order.transaction do
-      30.times do
-        Order.create(user_id: rand(User.all.count - 1) + 1, address: create_random_address, order_items: create_order_items)
+      users_count = User.all.count
+      500.times do
+        Order.create(user_id: rand(users_count - 1) + 1, address: build_random_address, order_items: build_order_items)
       end
     end
+
     puts 'Demo data created'
   end
 

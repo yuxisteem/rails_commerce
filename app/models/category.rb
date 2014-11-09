@@ -18,7 +18,7 @@ class Category < ActiveRecord::Base
   include Orderable
 
   has_many :products
-  has_many :product_attributes, dependent: :destroy
+  has_many :product_attribute_names, dependent: :destroy
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 255 }
 

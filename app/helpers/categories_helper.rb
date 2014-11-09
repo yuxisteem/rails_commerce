@@ -17,7 +17,7 @@ module CategoriesHelper
 
   def attribute_filter_active?(attribute_value)
     filter_query = params[ATTRIBUTES_FILTER_KEY] || {}
-    attribute_id = attribute_value.product_attribute.id.to_s
+    attribute_id = attribute_value.product_attribute_name_id.to_s
 
     return false unless attribute_id && filter_query[attribute_id]
     filter_query[attribute_id].include?(attribute_value.value)
@@ -66,7 +66,7 @@ module CategoriesHelper
 
     attribute_params = []
 
-    attribute_id = attribute_value.product_attribute.id.to_s
+    attribute_id = attribute_value.product_attribute_name_id.to_s
 
     if link_params[ATTRIBUTES_FILTER_KEY] && link_params[ATTRIBUTES_FILTER_KEY][attribute_id]
       attribute_params = link_params[ATTRIBUTES_FILTER_KEY][attribute_id].dup

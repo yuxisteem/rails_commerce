@@ -30,7 +30,7 @@ ru:
       category_saved: Category saved
       active: Active
       inactive: Inactive
-    product_attributes:
+    product_attribute_names:
       attributes: Attributes
       product_attribute_saved: Product attribute saved
       product_attribute_updated: Product attribute updated

@@ -20,7 +20,7 @@ describe CategoriesHelper do
       params[:id] = 999
       link = helper.attribute_filter_link(attribute)
       expect(link).to include(attribute.value)
-      expect(link).to include(attribute.product_attribute.id.to_s)
+      expect(link).to include(attribute.product_attribute_name_id.to_s)
     end
 
     it 'should append filter for attribute and preserve existing filters' do
@@ -29,7 +29,7 @@ describe CategoriesHelper do
 
       link = helper.attribute_filter_link(attribute)
       expect(link).to include(attribute.value)
-      expect(link).to include(attribute.product_attribute.id.to_s)
+      expect(link).to include(attribute.product_attribute_name_id.to_s)
 
       expect(link).to include('AttributeValue2')
       expect(link).to include(2.to_s)
@@ -37,16 +37,16 @@ describe CategoriesHelper do
 
     it 'should remove filter for attribute if filter is already active' do
       params[:id] = 999
-      params[:q]  = { attribute.product_attribute.id.to_s => [attribute.value] }
+      params[:q]  = { attribute.product_attribute_name_id.to_s => [attribute.value] }
       link = helper.attribute_filter_link(attribute)
-      expect(link).to_not include(attribute.product_attribute.id.to_s)
+      expect(link).to_not include(attribute.product_attribute_name_id.to_s)
       expect(link).to_not include('=#{attribute.value}')
     end
   end
 
   describe '#attribute_filter_active?' do
     it 'should be true if filter for attribute is active' do
-      params[:q] = { attribute.id.to_s => [attribute.value] }
+      params[:q] = { attribute.product_attribute_name_id.to_s => [attribute.value] }
       expect(helper.attribute_filter_active?(attribute)).to be_truthy
     end
 

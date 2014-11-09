@@ -64,7 +64,7 @@ Ecomm::Application.routes.draw do
     resources :categories do
       post 'order', on: :collection
 
-      resources :product_attributes, only: [:create, :update, :destroy] do
+      resources :product_attribute_names, only: [:create, :update, :destroy] do
         post 'order', on: :collection
       end
     end

@@ -28,8 +28,8 @@ class CategoryPresenter
   end
 
   # TODO: Move this stuff to Category model
-  def product_attributes
-    ProductAttribute
+  def product_attribute_names
+    ProductAttributeName
       .where(category_id: @category.id, filterable: true)
       .includes(:product_attribute_values)
   end

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: product_attributes
+# Table name: product_attribute_names
 #
 #  id          :integer          not null, primary key
 #  name        :string(255)
@@ -11,7 +11,7 @@
 #  weight      :integer
 #
 
-class ProductAttribute < ActiveRecord::Base
+class ProductAttributeName < ActiveRecord::Base
   include Orderable
 
   belongs_to :category
