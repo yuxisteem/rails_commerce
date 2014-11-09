@@ -13,14 +13,16 @@
       %th Fulfillment status
       %th Total
   %tbody
-    - @orders.each do |order|
-      %tr{:class => "order-#{order.aasm.current_state.to_s.dasherize}"}
-        %td= link_to "##{order.id}", admin_order_path(order)
-        %td= time_tag order.created_at
-        %td= link_to order.user.full_name, admin_user_path(order.user)
-        %td
-          = label_span order.invoice.aasm.human_state, type: order.invoice.paid? ? 'default' : 'warning'
-        %td
-          = label_span order.shipment.aasm.human_state, type: order.shipment.shipped? ? 'default' : 'warning'
-        %td= number_to_currency order.total_price
+    = cache @orders do
+      - @orders.each do |order|
+        = cache order do
+          %tr{:class => "order-#{order.aasm.current_state.to_s.dasherize}"}
+            %td= link_to "##{order.id}", admin_order_path(order)
+            %td= time_tag order.created_at
+            %td= link_to order.user.full_name, admin_user_path(order.user)
+            %td
+              = label_span order.invoice.aasm.human_state, type: order.invoice.paid? ? 'default' : 'warning'
+            %td
+              = label_span order.shipment.aasm.human_state, type: order.shipment.shipped? ? 'default' : 'warning'
+            %td= number_to_currency order.total_price
 = will_paginate @orders, renderer: BootstrapPagination::Rails

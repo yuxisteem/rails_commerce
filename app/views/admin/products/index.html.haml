@@ -27,19 +27,21 @@
         %th Created
         %th Updated
     %tbody
-      - @products.each do |p|
-        %tr
-          %td= link_to "##{p.id}", admin_product_path(p)
-          %td= link_to truncate(p.name), admin_product_path(p)
-          %td= truncate p.description
-          %td= number_to_currency p.price
-          %td= link_to p.category.try(:name), admin_category_path(p.category) unless p.category.nil?
-          %td= link_to p.brand.try(:name), admin_brand_path(p.brand) unless p.brand.nil?
-          %td
-            - if p.active?
-              = label_span t('admin.products.active'), type: 'success'
-            - else
-              = label_span t('admin.products.active')
-          %td= p.created_at.to_formatted_s(:short)
-          %td= p.updated_at.to_formatted_s(:short)
+    = cache @products do
+      - @products.each do |product|
+        = cache product do
+          %tr
+            %td= link_to "##{product.id}", admin_product_path(product)
+            %td= link_to truncate(product.name), admin_product_path(product)
+            %td= truncate product.description
+            %td= number_to_currency product.price
+            %td= link_to product.category.try(:name), admin_category_path(product.category) unless product.category.nil?
+            %td= link_to product.brand.try(:name), admin_brand_path(product.brand) unless product.brand.nil?
+            %td
+              - if product.active?
+                = label_span t('admin.products.active'), type: 'success'
+              - else
+                = label_span t('admin.products.active')
+            %td= product.created_at.to_formatted_s(:short)
+            %td= product.updated_at.to_formatted_s(:short)
   = will_paginate @products, renderer: BootstrapPagination::Rails

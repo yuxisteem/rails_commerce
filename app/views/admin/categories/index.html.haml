@@ -13,20 +13,22 @@
       %th Created
       %th Updated
   %tbody#sortable{ data: { 'sort-url' => order_admin_categories_path } }
-    - @categories.each do |c|
-      %tr{ data: { id: c.id } }
-        %td
-          = glyphicon('glyphicon-resize-vertical')
-          = link_to "##{c.id}", admin_category_path(c)
-        %td= link_to truncate(c.name), admin_category_path(c)
-        %td= truncate c.description
-        %td= c.products.count
-        %td
-          - if c.active?
-            = label_span t('admin.categories.active'), type: 'success'
-          - else
-            = label_span t('admin.categories.active')
-        %td= c.created_at.to_formatted_s(:short)
-        %td= c.updated_at.to_formatted_s(:short)
+    = cache @categories do
+      - @categories.each do |category|
+        = cache category do
+          %tr{ data: { id: category.id } }
+            %td
+              = glyphicon('glyphicon-resize-vertical')
+              = link_to "##{category.id}", admin_category_path(category)
+            %td= link_to truncate(category.name), admin_category_path(category)
+            %td= truncate category.description
+            %td= category.products.count
+            %td
+              - if category.active?
+                = label_span t('admin.categories.active'), type: 'success'
+              - else
+                = label_span t('admin.categories.inactive')
+            %td= category.created_at.to_formatted_s(:short)
+            %td= category.updated_at.to_formatted_s(:short)
 
 = will_paginate @categories, renderer: BootstrapPagination::Rails

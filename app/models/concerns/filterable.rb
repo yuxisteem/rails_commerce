@@ -13,25 +13,32 @@ module Filterable
   end
 
   class Base
+
+    attr_reader :klass, :attr_vals_table_name, :attr_table_name, :table_name, :foreign_key
+
     def initialize(klass)
       @klass = klass
-      @attributes_table_name = "#{@klass.name.downcase}_attribute_values"
+      @attr_vals_table_name = "#{@klass.name.downcase}_attribute_values"
       @table_name = klass.name.tableize
       @foreign_key = klass.name.foreign_key
     end
 
     def by_attributes(attributes)
-      entities = @klass.all
+      entities = klass.all
+      p attributes
       if attributes
-        join_sql = attributes.map do |key, value|
+        join_sql = attributes.map do |attr_id, values|
 
-          attr_values_sql = value.map do |attr_value|
-            "#{sanitize('attr_' + key)}.value = #{sanitize(attr_value)}"
-          end.join(' OR ')
+          attr_alias = 'attr_' + attr_id.to_i.to_s # oh...
+          attr_values_sql = values
+                              .map { |attr_value| "#{attr_alias + '.value'} = #{sanitize(attr_value)}" }
+                              .join(' OR ')
+
 
           %(
-            INNER JOIN #{@attributes_table_name} attr_#{key}
-            ON #{sanitize('attr_' + key)}.#{@foreign_key} = #{@table_name}.id
+            INNER JOIN #{attr_vals_table_name} #{attr_alias}
+            ON #{attr_alias}.#{foreign_key} = #{table_name}.id
+            AND  #{attr_alias}.#{klass.name.downcase}_attribute_id = #{attr_id.to_i}
             AND ( #{attr_values_sql} )
           )
         end
@@ -41,8 +48,8 @@ module Filterable
     end
 
     def by_keyword(keyword)
-      keyword = "%#{keyword}%"
-      Product.where('name LIKE ? OR description LIKE ?', keyword, keyword)
+      keyword = "%#{sanitize(keyword)}%"
+      klass.where('name LIKE ? OR description LIKE ?', keyword, keyword)
     end
 
     def sanitize(str)

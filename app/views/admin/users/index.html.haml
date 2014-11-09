@@ -12,13 +12,15 @@
       %th= t('admin.users.register_date')
       %th= t('admin.orders.orders_total')
   %tbody
-    - @users.each do |user|
-      %tr
-        %td= link_to "##{user.id}", admin_user_path(user)
-        %td
-          = mail_to user.email
-          = label_span "Admin", type: 'success' if user.admin?
-        %td= user.full_name
-        %td= time_tag user.created_at
-        %td= user.orders.map {|x| x.total_price}.inject(:+) || '—'
+    = cache @users do
+      - @users.each do |user|
+        = cache user do
+          %tr
+            %td= link_to "##{user.id}", admin_user_path(user)
+            %td
+              = mail_to user.email
+              = label_span "Admin", type: 'success' if user.admin?
+            %td= user.full_name
+            %td= time_tag user.created_at
+            %td= user.orders.map {|x| x.total_price}.inject(:+) || '—'
 = will_paginate @isers, renderer: BootstrapPagination::Rails

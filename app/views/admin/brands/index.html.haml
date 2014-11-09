@@ -12,15 +12,17 @@
       %th Created
       %th Updated
   %tbody#sortable{ data: { 'sort-url' => order_admin_brands_path } }
-    - @brands.each do |b|
-      %tr{ data: { id: b.id } }
-        %td
-          = glyphicon('glyphicon-resize-vertical')
-          = link_to "##{b.id}", admin_brand_path(b)
-        %td= link_to truncate(b.name), admin_brand_path(b)
-        %td= truncate b.description
-        %td= b.products.count
-        %td= b.created_at.to_formatted_s(:short)
-        %td= b.updated_at.to_formatted_s(:short)
+    = cache @brands do
+      - @brands.each do |brand|
+        = cache brand do
+          %tr{ data: { id: brand.id } }
+            %td
+              = glyphicon('glyphicon-resize-vertical')
+              = link_to "##{brand.id}", admin_brand_path(brand)
+            %td= link_to truncate(brand.name), admin_brand_path(brand)
+            %td= truncate brand.description
+            %td= brand.products.count
+            %td= brand.created_at.to_formatted_s(:short)
+            %td= brand.updated_at.to_formatted_s(:short)
 
 = will_paginate @brands, renderer: BootstrapPagination::Rails
