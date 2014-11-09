@@ -7,8 +7,6 @@
       %dd= link_to @order.user.full_name, admin_user_path(id: @order.user.id)
       %dt Created at
       %dd= time_tag @order.user.created_at
-      %dt Phone
-      %dd= number_to_phone @order.address.phone
       %dt Email
       %dd= mail_to @order.user.email
 .panel.panel-default
@@ -16,8 +14,14 @@
     %span.panel-title Shipping address
   .panel-body
     %dl
-      %dt Address
+      %dt City
       %dd
-        = @order.address.city
-        %br= @order.address.street
+        = x_editable_for @order.address, admin_order_address_path(@order, @order.address), field: :city
+      %dt Street
+      %dd
+        = x_editable_for @order.address, admin_order_address_path(@order, @order.address), field: :street
+      %dt Phone
+      %dd
+        = x_editable_for @order.address, admin_order_address_path(@order, @order.address), field: :phone
+
     #map-delivery{data: {address: "#{@order.address.city} #{@order.address.street}"}}

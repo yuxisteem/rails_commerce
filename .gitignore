@@ -28,3 +28,5 @@ ecomm.sublime-workspace
 ecomm.sublime-project
 
 .env
+
+.DS_Store

@@ -14,7 +14,7 @@
 #
 
 class OrderHistory < ActiveRecord::Base
-  belongs_to :order
+  belongs_to :order, touch: true
   belongs_to :user
 
   def self.log_transition(order_id, name, from_state, to_state, user)

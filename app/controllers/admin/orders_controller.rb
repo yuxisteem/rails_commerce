@@ -14,13 +14,8 @@ class Admin::OrdersController < Admin::AdminController
 
   # PATCH/PUT /admin/orders/1
   def update
-    respond_to do |format|
-      if Order.where(id: params[:id].split(',')).each { |x| x.update(order_params) }
-        format.html { redirect_to admin_order_path(@order), notice: 'Order was successfully updated.' }
-      else
-        format.html { render action: 'edit' }
-      end
-    end
+    @order.update(order_params)
+    head :ok
   end
 
   def event
@@ -38,6 +33,6 @@ class Admin::OrdersController < Admin::AdminController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def order_params
-    params.require(:order).permit
+    params.require(:order).permit(:note)
   end
 end

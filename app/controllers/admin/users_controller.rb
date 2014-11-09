@@ -13,10 +13,8 @@ class Admin::UsersController < Admin::AdminController
   end
 
   def update
-    @user = User.find(params[:id])
-    return false unless @user.update(user_params)
-    flash[:notice] = t('admin.user_updated')
-    redirect_to admin_user_path(@user)
+    @user = User.find(params[:id]).update(user_params)
+    head :ok
   end
 
   def destroy

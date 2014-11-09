@@ -41,6 +41,7 @@ Ecomm::Application.routes.draw do
     end
 
     resources :orders do
+      resources :address, only: :update
       resources :order_histories, only: [:create]
 
       resource :shipment, only: [] do

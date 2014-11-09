@@ -1,0 +1,21 @@
+.order-history
+  %h4 History
+  - @order.order_histories.group_by { |x| x.created_at.to_date }.each do |history_group|
+    %strong= time_tag history_group.first
+    .panel.panel-default
+      .panel-body
+        %ul
+          - history_group.last.each do |history|
+            %li
+              %span= time_tag history.created_at, format: '%H:%M'
+              - unless history.attribute_name.blank?
+                = history.attribute_name
+                = history.to_name
+              = history.note unless history.note.blank?
+              - if history.user
+                %em (#{link_to history.user.full_name, admin_user_path(history.user) })
+  = form_for OrderHistory.new, url: admin_order_order_histories_path(order_id: @order.id) do |f|
+    .form-group
+      = f.text_area :note, placeholder: "Enter your note here...", class: 'form-control'
+    .form-group.pull-right
+      = f.submit "Add note", class:'btn btn-primary'

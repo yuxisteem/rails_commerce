@@ -5,6 +5,7 @@
 #= require jquery-ui
 #= require bootstrap
 #= require jquery.fileupload
+#= require bootstrap-editable 
 #= require_tree .
 
 $("#menu-toggle").click (e) ->

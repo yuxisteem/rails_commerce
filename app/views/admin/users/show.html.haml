@@ -1,18 +1,20 @@
 = cache @user do
   %h3
-    = @user.full_name
+    = x_editable_for @user, admin_user_path(@user), field: :first_name
+    = x_editable_for @user, admin_user_path(@user), field: :last_name
+    - puts admin_users_path(@user)
     = label_span "Admin", type: 'success' if @user.admin?
     %small= mail_to @user.email
 
   .row
-    .col-md-4
+    .col-md-5
       .panel.panel-default
         .panel-heading
           %h3.panel-title= t('admin.users.user_summary')
         .panel-body
           %dl.dl-horizontal
             %dt= t('admin.users.phone')
-            %dd= number_to_phone @user.phone
+            %dd= x_editable_for @user, admin_user_path(@user), field: :phone
             %dt= t('admin.common.created_at')
             %dd= time_tag @user.created_at
             %dt= t('admin.common.updated_at')
