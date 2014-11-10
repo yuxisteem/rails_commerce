@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20140907141915) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "addresses", force: true do |t|
     t.string   "city"
     t.string   "street"
@@ -25,7 +22,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.datetime "updated_at"
   end
 
-  add_index "addresses", ["order_id"], name: "index_addresses_on_order_id", using: :btree
+  add_index "addresses", ["order_id"], name: "index_addresses_on_order_id"
 
   create_table "brands", force: true do |t|
     t.string   "name"
@@ -43,8 +40,8 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.datetime "updated_at"
   end
 
-  add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id", using: :btree
-  add_index "cart_items", ["product_id"], name: "index_cart_items_on_product_id", using: :btree
+  add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id"
+  add_index "cart_items", ["product_id"], name: "index_cart_items_on_product_id"
 
   create_table "carts", force: true do |t|
     t.datetime "created_at"
@@ -73,7 +70,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.datetime "image_updated_at"
   end
 
-  add_index "images", ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type", using: :btree
+  add_index "images", ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type"
 
   create_table "invoices", force: true do |t|
     t.integer  "order_id"
@@ -85,8 +82,8 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.datetime "updated_at"
   end
 
-  add_index "invoices", ["aasm_state"], name: "index_invoices_on_aasm_state", using: :btree
-  add_index "invoices", ["order_id"], name: "index_invoices_on_order_id", using: :btree
+  add_index "invoices", ["aasm_state"], name: "index_invoices_on_aasm_state"
+  add_index "invoices", ["order_id"], name: "index_invoices_on_order_id"
 
   create_table "order_histories", force: true do |t|
     t.integer  "order_id"
@@ -99,7 +96,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.integer  "user_id"
   end
 
-  add_index "order_histories", ["order_id"], name: "index_order_histories_on_order_id", using: :btree
+  add_index "order_histories", ["order_id"], name: "index_order_histories_on_order_id"
 
   create_table "order_items", force: true do |t|
     t.integer  "product_id"
@@ -110,8 +107,8 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.datetime "updated_at"
   end
 
-  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
-  add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id"
+  add_index "order_items", ["product_id"], name: "index_order_items_on_product_id"
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"
@@ -122,9 +119,9 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.datetime "updated_at"
   end
 
-  add_index "orders", ["aasm_state"], name: "index_orders_on_aasm_state", using: :btree
-  add_index "orders", ["code"], name: "index_orders_on_code", using: :btree
-  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+  add_index "orders", ["aasm_state"], name: "index_orders_on_aasm_state"
+  add_index "orders", ["code"], name: "index_orders_on_code"
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
   create_table "pages", force: true do |t|
     t.string   "title"
@@ -152,8 +149,8 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.integer  "weight"
   end
 
-  add_index "product_attribute_names", ["category_id"], name: "index_product_attribute_names_on_category_id", using: :btree
-  add_index "product_attribute_names", ["name"], name: "index_product_attribute_names_on_name", using: :btree
+  add_index "product_attribute_names", ["category_id"], name: "index_product_attribute_names_on_category_id"
+  add_index "product_attribute_names", ["name"], name: "index_product_attribute_names_on_name"
 
   create_table "product_attribute_values", force: true do |t|
     t.string   "value"
@@ -163,9 +160,9 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.datetime "updated_at"
   end
 
-  add_index "product_attribute_values", ["product_attribute_name_id"], name: "index_product_attribute_values_on_product_attribute_name_id", using: :btree
-  add_index "product_attribute_values", ["product_id"], name: "index_product_attribute_values_on_product_id", using: :btree
-  add_index "product_attribute_values", ["value"], name: "index_product_attribute_values_on_value", using: :btree
+  add_index "product_attribute_values", ["product_attribute_name_id"], name: "index_product_attribute_values_on_product_attribute_name_id"
+  add_index "product_attribute_values", ["product_id"], name: "index_product_attribute_values_on_product_id"
+  add_index "product_attribute_values", ["value"], name: "index_product_attribute_values_on_value"
 
   create_table "products", force: true do |t|
     t.string   "name"
@@ -180,9 +177,9 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.integer  "quantity",        default: 0
   end
 
-  add_index "products", ["active"], name: "index_products_on_active", using: :btree
-  add_index "products", ["brand_id"], name: "index_products_on_brand_id", using: :btree
-  add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
+  add_index "products", ["active"], name: "index_products_on_active"
+  add_index "products", ["brand_id"], name: "index_products_on_brand_id"
+  add_index "products", ["category_id"], name: "index_products_on_category_id"
 
   create_table "shipments", force: true do |t|
     t.integer  "order_id"
@@ -194,10 +191,10 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.datetime "updated_at"
   end
 
-  add_index "shipments", ["aasm_state"], name: "index_shipments_on_aasm_state", using: :btree
-  add_index "shipments", ["address_id"], name: "index_shipments_on_address_id", using: :btree
-  add_index "shipments", ["order_id"], name: "index_shipments_on_order_id", using: :btree
-  add_index "shipments", ["shipping_method_id"], name: "index_shipments_on_shipping_method_id", using: :btree
+  add_index "shipments", ["aasm_state"], name: "index_shipments_on_aasm_state"
+  add_index "shipments", ["address_id"], name: "index_shipments_on_address_id"
+  add_index "shipments", ["order_id"], name: "index_shipments_on_order_id"
+  add_index "shipments", ["shipping_method_id"], name: "index_shipments_on_shipping_method_id"
 
   create_table "users", force: true do |t|
     t.string   "first_name"
@@ -220,7 +217,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.boolean  "receive_email",          default: true
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
