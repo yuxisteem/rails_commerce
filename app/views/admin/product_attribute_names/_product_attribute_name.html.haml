@@ -1,0 +1,11 @@
+%li.list-group-item{ data: { id: product_attribute_name.id } }
+  = glyphicon('glyphicon-resize-vertical')
+  = product_attribute_name.name
+  - if product_attribute_name.filterable?
+    %em (filterable)
+  .pull-right
+    = link_to 'Delete', admin_category_product_attribute_name_path(id: product_attribute_name.id, category_id: product_attribute_name.category.id),
+      method: :delete,
+      remote: true,
+      class: 'btn btn-xs btn-danger',
+      data: {confirm: t('admin.common.confirm')}
