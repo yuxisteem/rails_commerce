@@ -10,12 +10,13 @@
       = render 'product_fields', f: f
       - if @product.available_attributes
         = f.fields_for :product_attribute_values, @product.available_attributes do |attribute_values_form|
-          = attribute_values_form.hidden_field :product_attribute_names_id, value: attribute_values_form.object.product_attribute_name_id.to_s
+          = attribute_values_form.hidden_field :product_attribute_name_id, value: attribute_values_form.object.product_attribute_name_id.to_s
           .form-group.row
             .col-md-1
               = attribute_values_form.label attribute_values_form.object.name
             .col-md-2
-              = attribute_values_form.text_field :value, class: 'form-control'
+              = attribute_values_form.text_field :value, class: 'form-control typeahead',
+                data: { path: autocomplete_admin_product_attribute_name_path(attribute_values_form.object.product_attribute_name_id) }
       .form-group
         = f.submit t('admin.common.save'), class: 'btn btn-primary'
         = link_to t('admin.common.delete'), admin_product_path(@product), class: 'btn btn-danger', method: :delete, data: {confirm: t('admin.common.confirm')}

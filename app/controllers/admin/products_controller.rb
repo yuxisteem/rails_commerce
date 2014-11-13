@@ -62,7 +62,7 @@ class Admin::ProductsController < Admin::AdminController
     params.require(:product)
           .permit(:name, :description, :price, :category_id,
                   :active, :brand_id, :track_inventory, :quantity,
-                  product_attribute_values_attributes: [:id, [:value, :product_attribute_id]])
+                  product_attribute_values_attributes: [:id, [:value, :product_attribute_name_id]])
   end
 
   def set_brands

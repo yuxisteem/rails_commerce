@@ -27,6 +27,16 @@ class Admin::ProductAttributeNamesController < Admin::AdminController
     render nothing: true
   end
 
+  def autocomplete
+    values = ProductAttributeValue
+              .where('value ILIKE ? AND product_attribute_name_id = ?', "%#{params[:q]}%", params[:id])
+              .distinct
+              .pluck(:value)
+              .map { |x| { value: x } }
+    p values
+    render json: values
+  end
+
   private
   def product_attributes_params
     params.require(:product_attribute_name).permit(:name, :filterable).merge({category_id: params[:category_id]})

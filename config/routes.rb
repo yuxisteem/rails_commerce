@@ -55,11 +55,14 @@ Ecomm::Application.routes.draw do
       post 'event', on: :member
     end
 
-
     resources :images, except: :update
 
     resources :brands do
       post 'order', on: :collection
+    end
+
+    resources :product_attribute_names, only: [] do
+      get 'autocomplete', on: :member
     end
 
     resources :categories do

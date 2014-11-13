@@ -5,7 +5,9 @@
 #= require jquery-ui
 #= require bootstrap
 #= require jquery.fileupload
-#= require bootstrap-editable 
+#= require bootstrap-editable
+#= require bloodhound.js
+#= require typeahead.jquery
 #= require_tree .
 
 $("#menu-toggle").click (e) ->

@@ -19,6 +19,7 @@ module Orderable
   private
 
   def set_weight
-    self.weight = self.class.maximum(:weight)
+    max_weight = self.class.maximum(:weight) || 0
+    self.weight = max_weight + 1
   end
 end
