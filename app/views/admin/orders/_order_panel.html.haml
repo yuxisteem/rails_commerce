@@ -1,36 +1,21 @@
-.panel.panel-default
+#order-panel.panel.panel-default
   .panel-heading
     .btn-group
-      - if @order.previous.blank?
-        = link_to glyphicon('glyphicon-chevron-left'), '', class: 'btn btn-default disabled'
-      - else
-        = link_to glyphicon('glyphicon-chevron-left'), admin_order_path(@order.previous), class: 'btn btn-default'
-      - if @order.next.blank?
-        = link_to glyphicon('glyphicon-chevron-right'), '', class: 'btn btn-default disabled'
-      - else
-        = link_to glyphicon('glyphicon-chevron-right').html_safe, admin_order_path(@order.next), class: 'btn btn-default'
+      = link_to glyphicon('glyphicon-chevron-left'), admin_order_path(@order.previous),
+                class: "btn btn-default #{@order.previous.blank? && 'disabled'}"
+      = link_to glyphicon('glyphicon-chevron-right'), admin_order_path(@order.next),
+                class: "btn btn-default #{@order.next.blank? && 'disabled'}"
     - unless @order.canceled?
       .btn-group
-        = link_to 'Ready to ship', event_admin_order_shipment_path(@order, name: :prepare),
-          method: :post, class: 'btn btn-default' if @order.shipment.may_prepare?
-        = link_to 'Ship order', event_admin_order_shipment_path(@order, name: :ship),
-          method: :post, class: 'btn btn-default' if @order.shipment.may_ship?
-        = link_to 'Return shipment', event_admin_order_shipment_path(@order, name: :return),
-          method: :post, data: {confirm: t('admin.common.confirm')},
-          class: 'btn btn-default' if @order.shipment.may_return?
+        - @order.shipment.aasm.events.each do |event_name|
+          = shipment_event_link @order, event_name
       .btn-group
-        = link_to 'Mark as paid', event_admin_order_invoice_path(@order, name: :pay),
-          method: :post, class: 'btn btn-default' if @order.invoice.may_pay?
-        = link_to 'Refund payment', event_admin_order_invoice_path(@order, name: :refund),
-          method: :post, data: {confirm: t('admin.common.confirm')},
-          class: 'btn btn-default' if @order.invoice.may_refund?
+        - @order.invoice.aasm.events.each do |event_name|
+          = invoice_event_link @order, event_name
     .btn-group.pull-right
-      = link_to 'Cancel', event_admin_order_path(@order, name: :cancel),
-        method: :post, data: {confirm: t('admin.common.confirm')},
-        class: 'btn btn-default' if @order.may_cancel?
-      = link_to 'Resume', event_admin_order_path(@order, name: :resume),
-        method: :post, data: {confirm: t('admin.common.confirm')},
-        class: 'btn btn-default' if @order.may_resume?
+      - @order.aasm.events.each do |event_name|
+        = order_event_link @order, event_name
+
   .panel-body
     .order-items
       .order-details

@@ -18,10 +18,28 @@ class Admin::OrdersController < Admin::AdminController
     head :ok
   end
 
+  # Process order state change events
   def event
-    @order.send(params[:name].to_sym, nil, current_user)
-    @order.save
-    redirect_to admin_order_path(@order)
+    type = params[:type] || 'order'
+
+    event_receiver = case type
+    when 'order'
+      @order
+    when 'invoice'
+      @order.invoice
+    when 'shipment'
+      @order.shipment
+    end
+
+    event_receiver
+      .tap { |x| x.send(params[:name].to_sym, nil, current_user) }
+      .save
+
+
+    respond_to do |format|
+      format.html { redirect_to admin_order_path(@order) }
+      format.js { render 'panel_with_activity' }
+    end
   end
 
   private

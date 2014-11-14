@@ -19,6 +19,18 @@ ru:
       orders_total: Orders total
       orders_list: Orders list
       orders: Orders
+      events:
+        order:
+          cancel: Cancel
+          resume: Resume
+        shipment:
+          prepare: Ready to ship
+          ship: Ship order
+          return: Return shipment
+        invoice:
+          pay: Mark as paid
+          refund: Refund payment
+
     categories:
       category: Category
       categories: Categories

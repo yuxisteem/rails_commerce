@@ -1,4 +1,4 @@
-.order-history
+#order-activity.order-history
   %h4 History
   - @order.order_histories.group_by { |x| x.created_at.to_date }.each do |history_group|
     %strong= time_tag history_group.first

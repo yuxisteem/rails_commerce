@@ -24,8 +24,22 @@ describe Admin::OrdersController do
 
   describe "order state events" do
     describe "POST order_event" do
-      it "should change order state" do
-        post :event, {id: order.id, name: 'cancel'}
+      context "for order" do
+        it "should change order state" do
+          post :event, {id: order.id, name: 'cancel'}
+        end
+      end
+
+      context "for shipment" do
+        it "should change order state" do
+          post :event, {id: order.id, name: 'prepare', type: 'shipment'}
+        end
+      end
+
+      context "for invoice" do
+        it "should change order state" do
+          post :event, {id: order.id, name: 'pay', type: 'invoice'}
+        end
       end
     end
   end
