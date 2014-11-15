@@ -42,7 +42,7 @@ Ecomm::Application.routes.draw do
 
     resources :orders do
       resources :address, only: :update
-      resources :order_histories, only: [:create]
+      resources :order_events, only: [:create]
 
       resource :shipment, only: [] do
         post 'event', on: :member

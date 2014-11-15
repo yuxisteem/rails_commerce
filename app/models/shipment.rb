@@ -14,21 +14,16 @@
 
 class Shipment < ActiveRecord::Base
   include AASM
+  include EventSource
 
   belongs_to :order
   belongs_to :address
+
 
   aasm do
     state :pending, initial: true
     state :ready_to_ship
     state :shipped
     state :returned
-  end
-
-  private
-
-  def log_transition(user = nil)
-    OrderHistory.log_transition(order_id, self.class.name,
-                                aasm.from_state, aasm.to_state, user)
   end
 end

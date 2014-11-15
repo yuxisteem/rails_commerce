@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: order_histories
+# Table name: 
 #
 #  id             :integer          not null, primary key
 #  order_id       :integer
@@ -15,13 +15,13 @@
 
 require 'spec_helper'
 
-describe OrderHistory do
+describe OrderEvent do
   let(:order) { create(:order) }
   it '#log_transition should log log order state transitions' do
-    OrderHistory.log_transition(order.id, 'transition name', 'from state', 'to state', order.user)
-    order_history = OrderHistory.last
-    expect(order_history.order_id).to eq(order.id)
-    expect(order_history.from_name).to eq('from state')
-    expect(order_history.to_name).to eq('to state')
+    OrderEvent.log_transition(order.id, 'transition name', 'from state', 'to state', order.user)
+    order_event = OrderEvent.last
+    expect(order_event.order_id).to eq(order.id)
+    expect(order_event.from_name).to eq('from state')
+    expect(order_event.to_name).to eq('to state')
   end
 end

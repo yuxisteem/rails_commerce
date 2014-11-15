@@ -14,6 +14,7 @@
 
 class Invoice < ActiveRecord::Base
   include AASM
+  include EventSource
 
   belongs_to :order
 
@@ -23,12 +24,5 @@ class Invoice < ActiveRecord::Base
     state :paid
     state :refunded
     state :voided
-  end
-
-  private
-
-  def log_transition(user = nil)
-    OrderHistory.log_transition(order_id, self.class.name,
-                                aasm.from_state, aasm.to_state, user)
   end
 end

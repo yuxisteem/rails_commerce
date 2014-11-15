@@ -23,7 +23,7 @@
             %span.text-muted= time_tag update.created_at
             %p
               = link_to "Order ##{update.order_id}", admin_order_path(id: update.order_id)
-              - unless update.attribute_name.blank?
-                %strong= update.attribute_name
-                = label_span update.to_name
+              %strong= update.event_type
+              - if update.state_changed?
+                = label_span update.to_state
               = update.note unless update.note.blank?

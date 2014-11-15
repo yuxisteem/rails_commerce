@@ -25,7 +25,7 @@ describe Shipment do
 
     it 'should log state transitions' do
       shipment.prepare!(nil, user)
-      expect(shipment.order.order_histories.last.to_name).to eq('ready_to_ship')
+      expect(shipment.order.order_events.last.to_name).to eq('ready_to_ship')
     end
   end
 end

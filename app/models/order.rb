@@ -13,6 +13,7 @@
 
 class Order < ActiveRecord::Base
   include AASM
+  include EventSource
 
   belongs_to :user
 
@@ -20,12 +21,12 @@ class Order < ActiveRecord::Base
   has_one :invoice, dependent: :destroy
   has_one :shipment, dependent: :destroy
   has_many :order_items, dependent: :destroy
-  has_many :order_histories, dependent: :destroy
+  has_many :order_events, dependent: :destroy
 
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :user
-  accepts_nested_attributes_for :shipment
-  accepts_nested_attributes_for :invoice
+  accepts_nested_attributes_for :shipment, update_only: true
+  accepts_nested_attributes_for :invoice, update_only: true
 
   before_create :build_assotiations, :generate_code, :withdraw_inventory
   after_create :notify_customer, :notify_admins
@@ -46,15 +47,6 @@ class Order < ActiveRecord::Base
   end
 
   private
-
-  def log_transition(user = nil)
-    # We pass user object as argument to event when firing
-    # event from Controller to know who had triggered an event
-
-    # TODO: log human readable states, e.g. ready_to_ship --> Ready to ship
-    OrderHistory.log_transition(id, self.class.name,
-                                aasm.from_state, aasm.to_state, user)
-  end
 
   def update_state
     aasm_state = :complete if invoice.paid? && shipment.shipped?

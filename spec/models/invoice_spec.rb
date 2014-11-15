@@ -25,7 +25,7 @@ describe Invoice do
 
     it "should log state transitions" do
       invoice.pay!(nil, user)
-      expect(invoice.order.order_histories.last.to_name).to eq('paid')
+      expect(invoice.order.order_events.last.to_name).to eq('paid')
     end
   end
 end

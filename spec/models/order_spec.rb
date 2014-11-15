@@ -32,7 +32,7 @@ describe Order do
 
     it 'should log state transitions' do
       order.cancel!(nil, user)
-      expect(order.order_histories.last.to_name).to eq('canceled')
+      expect(order.order_events.last.to_name).to eq('canceled')
     end
 
     it 'should be in Completed state if invoice is paid and shipment shipped' do

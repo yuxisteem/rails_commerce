@@ -14,9 +14,10 @@ class Admin::OrdersController < Admin::AdminController
 
   # PATCH/PUT /admin/orders/1
   def update
-    @order.update(order_params)
+    @order.update(order_params, updated_by: current_user)
+    @order.order_events.reload
     respond_to do |format|
-      format.html { redirect_to admin_order_path(@order) }
+      format.html { head :ok }
       format.js { render 'panel_with_activity' }
     end
   end
@@ -26,7 +27,7 @@ class Admin::OrdersController < Admin::AdminController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_order
-    @order = Order.includes(:address, :shipment, :invoice, :order_histories).find(params[:id]).decorate
+    @order = Order.includes(:address, :shipment, :invoice, :order_events).find(params[:id]).decorate
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
