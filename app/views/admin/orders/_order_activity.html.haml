@@ -15,9 +15,9 @@
             - unless events.attribute_name.blank?
               = events.attribute_name
               = events.to_name
-              = events.note unless events.note.blank?
-              - if events.user
-                %em (#{link_to events.user.full_name, admin_user_path(events.user) })
+            = events.note unless events.note.blank?
+            - if events.user
+              %em (#{link_to events.user.full_name, admin_user_path(events.user) })
   = form_for OrderHistory.new, url: admin_order_order_histories_path(order_id: @order.id) do |f|
     .form-group
       = f.text_area :note, placeholder: "Enter your note here...", class: 'form-control'
