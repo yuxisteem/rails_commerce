@@ -1,38 +1,28 @@
 #order-panel.panel.panel-default
   .panel-heading
     .btn-group
-      = link_to glyphicon('glyphicon-chevron-left'), admin_order_path(@order.previous),
-                class: "btn btn-default #{@order.previous.blank? && 'disabled'}"
-      = link_to glyphicon('glyphicon-chevron-right'), admin_order_path(@order.next),
-                class: "btn btn-default #{@order.next.blank? && 'disabled'}"
-    - unless @order.canceled?
-      .btn-group
-        - @order.shipment.aasm.events.each do |event_name|
-          = shipment_event_link @order, event_name
-      .btn-group
-        - @order.invoice.aasm.events.each do |event_name|
-          = invoice_event_link @order, event_name
-    .btn-group.pull-right
-      - @order.aasm.events.each do |event_name|
-        = order_event_link @order, event_name
+      = link_to glyphicon('glyphicon-chevron-left'), admin_order_path(@order.previous || ''),
+                class: "btn btn-xs btn-default #{@order.previous.blank? && 'disabled'}"
+      = link_to glyphicon('glyphicon-chevron-right'), admin_order_path(@order.next || ''),
+                class: "btn btn-xs btn-default #{@order.next.blank? && 'disabled'}"
 
   .panel-body
     .order-items
       .order-details
-        %dl.dl-horizontal
-          %dt State
-          %dd= label_span @order.aasm.human_state
-          %dt Placed at
-          %dd= time_tag @order.created_at
-          %dt Updated at
-          %dd= time_tag @order.updated_at
-          %dt Payment
-          %dd
-            = label_span @order.invoice.aasm.human_state
-          %dt Shipment
-          %dd= label_span @order.shipment.aasm.human_state
-          %dt Customer's order note
-          %dd= x_editable_for @order, admin_order_path(@order), field: :note
+        = form_for @order, remote: true, url: admin_order_path(@order) do |form|
+          %dl.dl-horizontal
+            %dt State
+            %dd= select_for_states "order[aasm_state]", @order
+            %dt Placed at
+            %dd= time_tag @order.created_at
+            %dt Updated at
+            %dd= time_tag @order.updated_at
+            %dt Payment
+            %dd= select_for_states "order[invoice_attributes][aasm_state]", @order.invoice, disabled: !@order.in_progress?
+            %dt Shipment
+            %dd= select_for_states "order[shipment_attributes][aasm_state]", @order.shipment, disabled: !@order.in_progress?
+            %dt Customer's order note
+            %dd= x_editable_for @order, admin_order_path(@order), field: :note
       %table.table.table-hover
         %thead
           %tr

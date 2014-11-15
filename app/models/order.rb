@@ -24,6 +24,8 @@ class Order < ActiveRecord::Base
 
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :user
+  accepts_nested_attributes_for :shipment
+  accepts_nested_attributes_for :invoice
 
   before_create :build_assotiations, :generate_code, :withdraw_inventory
   after_create :notify_customer, :notify_admins
@@ -33,27 +35,6 @@ class Order < ActiveRecord::Base
     state :in_progress, initial: true
     state :completed
     state :canceled
-
-    event :complete do
-      transitions from: :in_progress,
-                  to: :completed, on_transition: :log_transition
-    end
-
-    event :cancel do
-      transitions from: [:in_progress, :completed],
-                  to: :canceled, on_transition: :log_transition,
-                  guards: :can_cancel?
-    end
-
-    event :resume do
-      transitions from: :canceled,
-                  to: :in_progress, on_transition: :log_transition
-    end
-
-    event :put_in_progress do
-      transitions from: :completed,
-                  to: :in_progress, on_transition: :log_transition
-    end
   end
 
   def can_cancel?(*)
@@ -76,8 +57,9 @@ class Order < ActiveRecord::Base
   end
 
   def update_state
-    complete! if invoice.paid? && shipment.shipped?
-    put_in_progress! if (!invoice.paid? || !shipment.shipped?) && completed?
+    aasm_state = :complete if invoice.paid? && shipment.shipped?
+    aasm_state = :in_progress if (!invoice.paid? || !shipment.shipped?) && completed?
+    save
   end
 
   def build_assotiations

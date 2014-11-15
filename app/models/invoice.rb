@@ -15,7 +15,7 @@
 class Invoice < ActiveRecord::Base
   include AASM
 
-  belongs_to :order, touch: true
+  belongs_to :order
 
   aasm do
     state :pending, initial: true
@@ -23,15 +23,6 @@ class Invoice < ActiveRecord::Base
     state :paid
     state :refunded
     state :voided
-
-    event :pay do
-      transitions from: [:pending, :refunded, :voided, :authorized],
-                  to: :paid, on_transition: :log_transition
-    end
-
-    event :refund do
-      transitions from: :paid, to: :refunded, on_transition: :log_transition
-    end
   end
 
   private

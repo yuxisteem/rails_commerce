@@ -15,32 +15,12 @@ class Admin::OrdersController < Admin::AdminController
   # PATCH/PUT /admin/orders/1
   def update
     @order.update(order_params)
-    head :ok
-  end
-
-  # Process order state change events
-  def event
-    type = params[:type] || 'order'
-
-    event_receiver = case type
-    when 'order'
-      @order
-    when 'invoice'
-      @order.invoice
-    when 'shipment'
-      @order.shipment
-    end
-
-    event_receiver
-      .tap { |x| x.send(params[:name].to_sym, nil, current_user) }
-      .save
-
-
     respond_to do |format|
       format.html { redirect_to admin_order_path(@order) }
       format.js { render 'panel_with_activity' }
     end
   end
+
 
   private
 
@@ -51,6 +31,6 @@ class Admin::OrdersController < Admin::AdminController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def order_params
-    params.require(:order).permit(:note)
+    params.require(:order).permit(:note, :aasm_state, invoice_attributes: [:aasm_state], shipment_attributes: [:aasm_state])
   end
 end

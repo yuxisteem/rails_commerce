@@ -15,4 +15,5 @@ $ ->
       params_ext[model_name] = {}
 
       params_ext[model_name][field_name] = params.value
+      console.log params_ext
       params_ext
