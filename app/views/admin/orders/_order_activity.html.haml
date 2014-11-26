@@ -1,31 +1,13 @@
-#order-activity.order-event
-  - if @order.order_events.any?
-    %h4#timeline Events
-    %ul.timeline
-      - @order.order_events.each do |event|
-        %li
-          .timeline-badge= order_event_badge_for event
-          .timeline-panel
-            .timeline-heading
-              %h4.timeline-title= event.event_type
-              %p
-                %small.text-muted
-                  = glyphicon 'glyphicon-time'
-                  = time_tag event.created_at, format: '%H:%M'
-            .timeline-body
-              -if event.state_changed?
-                = event.event_type
-                state changed from
-                %strong= event.from_state
-                to
-                %strong= event.to_state
-              = event.note unless event.note.blank?
-              - if event.user
-                %em by #{link_to event.user.full_name, admin_user_path(event.user) }
-  - else
-    %h4#timeline No events :(
-  = form_for OrderEvent.new, url: admin_order_order_events_path(order_id: @order.id), remote: true do |f|
-    .form-group
-      = f.text_area :note, placeholder: "Enter your note here...", class: 'form-control'
-    .form-group.pull-right
-      = f.submit "Add note", class:'btn btn-primary'
+=cache @order.order_events do
+  #order-activity.order-event
+    - if @order.order_events.any?
+      %h4#timeline Events
+      %ul.timeline
+        = render @order.order_events
+    - else
+      %h4#timeline No events :(
+    = form_for OrderEvent.new, url: admin_order_order_events_path(order_id: @order.id), remote: true do |f|
+      .form-group
+        = f.text_area :note, placeholder: "Enter your note here...", class: 'form-control'
+      .form-group.pull-right
+        = f.submit "Add note", class:'btn btn-primary'

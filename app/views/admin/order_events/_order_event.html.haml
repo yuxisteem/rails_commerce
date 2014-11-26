@@ -1,0 +1,20 @@
+= cache order_event do
+  %li
+    .timeline-badge= order_event_badge_for order_event
+    .timeline-panel
+      .timeline-heading
+        %h4.timeline-title= order_event.event_type
+        %p
+          %small.text-muted
+            = glyphicon 'glyphicon-time'
+            = time_tag order_event.created_at, format: '%H:%M'
+      .timeline-body
+        -if order_event.state_changed?
+          = order_event.event_type
+          state changed from
+          %strong= order_event.from_state
+          to
+          %strong= order_event.to_state
+        = order_event.note unless order_event.note.blank?
+        - if order_event.user
+          %em by #{link_to order_event.user.full_name, admin_user_path(order_event.user) }

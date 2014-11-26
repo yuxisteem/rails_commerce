@@ -1,6 +1,7 @@
 language: ruby
 cache: bundler
 rvm:
-  - 2.1.2
+  - 2.1.4
 before_script:
+  - cp config/config.yml.sample config/config.yml
   - RAILS_ENV=test bundle exec rake db:migrate

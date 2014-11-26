@@ -3,6 +3,17 @@
   = t('admin.orders.orders')
   (#{@orders.count})
 
+%div{role: "tabpanel"}
+  %ul.nav.nav-tabs
+    %li{class: ('active' unless @selected_state ) }
+      =link_to "All", admin_orders_path(state: 'all')
+    - Order.aasm.states.each do |state|
+      %li{class: ('active' if @selected_state == state.name.to_s ) }
+        =link_to state.display_name, admin_orders_path(state: state.name)
+
+.tab-content
+  %div.tab-pane.active#home{role: "tabpanel"}
+
 %table.table.table-hover
   %thead
     %tr

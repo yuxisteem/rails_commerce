@@ -4,7 +4,12 @@ class Admin::OrdersController < Admin::AdminController
 
   # GET /admin/orders
   def index
-    @orders = Order.all.includes(:invoice, :shipment, :order_items, :user).reverse_order.paginate(page: params[:page])
+    @orders = Order.all
+                   .includes(:invoice, :shipment, :order_items, :user)
+                   .reverse_order
+                   .paginate(page: params[:page])
+
+    @orders = @orders.where(aasm_state: selected_state) if selected_state
   end
 
   # GET /admin/orders/1
@@ -24,6 +29,13 @@ class Admin::OrdersController < Admin::AdminController
 
 
   private
+
+  def selected_state
+    state_params = params[:state]
+    session[:orders_selected_state] = state_params if state_params
+    session.delete(:orders_selected_state) if state_params == 'all'
+    @selected_state = session[:orders_selected_state]
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_order
