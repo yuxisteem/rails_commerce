@@ -65,6 +65,10 @@ group :development do
   gem 'rack-mini-profiler'
 end
 
+group :test do
+  gem 'sqlite3'
+end
+
 group :production do
   gem 'unicorn', '~> 4.8.3'
   gem 'redis-rails'
