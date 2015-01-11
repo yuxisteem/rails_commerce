@@ -14,7 +14,7 @@
               - else
                 = brand_filter_link brand_group[0], category_id: @category.id
       - if @category.attribute_filter_enabled?
-        - @category.product_attributes.each do |product_attribute|
+        - @category.product_attribute_names.each do |product_attribute|
           %ul.attributes-list
             = product_attribute.name
             - product_attribute.product_attribute_values.group_by(&:value).map { |k,v| [v.first, v.length] }.each do |attribute_value_group|
