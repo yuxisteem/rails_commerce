@@ -1,32 +1,32 @@
 source 'https://rubygems.org'
 
-gem 'bootstrap-sass', '~> 3.1.1.1'
+gem 'bootstrap-sass', '~> 3.3.1'
 
 # Pagination
-gem 'will_paginate', '~> 3.0.5'
-gem 'will_paginate-bootstrap', '~> 1.0.0'
+gem 'will_paginate', '~> 3.0.7'
+gem 'will_paginate-bootstrap', '~> 1.0.1'
 
 gem 'breadcrumbs_on_rails', '~> 2.3.0'
 
-gem 'paperclip', '~> 4.2.0'
+gem 'paperclip', '~> 4.2.1'
 
 # Search forms against your application's models
-gem 'ransack', '~> 1.2.3'
+gem 'ransack', '~> 1.5.1'
 
 # Authentication
-gem 'devise', '~> 3.2.2'
+gem 'devise', '~> 3.4.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 2.7.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -39,7 +39,6 @@ gem 'jquery-ui-rails'
 gem 'aasm', '~> 3.3.1'
 
 gem 'resque', '~> 1.25.1'
-gem 'resque_mailer', '~> 2.2.6'
 
 gem 'haml', '~> 4.0.5'
 gem 'haml-rails'
@@ -48,11 +47,10 @@ gem 'draper', '~> 1.3'
 
 gem 'sms-club', '~> 0.3'
 
-gem 'pg', '~> 0.17.1'
+gem 'pg', '~> 0.18.1'
 
 group :development, :test do
-  gem 'sqlite3'
-  gem 'spring', '~> 1.1.3'
+  gem 'spring', '~> 1.2.0'
   gem 'capybara', '~> 2.2.1'
   gem 'factory_girl_rails', '~> 4.3.0'
   gem 'rspec-rails', '~> 3.1.0'
