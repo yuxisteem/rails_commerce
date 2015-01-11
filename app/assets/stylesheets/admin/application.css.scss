@@ -1,9 +1,11 @@
 /*
- *= require bootstrap
- *= require bootstrap-simplex
  *= require jquery.fileupload
  *= require bootstrap-editable
  *= require typeahead
  *= require_self
  *= require_tree .
  */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap-simplex";

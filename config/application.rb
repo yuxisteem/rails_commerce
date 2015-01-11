@@ -8,15 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Ecomm
   class Application < Rails::Application
-    # config.time_zone = 'Central Time (US & Canada)'
-
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-
-    config.i18n.default_locale = :ru
     config.i18n.enforce_available_locales = true
-
-    Resque::Mailer.excluded_environments = [:test, :development]
 
     config.autoload_paths += Dir["#{config.root}/lib/"]
 
@@ -24,6 +16,8 @@ module Ecomm
     # Precompile additional assets.
     # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+
+    config.active_job.queue_adapter = :resque
 
     config.generators do |g|
       g.test_framework :rspec

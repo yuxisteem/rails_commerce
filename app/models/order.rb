@@ -68,12 +68,12 @@ class Order < ActiveRecord::Base
   end
 
   def notify_customer
-    OrderNotifier.order_received(id).deliver
+    OrderNotifier.order_received(id).deliver_later
     OrderSMSNotifier.order_received(id)
   end
 
   def notify_admins
-    OrderNotifier.order_placed_admin(id).deliver
+    OrderNotifier.order_placed_admin(id).deliver_later
     OrderSMSNotifier.order_placed_admin(id)
   end
 end

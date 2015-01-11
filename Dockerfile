@@ -1,15 +1,15 @@
-FROM ruby:2.1.3
+FROM ruby:2.2.0
 
-RUN apt-get update && apt-get install -y nodejs --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y nodejs build-essential libpq-dev --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /usr/src/app
+RUN mkdir -p /srv/app
 
-WORKDIR /usr/src/app
+WORKDIR /srv/app
 
-ADD . /usr/src/app
+ADD . /srv/app
 
-ADD Gemfile /usr/src/app/
-ADD Gemfile.lock /usr/src/app/
+ADD Gemfile /srv/app/
+ADD Gemfile.lock /srv/app/
 RUN bundle install --system
 
 RUN cp config/config.yml.sample config/config.yml

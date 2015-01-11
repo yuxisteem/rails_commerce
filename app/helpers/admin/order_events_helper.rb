@@ -1,12 +1,14 @@
 module Admin::OrderEventsHelper
-  BADGES = {
+  EVENTS_BADGES = {
     'Order' => 'glyphicon-inbox',
     'Invoice' => 'glyphicon-usd',
     'Shipment' => 'glyphicon-plane',
-    'Note' => 'glyphicon-comment'
+    'Note' => 'glyphicon-comment',
+    'Email' => 'glyphicon-envelope',
+    'Sms' => 'glyphicon-send'
   }
 
   def order_event_badge_for(event)
-    glyphicon BADGES[event.event_type]
+    glyphicon EVENTS_BADGES[event.event_type]
   end
 end

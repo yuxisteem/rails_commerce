@@ -3,7 +3,7 @@
 #= require turbolinks
 #= require jquery.turbolinks
 #= require jquery-ui
-#= require bootstrap
+#= require bootstrap-sprockets
 #= require jquery.fileupload
 #= require bootstrap-editable
 #= require bloodhound.js

@@ -62,6 +62,6 @@ class User < ActiveRecord::Base
   private
 
   def notify_created
-    UserNotifier.account_created(id, password).deliver
+    UserNotifier.account_created(id, password).deliver_later
   end
 end

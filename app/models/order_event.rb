@@ -19,7 +19,7 @@ class OrderEvent < ActiveRecord::Base
 
   def self.log_transition(order_id, type, from_state, to_state, user)
     OrderEvent.create(order_id: order_id,
-                      event_type: type,
+                      event_type: type.to_s.downcase,
                       from_state: from_state,
                       to_state: to_state,
                       user: user)
