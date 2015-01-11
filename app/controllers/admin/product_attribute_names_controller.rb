@@ -8,10 +8,7 @@ class Admin::ProductAttributeNamesController < Admin::AdminController
       flash[:notice] = I18n.t('admin.product_attribute_names.product_attribute_saved')
     end
 
-    respond_to do |format|
-      format.html { redirect_to admin_category_path(id: params[:category_id]) }
-      format.js {}
-    end
+    default_response
   end
 
   def update
@@ -20,10 +17,7 @@ class Admin::ProductAttributeNamesController < Admin::AdminController
       flash[:notice] = I18n.t('admin.product_attribute_names.product_attribute_updated')
     end
 
-    respond_to do |format|
-      format.html { redirect_to admin_category_path(id: params[:category_id]) }
-      format.js {}
-    end
+    default_response
   end
 
   def destroy
@@ -31,10 +25,7 @@ class Admin::ProductAttributeNamesController < Admin::AdminController
       flash[:notice] = I18n.t('admin.product_attribute_names.product_attribute_deleted')
     end
 
-    respond_to do |format|
-      format.html { redirect_to admin_category_path(id: params[:category_id]) }
-      format.js {}
-    end
+    default_response
   end
 
   def order
@@ -53,6 +44,13 @@ class Admin::ProductAttributeNamesController < Admin::AdminController
   end
 
   private
+
+  def default_response
+    respond_to do |format|
+      format.html { redirect_to admin_category_path(id: params[:category_id]) }
+      format.js {}
+    end
+  end
 
   def product_attributes_params
     params.require(:product_attribute_name).permit(:name, :filterable).merge({category_id: params[:category_id]})
