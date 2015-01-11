@@ -6,7 +6,7 @@ describe Admin::OrdersController do
     sign_in(create(:admin))
   end
 
-  describe "GET index" do
+  describe "#index" do
     it "should show all orders" do
       get :index
       expect(response).to be_success
@@ -14,7 +14,7 @@ describe Admin::OrdersController do
     end
   end
 
-  describe "GET show" do
+  describe "#show" do
     it "should order user by id" do
       get :show, {id: order.id}
       expect(response).to be_success
@@ -22,25 +22,10 @@ describe Admin::OrdersController do
     end
   end
 
-  describe "order state events" do
-    describe "POST order_event" do
-      context "for order" do
-        it "should change order state" do
-          post :event, {id: order.id, name: 'cancel'}
-        end
-      end
-
-      context "for shipment" do
-        it "should change order state" do
-          post :event, {id: order.id, name: 'prepare', type: 'shipment'}
-        end
-      end
-
-      context "for invoice" do
-        it "should change order state" do
-          post :event, {id: order.id, name: 'pay', type: 'invoice'}
-        end
-      end
+  describe "#updateorder state events" do
+    it "should change order state" do
+      put :update, {id: order.id, order: { aasm_state: 'canceled' } }
+      expect(assigns(:order).aasm_state).to eq('canceled')
     end
   end
 end

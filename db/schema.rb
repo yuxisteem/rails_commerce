@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "addresses", force: true do |t|
+  create_table "addresses", force: :cascade do |t|
     t.string   "city"
     t.string   "street"
     t.string   "phone"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
 
   add_index "addresses", ["order_id"], name: "index_addresses_on_order_id", using: :btree
 
-  create_table "brands", force: true do |t|
+  create_table "brands", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.datetime "created_at"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.integer  "weight"
   end
 
-  create_table "cart_items", force: true do |t|
+  create_table "cart_items", force: :cascade do |t|
     t.integer  "quantity",   default: 1
     t.integer  "product_id"
     t.integer  "cart_id"
@@ -46,12 +46,12 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "cart_items", ["cart_id"], name: "index_cart_items_on_cart_id", using: :btree
   add_index "cart_items", ["product_id"], name: "index_cart_items_on_product_id", using: :btree
 
-  create_table "carts", force: true do |t|
+  create_table "carts", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "categories", force: true do |t|
+  create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.datetime "created_at"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.boolean  "active"
   end
 
-  create_table "images", force: true do |t|
+  create_table "images", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "imageable_id"
@@ -73,9 +73,9 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.datetime "image_updated_at"
   end
 
-  add_index "images", ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type", using: :btree
+  add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
 
-  create_table "invoices", force: true do |t|
+  create_table "invoices", force: :cascade do |t|
     t.integer  "order_id"
     t.integer  "payment_method"
     t.decimal  "amount"
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "invoices", ["aasm_state"], name: "index_invoices_on_aasm_state", using: :btree
   add_index "invoices", ["order_id"], name: "index_invoices_on_order_id", using: :btree
 
-  create_table "order_events", force: true do |t|
+  create_table "order_events", force: :cascade do |t|
     t.integer  "order_id"
     t.string   "event_type"
     t.string   "action_type"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
 
   add_index "order_events", ["order_id"], name: "index_order_events_on_order_id", using: :btree
 
-  create_table "order_items", force: true do |t|
+  create_table "order_items", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "order_id"
     t.integer  "quantity"
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
   add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
 
-  create_table "orders", force: true do |t|
+  create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "code"
     t.string   "aasm_state"
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "orders", ["code"], name: "index_orders_on_code", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
-  create_table "pages", force: true do |t|
+  create_table "pages", force: :cascade do |t|
     t.string   "title"
     t.text     "text"
     t.string   "seo_url"
@@ -137,14 +137,14 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.integer  "weight"
   end
 
-  create_table "payment_methods", force: true do |t|
+  create_table "payment_methods", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "product_attribute_names", force: true do |t|
+  create_table "product_attribute_names", force: :cascade do |t|
     t.string   "name"
     t.integer  "category_id"
     t.boolean  "filterable"
@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "product_attribute_names", ["category_id"], name: "index_product_attribute_names_on_category_id", using: :btree
   add_index "product_attribute_names", ["name"], name: "index_product_attribute_names_on_name", using: :btree
 
-  create_table "product_attribute_values", force: true do |t|
+  create_table "product_attribute_values", force: :cascade do |t|
     t.string   "value"
     t.integer  "product_id"
     t.integer  "product_attribute_name_id"
@@ -168,7 +168,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "product_attribute_values", ["product_id"], name: "index_product_attribute_values_on_product_id", using: :btree
   add_index "product_attribute_values", ["value"], name: "index_product_attribute_values_on_value", using: :btree
 
-  create_table "products", force: true do |t|
+  create_table "products", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
     t.decimal  "price"
@@ -185,7 +185,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "products", ["brand_id"], name: "index_products_on_brand_id", using: :btree
   add_index "products", ["category_id"], name: "index_products_on_category_id", using: :btree
 
-  create_table "shipments", force: true do |t|
+  create_table "shipments", force: :cascade do |t|
     t.integer  "order_id"
     t.integer  "shipping_method_id"
     t.integer  "address_id"
@@ -200,7 +200,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "shipments", ["order_id"], name: "index_shipments_on_order_id", using: :btree
   add_index "shipments", ["shipping_method_id"], name: "index_shipments_on_shipping_method_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "phone"

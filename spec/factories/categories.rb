@@ -7,8 +7,8 @@
 #  description              :text
 #  created_at               :datetime
 #  updated_at               :datetime
-#  attribute_filter_enabled :boolean          default(TRUE)
-#  brand_filter_enabled     :boolean          default(TRUE)
+#  attribute_filter_enabled :boolean          default("true")
+#  brand_filter_enabled     :boolean          default("true")
 #  weight                   :integer
 #  active                   :boolean
 #

@@ -38,10 +38,6 @@ class Order < ActiveRecord::Base
     state :canceled
   end
 
-  def can_cancel?(*)
-    !shipment.shipped? && !invoice.paid?
-  end
-
   def total_price
     order_items.map { |x| x.quantity * x.price }.inject(:+)
   end

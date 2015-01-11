@@ -11,8 +11,8 @@
 #  brand_id        :integer
 #  created_at      :datetime
 #  updated_at      :datetime
-#  track_inventory :boolean          default(FALSE)
-#  quantity        :integer          default(0)
+#  track_inventory :boolean          default("false")
+#  quantity        :integer          default("0")
 #
 
 # Read about factories at https://github.com/thoughtbot/factory_girl

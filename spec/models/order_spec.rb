@@ -31,32 +31,23 @@ describe Order do
     end
 
     it 'should log state transitions' do
-      order.cancel!(nil, user)
-      expect(order.order_events.last.to_name).to eq('canceled')
+      order.update aasm_state: :canceled
+      expect(order.order_events.last.to_state).to eq('canceled')
     end
 
     it 'should be in Completed state if invoice is paid and shipment shipped' do
-      order.invoice.pay!(nil, user)
-      order.shipment.prepare!(nil, user)
-      order.shipment.ship!(nil, user)
+      order.invoice.update aasm_state: :paid
+      order.shipment.update aasm_state: :ready_to_ship
+      order.shipment.update aasm_state: :shipped
       expect(order.aasm.current_state).to eq(:completed)
     end
 
     it 'should be in In Progress state unless invoice is paid and shipment shipped' do
-      order.invoice.pay!(nil, user)
-      order.shipment.prepare!(nil, user)
-      order.shipment.ship!(nil, user)
-      order.invoice.refund!(nil, user)
+      order.invoice.update aasm_state: :paid
+      order.shipment.update aasm_state: :ready_to_ship
+      order.shipment.update aasm_state: :shipped
+      order.invoice.update aasm_state: :refunded
       expect(order.aasm.current_state).to eq(:in_progress)
-    end
-
-    it 'should be cancelable if not shipped and not paid' do
-      expect(order.may_cancel?).to be_truthy
-    end
-
-    it 'should not be cancelable if shipped or paid' do
-      order.invoice.pay!(nil, user)
-      expect(order.may_cancel?).to be_falsey
     end
   end
 end

@@ -4,6 +4,7 @@ all:
   # If disabled set to true, links to Login/Register pages will be hidden,
   # but pages will still be available by direct link
   authentication_disabled: true
+  locale: ru
 
 # Development env specific configs
 development:

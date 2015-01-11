@@ -2,15 +2,16 @@
 #
 # Table name: order_events
 #
-#  id             :integer          not null, primary key
-#  order_id       :integer
-#  attribute_name :string(255)
-#  from_name      :string(255)
-#  to_name        :string(255)
-#  note           :text
-#  created_at     :datetime
-#  updated_at     :datetime
-#  user_id        :integer
+#  id          :integer          not null, primary key
+#  order_id    :integer
+#  event_type  :string(255)
+#  action_type :string(255)
+#  from_state  :string(255)
+#  to_state    :string(255)
+#  note        :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#  user_id     :integer
 #
 
 class OrderEvent < ActiveRecord::Base
@@ -19,7 +20,7 @@ class OrderEvent < ActiveRecord::Base
 
   def self.log_transition(order_id, type, from_state, to_state, user)
     OrderEvent.create(order_id: order_id,
-                      event_type: type.to_s.downcase,
+                      event_type: type.to_s,
                       from_state: from_state,
                       to_state: to_state,
                       user: user)

@@ -24,8 +24,8 @@ describe Invoice do
     end
 
     it "should log state transitions" do
-      invoice.pay!(nil, user)
-      expect(invoice.order.order_events.last.to_name).to eq('paid')
+      invoice.update(aasm_state: :paid)
+      expect(invoice.order.order_events.last.to_state).to eq('paid')
     end
   end
 end

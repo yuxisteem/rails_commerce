@@ -1,4 +1,4 @@
-class OrderNotifier < AsyncMailer
+class OrderNotifier < ActionMailer::Base
   # Notify Customer that we've received new order
   def order_received(order_id)
     @order = Order.find(order_id)

@@ -27,7 +27,6 @@ class Admin::OrdersController < Admin::AdminController
     end
   end
 
-
   private
 
   def selected_state
