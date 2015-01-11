@@ -5,3 +5,5 @@ rvm:
 before_script:
   - cp config/config.yml.sample config/config.yml
   - RAILS_ENV=test bundle exec rake db:migrate
+services:
+  - redis-server
