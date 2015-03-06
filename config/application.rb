@@ -8,8 +8,6 @@ Bundler.require(*Rails.groups)
 
 module Ecomm
   class Application < Rails::Application
-    config.i18n.enforce_available_locales = true
-
     config.autoload_paths += Dir["#{config.root}/lib/"]
 
     config.assets.initialize_on_precompile = false

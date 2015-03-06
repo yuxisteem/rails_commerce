@@ -63,6 +63,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.1.1'
   gem 'annotate', '~> 2.6'
   gem 'rack-mini-profiler'
+  gem 'pry'
 end
 
 group :test do
