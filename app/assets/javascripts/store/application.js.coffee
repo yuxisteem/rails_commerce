@@ -17,3 +17,6 @@
 #= require bootstrap-sprockets
 #= require lightbox
 #= require_tree .
+
+Turbolinks.enableProgressBar()
+Turbolinks.enableTransitionCache()

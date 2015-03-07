@@ -3,7 +3,8 @@
     .timeline-badge= order_event_badge_for order_event
     .timeline-panel
       .timeline-heading
-        %h4.timeline-title= order_event.event_type
+        %h4.timeline-title
+          = order_event.event_type
         %p
           %small.text-muted
             = glyphicon 'glyphicon-time'

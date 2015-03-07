@@ -19,3 +19,6 @@ $("#menu-toggle").click (e) ->
 $ ->
   $("[data-toggle='tooltip']").tooltip()
   return
+
+Turbolinks.enableProgressBar()
+Turbolinks.enableTransitionCache()

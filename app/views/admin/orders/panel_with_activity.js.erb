@@ -1,3 +1,5 @@
-$('#order-panel').replaceWith(' <%= j render("admin/orders/order_panel") %> ');
-$('#order-activity').replaceWith(' <%= j render("admin/orders/order_activity") %> ');
-Admin.Views.OrderPanel.init()
+(function($) {
+  $('#order-panel').replaceWith(' <%= j render("admin/orders/order_panel") %> ');
+  $('#order-activity').replaceWith(' <%= j render("admin/orders/order_activity") %> ');
+  Admin.Views.OrderPanel.init();
+})($);

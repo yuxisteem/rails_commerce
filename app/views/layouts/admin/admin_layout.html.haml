@@ -17,5 +17,6 @@
       #page-content-wrapper
         = render 'layouts/admin/user_widget'
         = render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder
+        = render 'layouts/flash'
         = yield
         = debug(params) if Rails.env.development?
