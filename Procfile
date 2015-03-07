@@ -1,2 +1,2 @@
-web:    bundle exec unicorn_rails
+web:    bundle exec thin starts
 worker: bundle exec rake resque:work
