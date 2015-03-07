@@ -1,2 +1,2 @@
-web:    bundle exec thin starts
+web:    bundle exec thin start
 worker: bundle exec rake resque:work
