@@ -1,5 +1,6 @@
-$ ->
-  $('[data-xeditable]').editable
+window.XEditable =
+  init: () ->
+    $('[data-xeditable]').editable
     ajaxOptions:
       type: 'PATCH'
 
@@ -17,3 +18,6 @@ $ ->
       params_ext[model_name][field_name] = params.value
       console.log params_ext
       params_ext
+
+$ ->
+  XEditable.init()
