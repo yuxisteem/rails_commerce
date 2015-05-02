@@ -25,8 +25,7 @@ class OrdersController < ApplicationController
           @order.save!
           @cart.destroy
         end
-        flash[:success] = t('checkout.order_successful_submit')
-        redirect_to order_path(id: @order.code)
+        redirect_to order_path(id: @order.code), notice: t('checkout.order_successful_submit')
       else
         render 'new'
       end
