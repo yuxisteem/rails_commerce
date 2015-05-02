@@ -1,9 +1,8 @@
-#RailsCommerce [![Build Status](https://travis-ci.org/pavel-d/RailsCommerce.png?branch=master)](https://travis-ci.org/pavel-d/RailsCommerce) [![Code Climate](https://codeclimate.com/github/pavel-d/RailsCommerce.png)](https://codeclimate.com/github/pavel-d/RailsCommerce)
-
+#RailsCommerce [![Build Status](https://travis-ci.org/rails-commerce/rails_commerce.png?branch=master)](https://travis-ci.org/rails-commerce/rails_commerce)
 **RailsCommerce** is a ruby app for e-commerce
 
 
-[Screenshots](https://github.com/pavel-d/RailsCommerce/wiki/Screenshots)
+[Screenshots](https://github.com/rails-commerce/rails_commerce/wiki/Screenshots)
 
 #Description
 
@@ -52,7 +51,7 @@ sudo apt-get install imagemagick redis-server libpq-dev
 
 * Clone and run
 ```
-git clone git@github.com:pavel-d/RailsCommerce.git
+git clone git@github.com:rails-commerce/rails_commerce.git
 bundle install
 
 rake db:migrate
@@ -89,7 +88,7 @@ rspec
 
 * Deployment instructions
 
-There is a built in [capistrano](https://github.com/pavel-d/RailsCommerce/blob/master/config/deploy.rb) script for deployment, so deploying to production is simple:
+There is a built in [capistrano](https://github.com/rails-commerce/rails_commerce/blob/master/config/deploy.rb) script for deployment, so deploying to production is simple:
 
 ```
 cap production deploy
