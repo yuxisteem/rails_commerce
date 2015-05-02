@@ -19,4 +19,3 @@
 #= require_tree .
 
 Turbolinks.enableProgressBar()
-Turbolinks.enableTransitionCache()

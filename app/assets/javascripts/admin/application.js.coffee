@@ -21,4 +21,3 @@ $ ->
   return
 
 Turbolinks.enableProgressBar()
-Turbolinks.enableTransitionCache()
