@@ -27,7 +27,7 @@
     = cache @orders do
       - @orders.each do |order|
         = cache order do
-          %tr{:class => "order-#{order.aasm.current_state.to_s.dasherize}"}
+          %tr{class: "order-#{order.aasm.current_state.to_s.dasherize}"}
             %td= link_to "##{order.id}", admin_order_path(order)
             %td= time_tag order.created_at
             %td= link_to order.user.full_name, admin_user_path(order.user)

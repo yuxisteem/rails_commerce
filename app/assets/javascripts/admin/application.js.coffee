@@ -21,4 +21,25 @@ $ ->
   $("[data-toggle='tooltip']").tooltip()
   return
 
+$ ->
+  bootstrapSwitch = $('[data-remote-checkbox]').bootstrapSwitch()
+
+  bootstrapSwitch.bootstrapSwitch()
+
+  bootstrapSwitch.on 'switchChange.bootstrapSwitch', (evt, state) ->
+    value = state ? 1 : 0
+    param = $(@).attr('name')
+    model_name = $(@).data('model')
+
+    data = {}
+    data[model_name] = {}
+    data[model_name][param] = value
+
+    $.ajax
+      method: 'PATCH'
+      url: $(@).data('url')
+      data: data
+      dataType: 'json'
+
+
 Turbolinks.enableProgressBar()

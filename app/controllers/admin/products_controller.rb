@@ -33,11 +33,14 @@ class Admin::ProductsController < Admin::AdminController
   def update
     add_breadcrumb @product.name, admin_product_path(@product)
     add_breadcrumb 'Edit'
-    if @product.update(product_params)
-      flash[:notice] = t('admin.products.product_updated')
-      redirect_to admin_product_path(@product)
-    else
-      render 'show'
+
+    respond_to do |format|
+      if @product.update(product_params)
+        format.html { redirect_to admin_product_path(@product), notice: t('admin.products.product_updated') }
+        format.json { head :ok }
+      else
+        format.html { render 'show' }
+      end
     end
   end
 

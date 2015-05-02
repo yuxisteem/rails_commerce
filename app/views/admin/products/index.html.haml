@@ -37,11 +37,7 @@
             %td= number_to_currency product.price
             %td= link_to product.category.try(:name), admin_category_path(product.category) unless product.category.nil?
             %td= link_to product.brand.try(:name), admin_brand_path(product.brand) unless product.brand.nil?
-            %td
-              - if product.active?
-                = label_span t('admin.products.active'), type: 'success'
-              - else
-                = label_span t('admin.products.active')
+            %td= remote_checkbox_for product, :active, admin_product_path(product)
             %td= product.created_at.to_formatted_s(:short)
             %td= product.updated_at.to_formatted_s(:short)
   = will_paginate @products, renderer: BootstrapPagination::Rails

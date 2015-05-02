@@ -36,4 +36,22 @@ module ApplicationHelper
   def glyphicon(name, text: nil, before_text: nil)
     "#{before_text} <span class=\"glyphicon #{name}\"></span> #{text}".html_safe
   end
+
+  def remote_checkbox_for(model, attribute, url, size: 'mini')
+    model_name = model.class.name.demodulize.downcase
+    value = model.send(attribute)
+
+
+    options = {
+      checked: value,
+      data: {
+        url: url,
+        model: model_name,
+        size: size,
+        :'remote-checkbox' => true
+      }
+    }
+
+    check_box_tag attribute, true, value, options
+  end
 end
