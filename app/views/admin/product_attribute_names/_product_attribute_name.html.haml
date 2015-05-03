@@ -1,9 +1,11 @@
 %li.list-group-item{ data: { id: product_attribute_name.id } }
   = glyphicon('glyphicon-resize-vertical')
   = product_attribute_name.name
-  - if product_attribute_name.filterable?
-    %em (filterable)
   .pull-right
+    = remote_checkbox_for product_attribute_name,
+        :filterable,
+        admin_category_product_attribute_name_path(id: product_attribute_name.id, category_id: product_attribute_name.category.id),
+        label: 'Filterable&nbsp;'
     = link_to 'Delete', admin_category_product_attribute_name_path(id: product_attribute_name.id, category_id: product_attribute_name.category.id),
       method: :delete,
       remote: true,

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140907141915) do
+ActiveRecord::Schema.define(version: 20150503132637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.boolean  "brand_filter_enabled",                 default: true
     t.integer  "weight"
     t.boolean  "active"
+    t.string   "ancestry"
   end
 
   create_table "images", force: :cascade do |t|

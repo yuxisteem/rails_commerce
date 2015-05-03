@@ -1,0 +1,5 @@
+ru:
+  views:
+    layout:
+      second_menu:
+        show_all: "Показать все"

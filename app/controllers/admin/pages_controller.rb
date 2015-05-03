@@ -31,11 +31,13 @@ class Admin::PagesController < Admin::AdminController
     add_breadcrumb @page.title, admin_page_path(@page)
     add_breadcrumb 'Edit'
 
+    respond_to do |format|
+
     if @page.update(page_params)
-      flash[:notice] = t('admin.pages.page_updated')
-      redirect_to admin_page_path(@page)
+      format.html { redirect_to admin_page_path(@page), notice: t('admin.pages.page_updated') }
+      format.json { head :ok }
     else
-      render 'show'
+      format.html { render 'show' }
     end
   end
 

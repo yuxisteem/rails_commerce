@@ -17,6 +17,8 @@ class Category < ActiveRecord::Base
   include SeoNames
   include Orderable
 
+  has_ancestry
+
   has_many :products
   has_many :product_attribute_names, dependent: :destroy
   validates :name, presence: true, length: { maximum: 255 }

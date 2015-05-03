@@ -37,8 +37,8 @@ module ApplicationHelper
     "#{before_text} <span class=\"glyphicon #{name}\"></span> #{text}".html_safe
   end
 
-  def remote_checkbox_for(model, attribute, url, size: 'mini')
-    model_name = model.class.name.demodulize.downcase
+  def remote_checkbox_for(model, attribute, url, size: 'mini', label: '&nbsp;')
+    model_name = model.class.name.demodulize.dasherize.downcase
     value = model.send(attribute)
 
 
@@ -46,6 +46,7 @@ module ApplicationHelper
       checked: value,
       data: {
         url: url,
+        :'label-text' => label,
         model: model_name,
         size: size,
         :'remote-checkbox' => true

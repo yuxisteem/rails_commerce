@@ -90,8 +90,8 @@ namespace :db do
                        brand: brands.at(rand(brands.count)),
                        active: true)
         product.product_attribute_values = product
-                                              .available_attributes
-                                              .map { |val| val.update(value: random_attr_vals.sample); val }
+                                            .available_attributes
+                                            .map { |val| val.update(value: random_attr_vals.sample); val }
         product.save
       end
     end

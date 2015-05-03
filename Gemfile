@@ -2,6 +2,7 @@ ruby '2.2.2'
 source 'https://rubygems.org'
 
 gem 'aasm', '~> 3.3.1'
+gem 'ancestry'
 
 gem 'bootstrap-sass', '~> 3.3.1'
 
@@ -41,7 +42,6 @@ gem 'will_paginate', '~> 3.0.7'
 gem 'will_paginate-bootstrap', '~> 1.0.1'
 
 group :development, :test do
-  gem 'capybara', '~> 2.2.1'
   gem 'faker', '~> 1.3.0'
   gem 'factory_girl_rails', '~> 4.3.0'
   gem 'mocha'

@@ -14,6 +14,6 @@ module EventSource
   def log_event
     obj_id = try(:order_id) || id
     OrderEvent.log_transition(obj_id, self.class.name,
-                                aasm_state_change[0], aasm_state_change[1], @updated_by_user)
+                                aasm_state_was, aasm_state, @updated_by_user)
   end
 end

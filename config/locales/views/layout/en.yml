@@ -1,0 +1,5 @@
+en:
+  views:
+    layout:
+      second_menu:
+        show_all: "Show all"

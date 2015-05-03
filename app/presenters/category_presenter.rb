@@ -20,7 +20,7 @@ class CategoryPresenter
   def products
     products = Product.active
                       .by_attributes(@product_attributes_query)
-                      .where(category_id: @category.id)
+                      .where(category_id: @category.subtree_ids)
                       .includes(:images)
                       .paginate(page: @params[:page])
     products = products.where(brand_id: @brand_ids) if @brand_ids
@@ -30,12 +30,12 @@ class CategoryPresenter
   # TODO: Move this stuff to Category model
   def product_attribute_names
     ProductAttributeName
-      .where(category_id: @category.id, filterable: true)
+      .where(category_id: @category.subtree_ids, filterable: true)
       .includes(:product_attribute_values)
   end
 
   def brands
     Brand.joins(:products)
-         .where('products.category_id = ?', @category.id)
+         .where(products: { category_id: @category.subtree_ids } )
   end
 end
