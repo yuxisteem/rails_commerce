@@ -56,7 +56,6 @@ class Order < ActiveRecord::Base
     return unless persisted?
     complete if invoice.paid? && shipment.shipped? && !completed?
     put_in_progress if !(invoice.paid? && shipment.shipped?) && completed?
-    # binding.pry
   end
 
   def build_assotiations

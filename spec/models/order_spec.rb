@@ -38,11 +38,9 @@ describe Order do
       end
     end
 
-    context 'when invoice is paid and and shipment is shipped' do
+    context 'when invoice is "paid" and and shipment is "shipped"' do
       before do
-        order.invoice.update aasm_state: :paid
-        order.shipment.update aasm_state: :shipped
-        # order.send :update_state
+        order.update invoice_attributes: { aasm_state: :paid }, shipment_attributes: { aasm_state: :shipped }
       end
 
       it 'should be in "completed" state' do
@@ -50,12 +48,10 @@ describe Order do
       end
     end
 
-    context 'when invoice is paid and and shipment is shipped' do
+    context 'when invoice is not "paid" and or shipment is not "shipped"' do
       before do
-        order.invoice.update aasm_state: :paid
-        order.invoice.update aasm_state: :refunded
-        order.shipment.update aasm_state: :ready_to_ship
-        order.shipment.update aasm_state: :shipped
+        order.update invoice_attributes: { aasm_state: :paid }, shipment_attributes: { aasm_state: :shipped }
+        order.update invoice_attributes: { aasm_state: :refunded }, shipment_attributes: { aasm_state: :returned }
       end
 
       it 'should be in "in progress" state' do
