@@ -14,13 +14,9 @@ Ecomm::Application.routes.draw do
 
   resources :pages, only: [:show]
 
-  resources :products, only: [:show] do
-    get ':seo_name', action: :show, as: :seo, on: :member
-  end
+  resources :products, only: [:show]
 
-  resources :categories, only: [:show] do
-    get ':seo_name', action: :show, as: :seo, on: :member
-  end
+  resources :categories, only: [:show]
 
   resources :orders, only: [:new, :create, :show, :update, :destroy]
 

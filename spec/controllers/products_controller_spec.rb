@@ -10,26 +10,5 @@ describe ProductsController do
       expect(response).to be_success
       expect(assigns(:product)).to eq(product)
     end
-
-    it 'should redirect to SEO url if it exists' do
-      get :show, id: product.id
-      expect(response).to be_redirect
-      expect(assigns(:product)).to eq(product)
-    end
-
-    it 'should return 404 if SEO url doesnt exist' do
-      assert_raises(ActiveRecord::RecordNotFound) do
-        get :show, id: product.id, seo_name: 'invalid_seo_name'
-      end
-    end
-
-    it 'should return 404 if product is not active' do
-      product.active = false
-      product.save
-      assert_raises(ActiveRecord::RecordNotFound) do
-        get :show, id: product.id, seo_name: 'invalid_seo_name'
-      end
-    end
-
   end
 end

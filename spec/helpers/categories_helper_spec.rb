@@ -5,13 +5,10 @@ describe CategoriesHelper do
   let(:attribute) { create(:product_attribute_value) }
   let(:brand) { create(:brand) }
 
-  before(:each) do
-    controller.params[:seo_name] = 'mock_seo_name'
-  end
-
-  describe '#active_categories' do
+  describe '#root_categories' do
     it 'should provide all categories list' do
-      expect(helper.active_categories).to eq(Category.active)
+      expect(helper.root_categories.any? &:parent).to be_falsey
+      expect(helper.root_categories.all? &:active).to be_truthy
     end
   end
 
