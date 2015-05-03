@@ -2,7 +2,7 @@
 **RailsCommerce** is a ruby app for e-commerce
 
 
-[Screenshots](https://github.com/rails-commerce/rails_commerce/wiki/Screenshots)
+[Screenshots](https://github.com/rails-commerce/rails_commerce/wiki/Screenshots) 
 
 #Description
 
