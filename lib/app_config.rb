@@ -1,39 +1,17 @@
 require 'ostruct'
 
-module Configuration
-  CONFIG_PATH = "#{Rails.root}/config/config.yml"
+module Ecomm
+  module Configuration
+    extend self
 
-  class Settings < OpenStruct
-    def self.load
-      config = YAML.load(ERB.new(File.read(CONFIG_PATH)).result)
+    CONFIG_PATH = Rails.root.join('config', 'config.yml')
 
-      if config['all']
-        config = config['all'].merge(config[Rails.env])
-      else
-        config = config[Rails.env]
-      end
+    def load
+      processed = YAML.load(ERB.new(File.read(CONFIG_PATH)).result)
 
-      new(config)
-    end
-
-    def initialize(hash = nil)
-      @table = {}
-      @hash_table = {}
-
-      return unless hash
-
-      hash.each do |k, v|
-        @table[k.to_sym] = (v.is_a?(Hash) ? self.class.new(v) : v)
-        @hash_table[k.to_sym] = v
-
-        new_ostruct_member(k)
-      end
-    end
-
-    def to_h
-      @hash_table
+      Hashie::Mash.new(processed['all'].merge(processed[Rails.env]))
     end
   end
 end
 
-AppConfig = Configuration::Settings.load
+AppConfig = Ecomm::Configuration.load
