@@ -14,6 +14,12 @@
 #  track_inventory :boolean          default("false")
 #  quantity        :integer          default("0")
 #
+# Indexes
+#
+#  index_products_on_active       (active)
+#  index_products_on_brand_id     (brand_id)
+#  index_products_on_category_id  (category_id)
+#
 
 require 'spec_helper'
 

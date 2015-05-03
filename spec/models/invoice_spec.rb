@@ -11,6 +11,11 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #
+# Indexes
+#
+#  index_invoices_on_aasm_state  (aasm_state)
+#  index_invoices_on_order_id    (order_id)
+#
 
 require 'spec_helper'
 

@@ -10,6 +10,10 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
+# Indexes
+#
+#  index_addresses_on_order_id  (order_id)
+#
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 

@@ -13,6 +13,10 @@
 #  updated_at  :datetime
 #  user_id     :integer
 #
+# Indexes
+#
+#  index_order_events_on_order_id  (order_id)
+#
 
 require 'spec_helper'
 

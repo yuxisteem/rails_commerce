@@ -9,6 +9,11 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
+# Indexes
+#
+#  index_cart_items_on_cart_id     (cart_id)
+#  index_cart_items_on_product_id  (product_id)
+#
 
 # Read about factories at https://github.com/thoughtbot/factory_girl
 

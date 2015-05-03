@@ -12,6 +12,10 @@
 #  image_file_size    :integer
 #  image_updated_at   :datetime
 #
+# Indexes
+#
+#  index_images_on_imageable_id_and_imageable_type  (imageable_id,imageable_type)
+#
 
 class Image < ActiveRecord::Base
   belongs_to :imageable, polymorphic: true

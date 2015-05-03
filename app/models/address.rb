@@ -10,6 +10,10 @@
 #  created_at :datetime
 #  updated_at :datetime
 #
+# Indexes
+#
+#  index_addresses_on_order_id  (order_id)
+#
 
 class Address < ActiveRecord::Base
   validates :city, presence: true

@@ -51,7 +51,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate', '~> 2.6'
+  gem 'annotate', '~> 2.6' # $ annotate -i
   gem 'capistrano', '~> 3.2'
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-rails', '~> 1.1.1'

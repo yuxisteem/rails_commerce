@@ -9,6 +9,12 @@
 #  created_at                :datetime
 #  updated_at                :datetime
 #
+# Indexes
+#
+#  index_product_attribute_values_on_product_attribute_name_id  (product_attribute_name_id)
+#  index_product_attribute_values_on_product_id                 (product_id)
+#  index_product_attribute_values_on_value                      (value)
+#
 
 class ProductAttributeValue < ActiveRecord::Base
   belongs_to :product
