@@ -1,4 +1,4 @@
-#RailsCommerce [![Build Status](https://travis-ci.org/rails-commerce/rails_commerce.png?branch=master)](https://travis-ci.org/rails-commerce/rails_commerce)
+#RailsCommerce [![Codeship Status for pavel-d/rails_commerce](https://codeship.com/projects/e663d800-b508-0132-138f-52c2f28a8fc9/status?branch=master)](https://codeship.com/projects/70639)
 **RailsCommerce** is a ruby app for e-commerce
 
 
