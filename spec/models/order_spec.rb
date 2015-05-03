@@ -26,28 +26,41 @@ describe Order do
   end
 
   describe 'state machine' do
-    it 'should have initial In Progress state' do
-      expect(Order.new.aasm.current_state).to eq(:in_progress)
-    end
-
-    it 'should log state transitions' do
-      order.update aasm_state: :canceled
-      expect(order.order_events.last.to_state).to eq('canceled')
-    end
-
-    it 'should be in Completed state if invoice is paid and shipment shipped' do
-      order.invoice.update aasm_state: :paid
-      order.shipment.update aasm_state: :ready_to_ship
-      order.shipment.update aasm_state: :shipped
-      expect(order.aasm.current_state).to eq(:completed)
-    end
-
-    it 'should be in In Progress state unless invoice is paid and shipment shipped' do
-      order.invoice.update aasm_state: :paid
-      order.shipment.update aasm_state: :ready_to_ship
-      order.shipment.update aasm_state: :shipped
-      order.invoice.update aasm_state: :refunded
+    it 'should have initial "in progress" state' do
       expect(order.aasm.current_state).to eq(:in_progress)
+    end
+
+    context 'when order changes state' do
+      before { order.update aasm_state: :canceled }
+
+      it 'should log state transitions' do
+        expect(order.order_events.last.to_state).to eq('canceled')
+      end
+    end
+
+    context 'when invoice is paid and and shipment is shipped' do
+      before do
+        order.invoice.update aasm_state: :paid
+        order.shipment.update aasm_state: :shipped
+        # order.send :update_state
+      end
+
+      it 'should be in "completed" state' do
+        expect(order.aasm.current_state).to eq(:completed)
+      end
+    end
+
+    context 'when invoice is paid and and shipment is shipped' do
+      before do
+        order.invoice.update aasm_state: :paid
+        order.invoice.update aasm_state: :refunded
+        order.shipment.update aasm_state: :ready_to_ship
+        order.shipment.update aasm_state: :shipped
+      end
+
+      it 'should be in "in progress" state' do
+        expect(order.aasm.current_state).to eq(:in_progress)
+      end
     end
   end
 end

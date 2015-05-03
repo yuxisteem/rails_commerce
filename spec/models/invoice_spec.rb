@@ -20,7 +20,7 @@ describe Invoice do
 
   describe "state machine" do
     it "should have initial In Progress state" do
-      expect(Invoice.new.aasm.current_state).to eq(:pending)
+      expect(invoice.aasm.current_state).to eq(:pending)
     end
 
     it "should log state transitions" do

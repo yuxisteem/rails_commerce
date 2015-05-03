@@ -30,24 +30,33 @@ class Order < ActiveRecord::Base
 
   before_create :build_assotiations, :generate_code, :withdraw_inventory
   after_create :notify_customer, :notify_admins
-  after_touch :update_state
+  before_save :update_state
 
   aasm do
     state :in_progress, initial: true
     state :completed
     state :canceled
+
+    event :complete do
+      transitions from: :in_progress, to: :completed
+    end
+
+    event :put_in_progress do
+      transitions from: [:completed, :canceled], to: :in_progress
+    end
   end
 
   def total_price
-    order_items.map { |x| x.quantity * x.price }.inject(:+)
+    order_items.map { |x| x.quantity * x.price }.reduce(:+)
   end
 
   private
 
   def update_state
-    aasm_state = :complete if invoice.paid? && shipment.shipped?
-    aasm_state = :in_progress if (!invoice.paid? || !shipment.shipped?) && completed?
-    save
+    return unless persisted?
+    complete if invoice.paid? && shipment.shipped? && !completed?
+    put_in_progress if !(invoice.paid? && shipment.shipped?) && completed?
+    # binding.pry
   end
 
   def build_assotiations

@@ -24,4 +24,31 @@ describe ApplicationHelper do
       expect(link_html).to include('trueclass')
     end
   end
+
+  describe '#remote_checkbox_for' do
+    let(:model) { mock(some_prop: false) }
+
+    subject { helper.remote_checkbox_for(model, :some_prop, '/some/path', size: 'large') }
+
+    it 'should render checkbox tag' do
+      expect(subject).to have_tag('input',
+        name: 'active',
+        id: 'active',
+        value: false,
+        'data-size' => 'large',
+        'data-model' => 'mock',
+        'data-remote-checkbox' => 'true'
+      )
+    end
+
+    context 'when size is not passed' do
+
+      subject { helper.remote_checkbox_for(model, :some_prop, '/some/path') }
+
+      it 'should set "mini" size' do
+        expect(subject).to have_tag('input', 'data-size' => 'mini')
+      end
+    end
+
+  end
 end

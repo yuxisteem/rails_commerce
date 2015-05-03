@@ -18,9 +18,9 @@
             %dt Updated at
             %dd= time_tag @order.updated_at
             %dt Payment
-            %dd= select_for_states "order[invoice_attributes][aasm_state]", @order.invoice, disabled: !@order.in_progress?
+            %dd= select_for_states "order[invoice_attributes][aasm_state]", @order.invoice
             %dt Shipment
-            %dd= select_for_states "order[shipment_attributes][aasm_state]", @order.shipment, disabled: !@order.in_progress?
+            %dd= select_for_states "order[shipment_attributes][aasm_state]", @order.shipment
             %dt Customer's order note
             %dd= x_editable_for @order, admin_order_path(@order), field: :note
       %table.table.table-hover

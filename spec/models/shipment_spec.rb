@@ -20,7 +20,7 @@ describe Shipment do
 
   describe 'state machine' do
     it 'should have initial In Progress state' do
-      expect(Shipment.new.aasm.current_state).to eq(:pending)
+      expect(shipment.aasm.current_state).to eq(:pending)
     end
 
     it 'should log state transitions' do

@@ -15,9 +15,9 @@
 
 FactoryGirl.define do
   factory :order do
-  	user
-  	address
-  	code 'abcdefg123456890'
-  	note 'Test note'
+    user
+    address
+    code 'abcdefg123456890'
+    note 'Test note'
   end
 end

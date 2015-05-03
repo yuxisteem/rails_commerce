@@ -57,6 +57,8 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.3.0'
   gem 'rspec-rails', '~> 3.1.0'
   gem 'faker', '~> 1.3.0'
+  gem 'mocha'
+  gem 'pry'
 end
 
 group :development do
@@ -64,11 +66,11 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-rails', '~> 1.1.1'
   gem 'annotate', '~> 2.6'
-  gem 'pry'
 end
 
 group :test do
   gem 'sqlite3'
+  gem 'rspec-html-matchers'
 end
 
 group :production do

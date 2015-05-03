@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
-    t.string   "city"
-    t.string   "street"
-    t.string   "phone"
+    t.string   "city",       limit: 255
+    t.string   "street",     limit: 255
+    t.string   "phone",      limit: 255
     t.integer  "order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "addresses", ["order_id"], name: "index_addresses_on_order_id", using: :btree
 
   create_table "brands", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",        limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -52,12 +52,12 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",                     limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "attribute_filter_enabled", default: true
-    t.boolean  "brand_filter_enabled",     default: true
+    t.boolean  "attribute_filter_enabled",             default: true
+    t.boolean  "brand_filter_enabled",                 default: true
     t.integer  "weight"
     t.boolean  "active"
   end
@@ -66,21 +66,21 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "imageable_id"
-    t.string   "imageable_type"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
+    t.string   "imageable_type",     limit: 255
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
   end
 
-  add_index "images", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
+  add_index "images", ["imageable_id", "imageable_type"], name: "index_images_on_imageable_id_and_imageable_type", using: :btree
 
   create_table "invoices", force: :cascade do |t|
     t.integer  "order_id"
     t.integer  "payment_method"
     t.decimal  "amount"
-    t.string   "invoice_type"
-    t.string   "aasm_state"
+    t.string   "invoice_type",   limit: 255
+    t.string   "aasm_state",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -90,10 +90,10 @@ ActiveRecord::Schema.define(version: 20140907141915) do
 
   create_table "order_events", force: :cascade do |t|
     t.integer  "order_id"
-    t.string   "event_type"
-    t.string   "action_type"
-    t.string   "from_state"
-    t.string   "to_state"
+    t.string   "event_type",  limit: 255
+    t.string   "action_type", limit: 255
+    t.string   "from_state",  limit: 255
+    t.string   "to_state",    limit: 255
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -116,8 +116,8 @@ ActiveRecord::Schema.define(version: 20140907141915) do
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "code"
-    t.string   "aasm_state"
+    t.string   "code",       limit: 255
+    t.string   "aasm_state", limit: 255
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -128,9 +128,9 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "pages", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",      limit: 255
     t.text     "text"
-    t.string   "seo_url"
+    t.string   "seo_url",    limit: 255
     t.boolean  "visible"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -138,14 +138,14 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   end
 
   create_table "payment_methods", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "product_attribute_names", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",        limit: 255
     t.integer  "category_id"
     t.boolean  "filterable"
     t.datetime "created_at"
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "product_attribute_names", ["name"], name: "index_product_attribute_names_on_name", using: :btree
 
   create_table "product_attribute_values", force: :cascade do |t|
-    t.string   "value"
+    t.string   "value",                     limit: 255
     t.integer  "product_id"
     t.integer  "product_attribute_name_id"
     t.datetime "created_at"
@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "product_attribute_values", ["value"], name: "index_product_attribute_values_on_value", using: :btree
 
   create_table "products", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",            limit: 255
     t.text     "description"
     t.decimal  "price"
     t.boolean  "active"
@@ -177,8 +177,8 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.integer  "brand_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "track_inventory", default: false
-    t.integer  "quantity",        default: 0
+    t.boolean  "track_inventory",             default: false
+    t.integer  "quantity",                    default: 0
   end
 
   add_index "products", ["active"], name: "index_products_on_active", using: :btree
@@ -189,8 +189,8 @@ ActiveRecord::Schema.define(version: 20140907141915) do
     t.integer  "order_id"
     t.integer  "shipping_method_id"
     t.integer  "address_id"
-    t.string   "tracking"
-    t.string   "aasm_state"
+    t.string   "tracking",           limit: 255
+    t.string   "aasm_state",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -201,24 +201,24 @@ ActiveRecord::Schema.define(version: 20140907141915) do
   add_index "shipments", ["shipping_method_id"], name: "index_shipments_on_shipping_method_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "phone"
+    t.string   "first_name",             limit: 255
+    t.string   "last_name",              limit: 255
+    t.string   "phone",                  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "",   null: false
-    t.string   "encrypted_password",     default: "",   null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "",   null: false
+    t.string   "encrypted_password",     limit: 255, default: "",   null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,    null: false
+    t.integer  "sign_in_count",                      default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.boolean  "admin"
-    t.boolean  "receive_sms",            default: true
-    t.boolean  "receive_email",          default: true
+    t.boolean  "receive_sms",                        default: true
+    t.boolean  "receive_email",                      default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
