@@ -3,8 +3,6 @@ web:
   command: bundle exec rackup -p 3000
   volumes:
     - .:/srv/app
-  volumes_from:
-    - data
   ports:
     - "80:3000"
   links:
@@ -16,22 +14,13 @@ worker:
   command: bundle exec rake resque:work
   volumes:
     - .:/srv/app
-  volumes_from:
-    - data
   links:
     - db
     - redis
 
 db:
   image: postgres
-  volumes_from:
-    - data
 
 redis:
   image: redis
 
-data:
-  image: busybox
-  volumes:
-    - /var/lib/postgresql/data
-    - /srv/app/public/system
