@@ -1,4 +1,4 @@
-#RailsCommerce [![Build Status](https://travis-ci.org/rails-commerce/rails_commerce.png?branch=master)](https://travis-ci.org/rails-commerce/rails_commerce)
+#RailsCommerce [![Build Status](https://travis-ci.org/rails-commerce/rails_commerce.svg?branch=master)](https://travis-ci.org/rails-commerce/rails_commerce)
 **RailsCommerce** is a ruby app for e-commerce
 
 
