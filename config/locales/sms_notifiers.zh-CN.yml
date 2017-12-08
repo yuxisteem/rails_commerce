@@ -1,0 +1,5 @@
+zh-CN:
+  sms_notifiers:
+    order:
+      order_received: "#{name}, 感谢你的订单 ##{order_id}。我们会尽快和你联系。"
+      order_placed_admin: "来自 #{name} 的新订单 ##{order_id}"

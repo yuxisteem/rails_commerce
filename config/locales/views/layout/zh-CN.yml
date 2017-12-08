@@ -1,0 +1,5 @@
+zh-CN:
+  views:
+    layout:
+      second_menu:
+        show_all: "显示所有"

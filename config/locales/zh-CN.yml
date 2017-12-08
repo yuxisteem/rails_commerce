@@ -1,0 +1,65 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+zh-CN:
+  common:
+    toggle_menu: 显示菜单
+    toggle_categories: 显示分类
+    name: 名字
+    price: 价格
+    quantity: 数量
+    total: 总计
+    phone: 电话
+    email: 电子邮件
+    address: 地址
+    breadcrumb_home_name: 首页
+    about_shop: 关于
+    sign_in: 登录
+    sign_out: 注销
+    shipping_and_payment: 配送和付款
+    store_name: RailsCommerce
+    profile: 信息汇总
+    form_validation_error_message: '你的提交出错'
+    submit: 提交
+    not_found_message: '抱歉，你要找的东西不存在'
+    internal_server_error_message: '抱歉，出错了'
+  uploader:
+    upload_file: 上传文件
+  store:
+    brand: 品牌
+    checkout: 付款
+    search_input_placeholder: 查找...
+    add_to_cart_button_text: 添加到购物车
+    my_cart_link_text: 我的购物车
+    your_cart_label: 你的购物车
+    thanks_for_your_order_message: 感谢你的订单！
+    we_have_received_your_order_text: '我们已经收到你的订单，我们的经理会尽快和你联系。'
+    order_details: 订单细节
+    submit_order_button_text: 提交订单
+    search: 查找
+    cart_empty_message: 你的购物车为空
+    description: 描述
+    specifications: 详细介绍
+    product_code: 产品代码
+    out_of_stock: 已卖完
+    more_info: 详细信息
+  checkout:
+    order_successful_submit: 你的订单已成功提交

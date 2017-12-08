@@ -1,0 +1,106 @@
+zh-CN:
+  admin:
+    common:
+      admin_panel: 管理员面板
+      created_at: 创建于
+      updated_at: 更新于
+      create_new: 新建
+      save: 保存
+      destroy: 销毁
+      edit: 编辑
+      remove: 删除
+      delete: 删除
+      confirm: 你确定？
+      create: 创建
+      cancel: 取消
+      id: Id
+      upload_images: 上传图片
+    orders:
+      orders_total: 订单总计
+      orders_list: 订单列表
+      orders: 订单
+      events:
+        order:
+          cancel: 取消
+          resume: 继续 
+        shipment:
+          prepare: 待发货
+          ship: 邮寄订单
+          return: 退货邮寄
+        invoice:
+          pay: 标记为已经支付
+          refund: 退款
+
+    categories:
+      category: 分类
+      categories: 分类
+      edit_category: 编辑分类
+      category_deleted: 已删除分类
+      category_updated: 已更新分类
+      create_category: 创建分类
+      categories_list: 分类列表
+      category_saved: 已保存分类
+      active: 激活
+      inactive: 未激活
+    product_attribute_names:
+      attributes: 属性
+      product_attribute_saved: 已保存产品属性
+      product_attribute_updated: 已更新产品属性
+      product_attribute_deleted: 已删除产品属性
+      add_product_attribute: 添加属性
+    products:
+      product_list: 产品列表
+      product_updated: 已更新产品
+      product_saved: 已保存产品
+      product_deleted: 已删除产品
+      product_cloned: 已克隆产品
+      products: 产品
+      clone:  克隆
+      product: 产品
+      create_product: 创建产品
+      edit_product: 编辑产品
+      product_images: 产品图片
+      active: 激活
+      inactive: 未激活
+    pages:
+      pages: 页面
+      create_page: 创建页面
+      page_saved: 已保存页面
+      page_updated: 已更新页面
+      page_deleted: 已删除页面
+      page_delete_error: 删除页面时出错
+      edit_page: Edit 页面
+    brands:
+      brands: 品牌
+      brand_saved: 已保存品牌
+      brand_updated: 已更新品牌
+      brand_deleted: 已删除品牌
+      brands_list: 品牌列表
+      brand: 品牌
+      create_brand: 创建品牌
+      edit_brand: 编辑品牌
+    users:
+      email: 电子邮件
+      users: 用户
+      sign_in_count: 登录次数
+      last_sign_in_at: 最后一次登录时间
+      last_sign_in_ip: 最后一次登录ip
+      phone: 电话
+      user_updated: 已更新用户
+      users_list: 用户列表
+      user_summary: 用户信息汇总
+      full_name: 全名
+      register_date: 注册日期
+      no_orders_message: 用户没有订单
+    preferences:
+      heading: 我的偏好
+      page_title: 偏好
+      updated: Your 已更新偏好设置
+    sidebar:
+      orders: 订单
+      products: 产品
+      categories: 分类
+      brands: 品牌
+      customers: 客户
+      preferences: 我的偏好设置
+      open_store: 商店
